@@ -9,9 +9,8 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    //  admin-guru
     public function index()
     {
         $getgurus = Gurubk::all();
@@ -19,9 +18,6 @@ class AdminController extends Controller
         return view('admin.admin_guru', compact('getgurus'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function createguru(Request $request)
     {
         $getgurus = Gurubk::all();
@@ -29,7 +25,6 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users',
-            'kelas' => 'required',
             'tgl_lahir' => 'required',
             'password' => 'required',
             'jenis_kelamin' => 'required',
@@ -39,23 +34,64 @@ class AdminController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'role' => 'guru',
-            'password' => bcrypt($request->password),
+            'password' => $request->password,
         ]);
-    
+
         // Membuat entri di tabel "gurus"
         $gurubk = Gurubk::create([
             'user_id' => $user->id,
             'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'kelas' => $request->input('kelas'),
             'tgl_lahir' => $request->input('tgl_lahir'),
             'jenis_kelamin' => $request->input('jenis_kelamin'),
         ]);
 
 
-        return view('admin.admin_guru', compact('getgurus'));
-
+        return redirect('/admin/guru')->with(compact('getgurus'));
     }
+
+    public function deleteguru($id)
+    {
+        $deleteguru = User::find($id);
+        $deleteguru->delete();
+
+        return redirect('/admin/guru');
+    }
+
+    public function editgetguru($id)
+    {
+        $geteditguru = Gurubk::where('user_id', $id)->first();
+        $getedituser = User::find($id);
+
+
+        return view('admin.admin_editguru', compact('geteditguru','getedituser'));
+    }
+
+    public function updateguru(Request $request, $id)
+    {
+        $editsiswa = User::find($id);
+        $editsiswaguru = Gurubk::where('user_id', $id);
+
+        $dt2 = [
+            'email'   => $request->email,
+            'name'   => $request->name,
+            'password'   => $request->password,
+        ];
+
+        $dt1 = [
+            'name'   => $request->name,
+            'tgl_lahir'   => $request->tgl_lahir,
+            'jenis_kelamin'   => $request->jenis_kelamin,
+            'password'   => $request->password,
+        ];
+
+        $editsiswa->update($dt2);
+        $editsiswaguru->update($dt1);
+
+
+        return redirect('/admin/guru');
+    }
+
+    // admin-guru-end
 
     public function muridview()
     {
@@ -64,7 +100,7 @@ class AdminController extends Controller
 
     public function kelasview()
     {
-        $getgurus = Gurubk::all(); 
+        $getgurus = Gurubk::all();
 
         return view('admin.admin_kelas', compact('getgurus'));
     }
@@ -85,7 +121,6 @@ class AdminController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'role' => 'guru',
-            'password' => bcrypt($request->password),
         ]);
 
 

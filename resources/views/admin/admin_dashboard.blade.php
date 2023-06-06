@@ -136,7 +136,7 @@
                         <td>53275531</td>
                         <td>12 May 2017</td>
                         <td>
-                            <label class="badge badge-warning">Panding</label>
+                            <label class="badge badge-">Panding</label>
                         </td>
                         <td>
                             <label class="badge badge-danger">Detail</label>

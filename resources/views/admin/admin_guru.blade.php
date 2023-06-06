@@ -19,11 +19,12 @@
         </div>
     </div>
 
+{{-- form --}}
     {{-- form add guru --}}
     <div class="card-bodyform">
         <h4 class="card-title">Default form</h4>
         <p class="card-description">Basic form layout</p>
-        <form class="forms-sample" action="/admin/guru/addguru" method="POST">
+        <form class="forms-sample" action="{{ route('add_admin_guru') }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="exampleInputUsername1">Nama Lengkap</label>
@@ -34,17 +35,13 @@
                 <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Kelas</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Kelas" name="kelas">
-            </div>
-            <div class="form-group">
                 <label for="exampleInputPassword1">Tanggal Lahir</label>
                 <input type="date" class="form-control" id="exampleInputPassword1" placeholder="Tanggal lahir"
                     name="tgl_lahir">
             </div>
             <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
-                    <option></option>
+                    <option disabled selected>Jenis kelamin</option>
                     <option value="L">L</option>
                     <option value="P">P</option>
                 </select>
@@ -58,6 +55,8 @@
             <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
         </form>
     </div>
+    {{-- form add guru end --}}
+{{-- form --}}
 
     <div class="card-body" id="tableguru" style="background-color: white">
         <h4 class="card-title">Striped Table</h4>
@@ -69,9 +68,9 @@
                     <tr>
                         <th>User id</th>
                         <th>Name</th>
-                        <th>Kelas</th>
                         <th>Jenis_kelamin</th>
                         <th>Tanggal Lahir</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,13 +83,18 @@
                               {{ $item->name }}
                             </td>
                             <td> 
-                              {{ $item->kelas }}
-                            </td>
-                            <td> 
                               {{ $item->jenis_kelamin }}
                             </td>
                             <td> 
                               {{ $item->tgl_lahir }}
+                            </td>
+                            <td>
+                                <a href="/admin/guru/get/{{ $item->user_id }}">
+                                    <label class="badge badge-success">Edit</label>
+                                </a>
+                                <a href="/admin/guru/delete/{{$item->user_id}}">
+                                    <label class="badge badge-danger">Delete</label>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
@@ -103,6 +107,7 @@
         // Ambil elemen dengan ID
         const openPopupButton = document.getElementById('openPopup');
         const closePopupButton = document.getElementById('cancle-form');
+        
 
         // Fungsi untuk menampilkan pop-up
         function openPopup() {

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_kelas');
             $table->string('jurusan');
             $table->timestamps();
-            $table->foreign('gurubk_id')->references('user_id')->on('gurubk');
+            $table->foreign('gurubk_id')->references('user_id')->on('gurubk')->onDelete('cascade')->onUpdate('cascade');
         });
         
     }

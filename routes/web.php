@@ -34,10 +34,15 @@ Route::get('/login-regis', function () {
 
 Route::group(['middleware' => ['auth','RoleMiddleware:admin']], function() {
     Route::get('/admin/dashboard', function () { return view('admin.admin_dashboard');})->name('admin');
+    // admin guru
     Route::get('/admin/guru', [AdminController::class, 'index'])->name('admin_guru');
+    Route::get('/admin/guru/delete/{id}', [AdminController::class, 'deleteguru'])->name('delete_admin_guru');
+    Route::post('/admin/addguru', [AdminController::class, 'createguru'])->name('add_admin_guru');
+    Route::get('/admin/guru/get/{id}', [AdminController::class, 'editgetguru'])->name('getedit_admin_guru');
+    // admin-guru-end
+
     Route::get('/admin/murid', [AdminController::class, 'muridview'])->name('admin_murid');
     Route::get('/admin/kelas', [AdminController::class, 'kelasview'])->name('admin_kelas');
-    Route::post('/admin/guru/addguru', [AdminController::class, 'createguru'])->name('add_admin_guru');
     Route::post('/admin/guru/addkelas', [AdminController::class, 'createkelas'])->name('add_admin_kelas');
 });
 

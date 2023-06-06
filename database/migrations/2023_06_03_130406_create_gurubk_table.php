@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('tgl_lahir');
             $table->enum('jenis_kelamin', ['L', 'P']); // Menambahkan kolom jenis kelamin dengan nilai ENUM
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users'); 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
