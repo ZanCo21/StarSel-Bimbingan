@@ -15,43 +15,43 @@
                 </a>
             </div>
             <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                <i class="mdi mdi-plus-circle"></i> Edit Guru </button>
+                <i class="mdi mdi-plus-circle"></i> Edit kelas </button>
         </div>
     </div>
 
 {{-- form --}}
-
-    {{-- form edit guru --}}
-    <div class="card-bodyformedit">
+    {{-- form edit kelas --}}
+    <div class="card-body">
         <h4 class="card-title">Default form</h4>
         <p class="card-description">Basic form layout</p>
-        <form class="forms-sample" action="/admin/guru/update/{{ $geteditguru->user_id }}" method="POST">
+        <form class="forms-sample" action="/admin/kelas/update/{{ $geteditkelas->id }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
-                <label for="exampleInputUsername1">Nama Lengkap</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" name="name" value="{{ $geteditguru->name }}">
+                <label for="exampleInputUsername1">Tingkat kelas</label>
+                <input type="text" class="form-control" id="exampleInputUsername1" name="tingkat_kelas" value="{{ $geteditkelas->tingkat_kelas }}">
             </div>
             <div class="form-group">
-                <label for="exampleInputUsername1">Email</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" name="email" value="{{ $getedituser->email }}">
+                <label for="exampleInputUsername1">Nama jurusan</label>
+                <input type="text" class="form-control" id="exampleInputUsername1" value="{{ $geteditkelas->jurusan }}" name="jurusan">
             </div>
             <div class="form-group">
-                <label for="exampleInputUsername1">Nip</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" name="nip" value="{{ $geteditguru->nip }}">
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="gurubk_id">
+                    <option  disabled >{{ $geteditkelas->gurubk->name }}</option>
+                    @foreach ($getgurus as $item)
+                    <option value="{{ $item->user_id }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Tanggal Lahir</label>
-                <input type="date" class="form-control" id="exampleInputPassword1" name="tgl_lahir" value="{{ $geteditguru->tgl_lahir }}">
-            </div>
-            <div class="form-group">
-                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
-                    <option disabled>{{ $geteditguru->jenis_kelamin }}</option>
-                    <option value="L">L</option>
-                    <option value="P">P</option>
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="walas_id">
+                    <option disabled>{{ $geteditkelas->walas->name_guru }}</option>
+                    @foreach ($getwalas as $item)
+                    <option value="{{ $item->user_id }}">{{ $item->name_guru }}</option>
+                    @endforeach
                 </select>
             </div>
             <button class="btn btn-primary mr-2"> Submit </button>
-            <a href="/admin/guru">
+            <a href="/admin/kelas">
                 <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
             </a>
         </form>

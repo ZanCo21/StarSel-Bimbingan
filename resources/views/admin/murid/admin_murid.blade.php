@@ -15,52 +15,59 @@
                 </a>
             </div>
             <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                <i class="mdi mdi-plus-circle"></i> Add Murid </button>
+                <i class="mdi mdi-plus-circle"></i> Add Kelas </button>
         </div>
     </div>
 
-    {{-- form add guru --}}
+    {{-- form add kelas --}}
     <div class="card-bodyform">
         <h4 class="card-title">Default form</h4>
         <p class="card-description">Basic form layout</p>
-        <form class="forms-sample" action="/admin/guru/addmurid" method="POST">
+        <form class="forms-sample" action="{{ url('/admin/murid/add') }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
-                <label for="exampleInputUsername1">Nama Lengkap</label>
+                <label for="exampleInputUsername1">Name</label>
                 <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username" name="name">
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email">
+                <label for="exampleInputUsername1">Email</label>
+                <input type="email" class="form-control" id="exampleInputUsername1" placeholder="email" name="email">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Kelas</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Kelas" name="kelas">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Tanggal Lahir</label>
-                <input type="date" class="form-control" id="exampleInputPassword1" placeholder="Tanggal lahir"
-                    name="tgl_lahir">
+                <label for="exampleInputUsername1">Nipd</label>
+                <input type="number" class="form-control" id="exampleInputUsername1" placeholder="nipd" name="nipd">
             </div>
             <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
-                    <option></option>
+                    <option disabled selected>Jenis kelamin</option>
                     <option value="L">L</option>
                     <option value="P">P</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
-                    name="password">
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="kelas_id">
+                    <option disabled selected>Pilih Kelas</option>
+                    @foreach ($getkelas as $item)
+                    <option value="{{ $item->id }}">{{ $item->tingkat_kelas }} {{ $item->jurusan }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputUsername1">Tanggal Lahir</label>
+                <input type="date" class="form-control" id="exampleInputUsername1" placeholder="Tanggal Lahir" name="tgl_lahir">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputUsername1">Password</label>
+                <input type="password" class="form-control" id="exampleInputUsername1" placeholder="password" name="password">
             </div>
             <button class="btn btn-primary mr-2"> Submit </button>
             <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
         </form>
     </div>
+    {{-- end kelas --}}
 
     <div class="card-body" id="tableguru" style="background-color: white">
-        <h4 class="card-title">Table Murid</h4>
+        <h4 class="card-title">Table Kelas</h4>
         <p class="card-description"> Data <code>.Murid</code>
         </p>
         <div class="table-responsive">
@@ -68,32 +75,45 @@
                 <thead>
                     <tr>
                         <th>User id</th>
-                        <th>Name</th>
-                        <th>Kelas</th>
-                        <th>Jenis_kelamin</th>
+                        <th>kelas</th>
+                        <th>Walas</th>
+                        <th>Nipd</th>
+                        <th>Jenis Kemlamin</th>
                         <th>Tanggal Lahir</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($getgurus as $item)
+                    @foreach ($getmurid as $item)
                         <tr>
                             <td class="py-1">
                                 {{ $item->user_id }}
                             </td>
                             <td> 
-                              {{ $item->name }}
+                              {{ $item->kelas->tingkat_kelas }}{{ $item->kelas->jurusan }}
                             </td>
                             <td> 
-                              {{ $item->kelas }}
+                                {{ $item->kelas->walas->name_guru }}
+                            </td>
+                            <td> 
+                              {{ $item->nipd }}
                             </td>
                             <td> 
                               {{ $item->jenis_kelamin }}
                             </td>
                             <td> 
-                              {{ $item->tgl_lahir }}
+                                {{ $item->tgl_lahir }}
+                              </td>
+                            <td>
+                                <a href="/admin/murid/get/{{ $item->user_id }}">
+                                    <label class="badge badge-success">Edit</label>
+                                </a>
+                                <a href="/admin/murid/delete/{{$item->user_id}}">
+                                    <label class="badge badge-danger">Delete</label>
+                                </a>
                             </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>

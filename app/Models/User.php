@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Walas;
+use App\Models\Gurubk;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -18,6 +20,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'role',
         'email',
@@ -25,6 +28,7 @@ class User extends Authenticatable
     ];
 
     protected $table = 'users';
+    protected $primaryKey = 'id';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -48,6 +52,10 @@ class User extends Authenticatable
 
     public function guru()
     {
-        return $this->hasOne(Gurubk::class);
+        return $this->hasOne(Gurubk::class, 'user_id','id');
+    }
+    public function walas()
+    {
+        return $this->hasOne(Walas::class, 'user_id','id');
     }
 }

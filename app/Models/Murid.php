@@ -6,20 +6,19 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Gurubk extends Model
+class Murid extends Model
 {
     use HasFactory;
     protected $fillable = [
         'user_id',
+        'kelas_id',
         'name',
-        'email',
-        'kelas',
-        'nip',
+        'nipd',
         'tgl_lahir',
         'jenis_kelamin',
     ];
 
-    protected $table = 'gurubk';
+    protected $table = 'murids';
     protected $primaryKey = 'user_id';
     
     public function user()
@@ -29,6 +28,11 @@ class Gurubk extends Model
 
     public function kelas()
     {
-        return $this->hasMany(Kelas::class);
+        return $this->belongsTo(Kelas::class);
+    }
+
+    public function walas()
+    {
+        return $this->belongsTo(Walas::class, 'walas_id', 'user_id');
     }
 }

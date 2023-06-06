@@ -11,52 +11,66 @@
                     <p class="m-0 pr-3">Dashboard</p>
                 </a>
                 <a class="pl-3 mr-4" href="#">
-                    <p class="m-0">ADM-ADM</p>
+                    <p class="m-0">ADM-MRD</p>
                 </a>
             </div>
             <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                <i class="mdi mdi-plus-circle"></i> Edit Guru </button>
+                <i class="mdi mdi-plus-circle"></i> Edit Murid </button>
         </div>
     </div>
 
-{{-- form --}}
+    {{-- form --}}
 
     {{-- form edit guru --}}
     <div class="card-bodyformedit">
         <h4 class="card-title">Default form</h4>
         <p class="card-description">Basic form layout</p>
-        <form class="forms-sample" action="/admin/guru/update/{{ $geteditguru->user_id }}" method="POST">
+        <form class="forms-sample" action="/admin/murid/update/{{ $geteditmurid->user_id }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="exampleInputUsername1">Nama Lengkap</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" name="name" value="{{ $geteditguru->name }}">
+                <input type="text" class="form-control" id="exampleInputUsername1" name="name"
+                    value="{{ $geteditmurid->name }}">
             </div>
             <div class="form-group">
                 <label for="exampleInputUsername1">Email</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" name="email" value="{{ $getedituser->email }}">
+                <input type="text" class="form-control" id="exampleInputUsername1" name="email"
+                    value="{{ $getedituser->email }}">
             </div>
             <div class="form-group">
-                <label for="exampleInputUsername1">Nip</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" name="nip" value="{{ $geteditguru->nip }}">
+                <label for="exampleInputPassword1">Nipd</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" name="nipd"
+                    value="{{ $geteditmurid->nipd }}">
+            </div>
+            <div class="form-group">
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="kelas_id">
+                    @if ($geteditkelass)
+                        <option disabled value="{{ $geteditkelass->kelas_id }}">{{ $geteditkelass->tingkat_kelas }}
+                            {{ $geteditkelass->jurusan }}</option>
+                    @endif
+                    @foreach ($geteditkelas as $item)
+                        <option value="{{ $item->id }}">{{ $item->tingkat_kelas }} {{ $item->jurusan }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Tanggal Lahir</label>
-                <input type="date" class="form-control" id="exampleInputPassword1" name="tgl_lahir" value="{{ $geteditguru->tgl_lahir }}">
+                <input type="date" class="form-control" id="exampleInputPassword1" name="tgl_lahir"
+                    value="{{ $geteditmurid->tgl_lahir }}">
             </div>
             <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
-                    <option disabled>{{ $geteditguru->jenis_kelamin }}</option>
+                    <option disabled>{{ $geteditmurid->jenis_kelamin }}</option>
                     <option value="L">L</option>
                     <option value="P">P</option>
                 </select>
             </div>
             <button class="btn btn-primary mr-2"> Submit </button>
-            <a href="/admin/guru">
+            <a href="/admin/murid">
                 <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
             </a>
         </form>
     </div>
     {{-- form add guru end --}}
-{{-- form --}}
-
+    {{-- form --}}
 @endsection

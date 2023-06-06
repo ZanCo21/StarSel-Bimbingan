@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gurubk', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
+        Schema::create('murids', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id'); // Assuming `user_id` in `gurubk` is an unsigned big integer
+            $table->unsignedBigInteger('kelas_id');
             $table->string('name');
+            $table->string('nipd');
+            $table->enum('jenis_kelamin', ['L', 'P']);
             $table->string('tgl_lahir');
-            $table->string('nip');
-            $table->enum('jenis_kelamin', ['L', 'P']); // Menambahkan kolom jenis kelamin dengan nilai ENUM
-            $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gurubk');
+        Schema::dropIfExists('murids');
     }
 };

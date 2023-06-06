@@ -78,6 +78,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/admin/walas">
+                        <i class="mdi mdi-account-multiple-plus menu-icon"></i>
+                        <span class="menu-title">Wali Kelas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/layanan">
+                        <i class="mdi mdi-account-multiple-plus menu-icon"></i>
+                        <span class="menu-title">Layanan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{Route('logout')}}">
                         <i class="mdi mdi-logout menu-icon"></i>
                         <span class="menu-title">Logout</span>

@@ -19,32 +19,41 @@
         </div>
     </div>
 
-    {{-- form add guru --}}
+    {{-- form add kelas --}}
     <div class="card-bodyform">
         <h4 class="card-title">Default form</h4>
         <p class="card-description">Basic form layout</p>
-        <form class="forms-sample" action="/admin/guru/addmurid" method="POST">
+        <form class="forms-sample" action="/admin/walas/add" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
-                <label for="exampleInputUsername1">Nama Kelas</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username" name="name_kelas">
+                <label for="exampleInputUsername1">Nama Lengkap</label>
+                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username" name="name">
             </div>
             <div class="form-group">
-                <label for="exampleInputUsername1">Nama jurusan</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username" name="jurusan">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Nip</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Tanggal lahir" name="nip">
             </div>
             <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
-                    <option>Pilih Guru BK</option>
-                    @foreach ($getgurus as $item)
-                    <option value="{{ $item->user_id }}">{{ $item->name }}</option>
-                    @endforeach
+                    <option disabled selected>Jenis kelamin</option>
+                    <option value="L">L</option>
+                    <option value="P">P</option>
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                    name="password">
             </div>
             <button class="btn btn-primary mr-2"> Submit </button>
             <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
         </form>
     </div>
+    {{-- end kelas --}}
 
     <div class="card-body" id="tableguru" style="background-color: white">
         <h4 class="card-title">Table Kelas</h4>
@@ -54,32 +63,37 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>id</th>
-                        <th>gurubk_id</th>
-                        <th>Name_kelas</th>
-                        <th>jurusan</th>
+                        <th>User_id</th>
+                        <th>Name_guru</th>
+                        <th>Nipd</th>
+                        <th>Jenis Kelamin</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($getgurus as $item)
+                    @foreach ($getwalas as $item)
                         <tr>
                             <td class="py-1">
                                 {{ $item->user_id }}
                             </td>
                             <td> 
-                              {{ $item->name }}
+                              {{ $item->name_guru }}
                             </td>
                             <td> 
-                              {{ $item->kelas }}
+                                {{ $item->nip }}
                             </td>
                             <td> 
                               {{ $item->jenis_kelamin }}
                             </td>
-                            <td> 
-                              {{ $item->tgl_lahir }}
+                            <td>
+                                <a href="/admin/walas/get/{{ $item->user_id }}">
+                                    <label class="badge badge-success">Edit</label>
+                                </a>
+                                <a href="/admin/walas/delete/{{ $item->user_id }}">
+                                    <label class="badge badge-danger">Delete</label>
+                                </a>
                             </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>

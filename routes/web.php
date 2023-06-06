@@ -36,14 +36,39 @@ Route::group(['middleware' => ['auth','RoleMiddleware:admin']], function() {
     Route::get('/admin/dashboard', function () { return view('admin.admin_dashboard');})->name('admin');
     // admin guru
     Route::get('/admin/guru', [AdminController::class, 'index'])->name('admin_guru');
+    Route::post('/admin/guru/update/{id}', [AdminController::class, 'updateguru']);
     Route::get('/admin/guru/delete/{id}', [AdminController::class, 'deleteguru'])->name('delete_admin_guru');
     Route::post('/admin/addguru', [AdminController::class, 'createguru'])->name('add_admin_guru');
     Route::get('/admin/guru/get/{id}', [AdminController::class, 'editgetguru'])->name('getedit_admin_guru');
     // admin-guru-end
-
-    Route::get('/admin/murid', [AdminController::class, 'muridview'])->name('admin_murid');
+    // admin-kelas
     Route::get('/admin/kelas', [AdminController::class, 'kelasview'])->name('admin_kelas');
-    Route::post('/admin/guru/addkelas', [AdminController::class, 'createkelas'])->name('add_admin_kelas');
+    Route::post('/admin/kelas/update/{id}', [AdminController::class, 'updatekelas']);
+    Route::get('/admin/kelas/delete/{id}', [AdminController::class, 'deletekelas'])->name('delete_admin_kelas');
+    Route::get('/admin/kelas/get/{id}', [AdminController::class, 'editgetkelas'])->name('getedit_admin_kelas');
+    Route::post('/admin/addkelas', [AdminController::class, 'createkelas'])->name('add_admin_kelas');
+    // admin-kelas
+    // admin-walas
+    Route::get('/admin/walas', [AdminController::class, 'walasview'])->name('admin_walas');
+    Route::post('/admin/walas/add', [AdminController::class, 'createwaalas'])->name('add_admin_walas');
+    Route::get('/admin/walas/delete/{id}', [AdminController::class, 'deletewalas'])->name('delete_admin_walas');
+    Route::get('/admin/walas/get/{id}', [AdminController::class, 'editgetwalas'])->name('getedit_admin_kelas');
+    Route::post('/admin/walas/update/{id}', [AdminController::class, 'updatewalas']);
+    // admin-walas end
+    // admin-murids
+    Route::get('/admin/murid', [AdminController::class, 'muridview'])->name('admin_murid');
+    Route::post('/admin/murid/add', [AdminController::class, 'createmurid'])->name('add_admin_murid');
+    Route::get('/admin/murid/delete/{id}', [AdminController::class, 'deletemurid'])->name('delete_admin_murid');
+    Route::get('/admin/murid/get/{id}', [AdminController::class, 'editgetmurid'])->name('getedit_admin_murid');
+    Route::post('/admin/murid/update/{id}', [AdminController::class, 'updatemurid']);
+    // admin-murids end
+    // admin-layanans
+    Route::get('/admin/layanan', [AdminController::class, 'layananview'])->name('admin_layanan');
+    Route::post('/admin/layanan/add', [AdminController::class, 'createlayanan'])->name('add_admin_layanan');
+    Route::get('/admin/layanan/delete/{id}', [AdminController::class, 'deletelayanan'])->name('delete_admin_layanan');
+    Route::get('/admin/layanan/get/{id}', [AdminController::class, 'editgetlayanan'])->name('getedit_admin_layanan');
+    Route::post('/admin/layanan/update/{id}', [AdminController::class, 'updatelayanan']);
+    // admin-layanans end
 });
 
 Route::group(['middleware' => ['auth','RoleMiddleware:guru']], function() {
