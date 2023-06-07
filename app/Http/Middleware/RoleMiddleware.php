@@ -16,7 +16,7 @@ class RoleMiddleware
         }
 
         $user = Auth::user();
-        $allowedRoles = ['admin', 'guru', 'murid'];
+        $allowedRoles = ['admin', 'guru', 'murid', 'walas'];
 
   
         // Periksa apakah peran pengguna ada dalam daftar peran yang diizinkan

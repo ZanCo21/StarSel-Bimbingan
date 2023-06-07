@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Murid;
+namespace App\Http\Controllers\murid;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
