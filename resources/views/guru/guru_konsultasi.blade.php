@@ -38,11 +38,11 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>User id</th>
-                        <th>Name</th>
-                        <th>Kelas</th>
-                        <th>Jenis_kelamin</th>
-                        <th>Tanggal Lahir</th>
+                        <th>Id</th>
+                        <th>Murid</th>
+                        <th>Tema</th>
+                        <th>Status</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>

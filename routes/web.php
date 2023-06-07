@@ -78,7 +78,10 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:guru']], function () {
     Route::get('/guru/dashboard', function () {
         return view('guru.guru_dashboard');
     })->name('guru_dashboard');
+
+    // admin-konsultasi
     Route::get('/guru/konsultasi', [GurubkController::class, 'index'])->name('guru_konsultasi');
+    // admin-konsultasi
 });
 
 Route::group(['middleware' => ['auth', 'RoleMiddleware:walas']], function () {

@@ -19,9 +19,11 @@ return new class extends Migration
             $table->unsignedBigInteger('walas_id'); 
             $table->string('tema');
             $table->string('keluhan');
-            $table->string('tanggal_konseling');
-            $table->string('tempat');
-            $table->string('hasil_konseling');
+            $table->dateTime('tanggal_konseling')->nullable();
+            $table->string('tempat')->nullable();
+            $table->string('hasil_konseling')->nullable();
+            $table->string('kesimpulan')->nullable();
+            $table->enum('status', ['pending', 'accept']);
 
             $table->foreign('guru_id')->references('user_id')->on('gurubk')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('layanan_id')->references('id')->on('layanans')->onDelete('cascade')->onUpdate('cascade');

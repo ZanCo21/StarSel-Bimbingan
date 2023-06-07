@@ -24,25 +24,25 @@ class DatabaseSeeder extends Seeder
         $randomRole = $roles[array_rand($roles)];
 
         for ($i = 0; $i < 1; $i++) {
-            // $userId = data::table('users')->insertGetId([
-            //     'name' => $NameBk,
-            //     'email' => $faker->unique()->safeEmail(),
-            //     'password' => Hash::make('123'), // password
-            //     'role' => 'murid',
-            //     'remember_token' => Str::random(10),
-            //     'created_at' => now(),
-            //     'updated_at' => now(),
-            // ]);
+            $userId = data::table('users')->insertGetId([
+                'name' => $NameBk,
+                'email' => $faker->unique()->safeEmail(),
+                'password' => Hash::make('123'), // password
+                'role' => 'guru',
+                'remember_token' => Str::random(10),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
 
-            // data::table('gurubk')->insert([
-            //     'user_id' => $userId,
-            //     'name' => $NameBk,
-            //     'tgl_lahir' => '19/02/91',
-            //     'nip' => '199221',
-            //     'jenis_kelamin' => 'L',
-            //     'created_at' => now(),
-            //     'updated_at' => now(),
-            // ]);
+            data::table('gurubk')->insert([
+                'user_id' => $userId,
+                'name' => $NameBk,
+                'tgl_lahir' => '19/02/91',
+                'nip' => '199221',
+                'jenis_kelamin' => 'L',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
 
             // data::table('walas')->insert([
             //     'user_id' => $userId,
@@ -93,13 +93,13 @@ class DatabaseSeeder extends Seeder
             //     'updated_at' => now(),
             // ]);
 
-            data::table('peta_kerawanan')->insert([
-                'walas_id' => '2',
-                'murid_id' => '3',
-                'jenis_kewaranan' => 'Merokok',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            // data::table('peta_kerawanan')->insert([
+            //     'walas_id' => '2',
+            //     'murid_id' => '3',
+            //     'jenis_kewaranan' => 'Merokok',
+            //     'created_at' => now(),
+            //     'updated_at' => now(),
+            // ]);
         }
     }
 }
