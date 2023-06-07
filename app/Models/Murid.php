@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Konseling;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -20,7 +21,7 @@ class Murid extends Model
 
     protected $table = 'murids';
     protected $primaryKey = 'user_id';
-    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
@@ -34,5 +35,9 @@ class Murid extends Model
     public function walas()
     {
         return $this->belongsTo(Walas::class, 'walas_id', 'user_id');
+    }
+    public function konseling()
+    {
+        return $this->belongsTo(Konseling::class);
     }
 }

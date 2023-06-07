@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\guru\GurubkController;
+use App\Http\Controllers\walas\WalasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\login\LoginRegisController;
@@ -32,8 +33,10 @@ Route::get('/login-regis', function () {
 })->name('login-regis');
 
 
-Route::group(['middleware' => ['auth','RoleMiddleware:admin']], function() {
-    Route::get('/admin/dashboard', function () { return view('admin.admin_dashboard');})->name('admin');
+Route::group(['middleware' => ['auth', 'RoleMiddleware:admin']], function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.admin_dashboard');
+    })->name('admin');
     // admin guru
     Route::get('/admin/guru', [AdminController::class, 'index'])->name('admin_guru');
     Route::post('/admin/guru/update/{id}', [AdminController::class, 'updateguru']);
@@ -71,7 +74,21 @@ Route::group(['middleware' => ['auth','RoleMiddleware:admin']], function() {
     // admin-layanans end
 });
 
-Route::group(['middleware' => ['auth','RoleMiddleware:guru']], function() {
-    Route::get('/guru/dashboard', function () { return view('guru.guru_dashboard');})->name('guru_dashboard');
+Route::group(['middleware' => ['auth', 'RoleMiddleware:guru']], function () {
+    Route::get('/guru/dashboard', function () {
+        return view('guru.guru_dashboard');
+    })->name('guru_dashboard');
     Route::get('/guru/konsultasi', [GurubkController::class, 'index'])->name('guru_konsultasi');
+});
+
+Route::group(['middleware' => ['auth', 'RoleMiddleware:walas']], function () {
+    Route::get('/walas/dashboard', [WalasController::class, 'maindash'])->name('walas_dashboard');
+    Route::get('/walas/jadwal-konsultasi', [WalasController::class, 'jadwalkonsul'])->name('walas_jadwal');
+    Route::get('/walas/hasil-konsultasi', [WalasController::class, 'index'])->name('walas_konsultasi');
+    Route::get('/walas/peta-kerawanan', [WalasController::class, 'petakerawanan'])->name('walas_kerawanan');
+    Route::get('/walas/peta-kerawanan/get/{id}', [WalasController::class, 'edit'])->name('edit_walas_kerawanan');
+    Route::post('/walas/peta-kerawanan/update/{id}', [WalasController::class, 'update']);
+    Route::post('/walas/peta-kerawanan/add', [WalasController::class, 'create'])->name('add_walas_kerawanan');
+    Route::get('/walas/peta-kerawanan/delete/{id}', [WalasController::class, 'destroy'])->name('delete_walas_kerawanan');
+    
 });
