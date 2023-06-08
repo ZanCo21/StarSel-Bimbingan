@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Admin Dashboard</title>
+    <title>Guru Dashboard</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="/assets/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="/assets/css/admin/flag-icon.min.css">
@@ -22,6 +22,8 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
+    {{-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -60,7 +62,30 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{Route('guru_konsultasi')}}">
+                    <a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                      <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                      <span class="menu-title">Bimbingan</span>
+                      <i class="menu-arrow" style="color: black"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic" style="">
+                      <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{url('/guru/konseling/bimbinganpribadi')}}">Bimbingan Pribadi</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="">Bimbingan Sosial</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="">Bimbingan Karir</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Bimbingan Belajar</a>
+                          </li>
+                      </ul>
+                    </div>
+                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/guru/konseling')}}">
                         <i class="mdi mdi-account-multiple-plus menu-icon"></i>
                         <span class="menu-title">Konsultasi</span>
                     </a>

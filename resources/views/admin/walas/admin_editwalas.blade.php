@@ -15,7 +15,7 @@
                 </a>
             </div>
             <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                <i class="mdi mdi-plus-circle"></i> Add kelas </button>
+                <i class="mdi mdi-plus-circle"></i> Add Walas </button>
         </div>
     </div>
 
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
-                    <option disabled selected>{{ $geteditwalas->jenis_kelamin }}</option>
+                    <option disabled value="{{ $geteditwalas->jenis_kelamin }}">{{ $geteditwalas->jenis_kelamin }}</option>
                     <option value="L">L</option>
                     <option value="P">P</option>
                 </select>

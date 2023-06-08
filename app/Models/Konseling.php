@@ -26,6 +26,8 @@ class Konseling extends Model
     ];
 
     protected $table = 'konseling';
+    protected $primaryKey = 'id';
+
 
 
     public function layanan()
@@ -33,10 +35,11 @@ class Konseling extends Model
         return $this->belongsTo(Layanan::class, 'layanan_id', 'id');
     }
     
-    public function murids()
+    public function murid()
     {
-        return $this->hasMany(Murid::class, 'user_id', 'murid_id', 'name');
+        return $this->belongsTo(Murid::class, 'murid_id');
     }
+
     public function gurus()
     {
         return $this->hasMany(Gurubk::class,'user_id');

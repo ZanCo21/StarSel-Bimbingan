@@ -24,25 +24,25 @@ class DatabaseSeeder extends Seeder
         $randomRole = $roles[array_rand($roles)];
 
         for ($i = 0; $i < 1; $i++) {
-            $userId = data::table('users')->insertGetId([
-                'name' => $NameBk,
-                'email' => $faker->unique()->safeEmail(),
-                'password' => Hash::make('123'), // password
-                'role' => 'guru',
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            // $userId = data::table('users')->insertGetId([
+            //     'name' => $NameBk,
+            //     'email' => $faker->unique()->safeEmail(),
+            //     'password' => Hash::make('123'), // password
+            //     'role' => 'walas',
+            //     'remember_token' => Str::random(10),
+            //     'created_at' => now(),
+            //     'updated_at' => now(),
+            // ]);
 
-            data::table('gurubk')->insert([
-                'user_id' => $userId,
-                'name' => $NameBk,
-                'tgl_lahir' => '19/02/91',
-                'nip' => '199221',
-                'jenis_kelamin' => 'L',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            // data::table('gurubk')->insert([
+            //     'user_id' => $userId,
+            //     'name' => $NameBk,
+            //     'tgl_lahir' => '19/02/91',
+            //     'nip' => '199221',
+            //     'jenis_kelamin' => 'L',
+            //     'created_at' => now(),
+            //     'updated_at' => now(),
+            // ]);
 
             // data::table('walas')->insert([
             //     'user_id' => $userId,
@@ -54,10 +54,10 @@ class DatabaseSeeder extends Seeder
             // ]);
 
             // data::table('kelas')->insert([
-            //     'gurubk_id' => '1',
-            //     'walas_id' => '2',
+            //     'gurubk_id' => '3',
+            //     'walas_id' => '1',
             //     'tingkat_kelas' => 'XI',
-            //     'jurusan' => 'PPLG',
+            //     'jurusan' => 'TKJ',
             //     'created_at' => now(),
             //     'updated_at' => now(),
             // ]);
@@ -74,9 +74,49 @@ class DatabaseSeeder extends Seeder
             // ]);
             
             // data::table('layanans')->insert([
-            //     'jenis_layanan' => 'Bimbingan Belajar',
-            //     'created_at' => now(),
-            //     'updated_at' => now(),
+            //     [
+            //         'jenis_layanan' => 'Bimbingan Belajar',
+            //         'created_at' => now(),
+            //         'updated_at' => now(),
+            //     ],
+            //     [
+            //         'jenis_layanan' => 'Bimbingan Karir',
+            //         'created_at' => now(),
+            //         'updated_at' => now(),
+            //     ],
+            //     [
+            //         'jenis_layanan' => 'Bimbingan Sosial',
+            //         'created_at' => now(),
+            //         'updated_at' => now(),
+            //     ],
+            //     [
+            //         'jenis_layanan' => 'Bimbingan Pribadi',
+            //         'created_at' => now(),
+            //         'updated_at' => now(),
+            //     ],
+            // ]);
+
+            // data::table('jenis_kerawanan')->insert([
+            //     [
+            //         'jenis_kerawanan' => 'Bimbingan Belajar',
+            //         'created_at' => now(),
+            //         'updated_at' => now(),
+            //     ],
+            //     [
+            //         'jenis_kerawanan' => 'Bimbingan Karir',
+            //         'created_at' => now(),
+            //         'updated_at' => now(),
+            //     ],
+            //     [
+            //         'jenis_kerawanan' => 'Bimbingan Sosial',
+            //         'created_at' => now(),
+            //         'updated_at' => now(),
+            //     ],
+            //     [
+            //         'jenis_kerawanan' => 'Bimbingan Pribadi',
+            //         'created_at' => now(),
+            //         'updated_at' => now(),
+            //     ],
             // ]);
 
             // data::table('konseling')->insert([

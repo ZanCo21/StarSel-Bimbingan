@@ -6,6 +6,7 @@ use App\Http\Controllers\walas\WalasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\login\LoginRegisController;
+use App\Models\Gurubk;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,9 +80,22 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:guru']], function () {
         return view('guru.guru_dashboard');
     })->name('guru_dashboard');
 
-    // admin-konsultasi
-    Route::get('/guru/konsultasi', [GurubkController::class, 'index'])->name('guru_konsultasi');
-    // admin-konsultasi
+    // guru-konsultasi
+    Route::get('/guru/konseling', [GurubkController::class, 'index'])->name('guru_konsultasi');
+    Route::get('/guru/getmurid/{id}', [GurubkController::class, 'getmuridbykelas'])->name('guru_konsultasi');
+    Route::post('/guru/konsultais/add', [GurubkController::class, 'createkonsultasi'])->name('add_guru_konsultais');
+    Route::get('/admin/konsul/delete/{id}', [GurubkController::class, 'deletekonsul'])->name('delete_admin_konsul');
+    // guru-konsultasi
+    // guru-bimbingan pribadi
+    Route::get('/guru/konseling/bimbinganpribadi', [GurubkController::class, 'viewbimbinganpribadi'])->name('guru_konsultasi_viewbimbinganpribadi');
+    Route::get('/guru/konseling/getbimbinganpribadi/{id}', [GurubkController::class, 'getmuridbimbinganpribadi'])->name('guru_konsultasi_viewbimbinganpribadi');
+    Route::get('/guru/getmurid/{id}', [GurubkController::class, 'getmuridbykelas'])->name('guru_konsultasi');
+    Route::post('/konseling/updatebimbinganpribadi/{id}', [GurubkController::class, 'updatebimbingan_pribadi']);
+    Route::post('/guru/peta-kerawanan/add', [GurubkController::class, 'createpeta'])->name('add_guru_kerawanan');
+    Route::get('/guru/peta-kerawanan/delete/{id}', [GurubkController::class, 'destroy'])->name('delete_guru_kerawanan');
+    Route::get('/guru/peta-kerawanan/get/{id}', [GurubkController::class, 'edit'])->name('edit_guru_kerawanan');
+    Route::post('/guru/peta-kerawanan/{id}', [GurubkController::class, 'update_kerawanan_bimbingan_pribadi']);
+    // guru-bimbingan pribadi end
 });
 
 Route::group(['middleware' => ['auth', 'RoleMiddleware:walas']], function () {

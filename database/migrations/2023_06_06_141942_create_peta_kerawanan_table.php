@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('walas_id');
             $table->unsignedBigInteger('murid_id');
-            $table->string('jenis_kewaranan');
+            $table->unsignedBigInteger('kerawanan_id');
+            $table->text('kesimpulan')->nullable();
             $table->timestamps();
-
             $table->foreign('walas_id')->references('user_id')->on('walas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('kerawanan_id')->references('id')->on('jenis_kerawanan')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('murid_id')->references('user_id')->on('murids')->onDelete('cascade')->onUpdate('cascade');
         });
     }

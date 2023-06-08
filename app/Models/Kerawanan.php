@@ -16,6 +16,7 @@ class Kerawanan extends Model
         'walas_id',
         'murid_id',
         'jenis_kewaranan',
+        'kesimpulan',
         'created_at',
         'updated_at',
     ];
