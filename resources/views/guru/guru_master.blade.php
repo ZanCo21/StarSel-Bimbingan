@@ -23,13 +23,18 @@
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
     {{-- jquery --}}
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> --}}
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar" style="overflow: hidden;">
             <ul class="nav">
                 <li class="nav-item nav-profile border-bottom">
                     <a href="#" class="nav-link flex-column">
@@ -61,7 +66,36 @@
                         <span class="menu-title">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <div class="select-menu">
+                    <div class="select-btn">
+                        <i class="mdi mdi-compass-outline menu-icon" style="font-size: 22px; pa"></i>
+                        <span class="sBtn-text menu-title">Select your option</span>
+                        <i class="bx bx-chevron-down "></i>
+                    </div>
+                    <ul class="options">
+                        <li class="option">
+                            <i class="bx bxl-github" style="color: #171515;"></i>
+                            <a href="{{url('/guru/konseling/bimbinganpribadi')}}">
+                                <span class="option-text">Bimbingan pribadi</span>
+                            </a>
+                        </li>
+                        <li class="option">
+                            <i class="bx bxl-instagram-alt" style="color: #E1306C;"></i>
+                            <a href="/guru/konseling/bimbingansosial">
+                                <span class="option-text">Bimbingan Sosial</span>
+                            </a>
+                        </li>
+                        <li class="option">
+                            <i class="bx bxl-linkedin-square" style="color: #0E76A8;"></i>
+                            <span class="option-text">Bimbingan Karir</span>
+                        </li>
+                        <li class="option">
+                            <i class="bx bxl-facebook-circle" style="color: #4267B2;"></i>
+                            <span class="option-text">Bimbingan Belajar</span>
+                        </li>
+                    </ul>
+                </div>
+                {{-- <li class="nav-item">
                     <a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                       <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                       <span class="menu-title">Bimbingan</span>
@@ -73,7 +107,7 @@
                           <a class="nav-link" href="{{url('/guru/konseling/bimbinganpribadi')}}">Bimbingan Pribadi</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="">Bimbingan Sosial</a>
+                          <a class="nav-link" href="/guru/konseling/bimbingansosial ">Bimbingan Sosial</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="">Bimbingan Karir</a>
@@ -83,7 +117,7 @@
                           </li>
                       </ul>
                     </div>
-                  </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/guru/konseling')}}">
                         <i class="mdi mdi-account-multiple-plus menu-icon"></i>
@@ -283,8 +317,36 @@
             <!-- page-body-wrapper ends -->
         </div>
         <!-- container-scroller -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
+    </script>
+
+<script>
+    // select menu di guru master
+const optionMenu = document.querySelector(".select-menu"),
+       selectBtn = optionMenu.querySelector(".select-btn"),
+       options = optionMenu.querySelectorAll(".option"),
+       sBtn_text = optionMenu.querySelector(".sBtn-text");
+
+selectBtn.addEventListener("click", () => optionMenu.classList.toggle("active"));       
+
+options.forEach(option =>{
+    option.addEventListener("click", ()=>{
+        let selectedOption = option.querySelector(".option-text").innerText;
+        sBtn_text.innerText = selectedOption;
+
+        optionMenu.classList.remove("active");
+    });
+});
+</script>
+
         <!-- plugins:js -->
-        <script src="/assets/js/dashboard/vendor.bundle.base.js"></script>
+        {{-- <script src="/assets/js/dashboard/vendor.bundle.base.js"></script> --}}
         <!-- endinject -->
         <!-- Plugin js for this page -->
         <script src="../assets/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>

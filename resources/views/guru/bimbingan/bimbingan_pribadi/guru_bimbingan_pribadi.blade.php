@@ -145,35 +145,35 @@
         <form class="forms-sample" action="/guru/peta-kerawanan/add" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
-                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="walas_id">
-                    <option disabled selected>Pilih Nama Wali Kelas</option>
-                    @foreach ($getwalas as $item)
-                    <option value="{{ $item->user_id }}">
-                        {{ $item->name_guru }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="murid_id">
-                    <option disabled selected>Pilih Nama Murid</option>
-                    @foreach ($getmurid as $item)
-                    <option value="{{ $item->user_id }}">
-                        {{ $item->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="murid_id">
-                    <option disabled selected>Pilih Jenis</option>
+                <Label>Pilih Kerawanan</Label>
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="kerawanan_id">
+                    <option disabled>Pilih Kerawanan</option>
                     @foreach ($getjeniskerawanan as $item)
-                    <option value="{{ $item->id }}">
-                        {{ $item->jenis_kerawanan }}
-                        </option>
+                        <option value="{{ $item->id }}">{{ $item->jenis_kerawanan }}</option>
                     @endforeach
                 </select>
             </div>
+            <div class="form-group">
+                <Label>Pilih Kelas</Label>
+                <select class="form-control form-control-lg" id="kelas_id">
+                    <option disabled selected>Pilih Kelas</option>
+                    @foreach ($getkelas as $item)
+                        <option value="{{ $item->id }}" walas="{{ $item->walas_id }}">{{ $item->tingkat_kelas }}
+                            {{ $item->jurusan }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <Label>Pilih Murid</Label>
+                <select class="form-control form-control-lg" id="murid_id" name="murid_id">
+                    <option disabled>Pilih Murid</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="hidden" class="form-control" id="walas_id" name="walas_id"
+                    placeholder="ini untuk menangkap walas_id " value="">
+            </div>
+
             <button class="btn btn-primary mr-2"> Submit </button>
             <button id="cancle-formrawan" type="button" class="btn btn-light">Cancel</button>
         </form>
@@ -216,20 +216,65 @@
                                 @endif
                             </td>
                             <td>
-                                {{ $get->jenis_kewaranan }}
+                                {{ $get->jeniskerawanan->jenis_kerawanan }}
                             </td>
                             <td>
                                 <a>
                                     <label class="badge badge-primary">Details</label>
-                                <a href="/guru/peta-kerawanan/get/{{ $get->id }}">
-                                    <label class="badge badge-success">Input Hasil</label>
-                                </a>
                                 <a href="/guru/peta-kerawanan/delete/{{$get->id}}">
                                     <label class="badge badge-danger">Delete</label>
                                 </a>
                             </td>
                         </tr>
                     @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-bodyrawan" id="tableguru" style="background-color: white; margin-top: 3%; margin-bottom: 5%;">
+        <h4 class="card-title">Peta Kerawanan</h4>
+        <p class="card-description"> Data <code>.Top Kerawanan</code></p>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Nama Walas</th>
+                        <th>Nama Murid</th>
+                        <th>Jenis_kerawanan</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{-- @foreach ($topkerawanan as $get)
+                        <tr>
+                            <td class="py-1">
+                                {{ $get->id }}
+                            </td>
+                            <td>
+                                @foreach ($get->murids as $murid)
+                                    {{ $murid->name }}
+                                @endforeach
+                            </td>
+                            <td>
+                                @if ($get->walas instanceof Illuminate\Database\Eloquent\Collection)
+                                    @foreach ($get->walas as $ss)
+                                        {{ $ss->name_guru }}
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td>
+                                {{ $get->jeniskerawanan->jenis_kerawanan }}
+                            </td>
+                            <td>
+                                <a>
+                                    <label class="badge badge-primary">Details</label>
+                                <a href="/guru/peta-kerawanan/delete/{{$get->id}}">
+                                    <label class="badge badge-danger">Delete</label>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach --}}
                 </tbody>
             </table>
         </div>
@@ -265,5 +310,46 @@
         // Tambahkan event listener untuk memanggil fungsi openPopup saat tombol diklik
         openPopupButton.addEventListener('click', openPopup);
         closePopupButton.addEventListener('click', closePopup);
+
+        $(document).ready(function() {
+            $('#kelas_id').change(function() {
+                var kelas = $(this).val();
+
+                $.ajax({
+                    url: '/guru/getmurid/' + kelas,
+                    type: 'GET',
+                    success: function(response) {
+                        var muridSelect = $('#murid_id');
+                        muridSelect.empty();
+
+                        $.each(response, function(key, value) {
+                            muridSelect.append('<option value="' + value.user_id +
+                                '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+
+
+        $(document).ready(function() {
+            $('#kelas_id').on('change', function() {
+                var selectedOption = $(this).find('option:selected');
+                var walasId = selectedOption.attr('walas');
+
+                // Set value pada input hidden dengan nama walas_id
+                $('#walas_id').val(walasId);
+            });
+        });
+
+        $(document).ready(function() {
+            $('#murid_id').on('change', function() {
+                var muridid = $(this).val();
+
+
+                // Set value pada input hidden dengan nama walas_id
+                $('#muridhidden').val(muridid);
+            });
+        });
         </script>
     @endsection

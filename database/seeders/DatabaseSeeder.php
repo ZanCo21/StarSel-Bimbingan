@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             //     'name' => $NameBk,
             //     'email' => $faker->unique()->safeEmail(),
             //     'password' => Hash::make('123'), // password
-            //     'role' => 'walas',
+            //     'role' => 'guru',
             //     'remember_token' => Str::random(10),
             //     'created_at' => now(),
             //     'updated_at' => now(),
@@ -54,10 +54,10 @@ class DatabaseSeeder extends Seeder
             // ]);
 
             // data::table('kelas')->insert([
-            //     'gurubk_id' => '3',
-            //     'walas_id' => '1',
+            //     'gurubk_id' => '2',
+            //     'walas_id' => '3',
             //     'tingkat_kelas' => 'XI',
-            //     'jurusan' => 'TKJ',
+            //     'jurusan' => 'PPLG',
             //     'created_at' => now(),
             //     'updated_at' => now(),
             // ]);
@@ -98,22 +98,22 @@ class DatabaseSeeder extends Seeder
 
             // data::table('jenis_kerawanan')->insert([
             //     [
-            //         'jenis_kerawanan' => 'Bimbingan Belajar',
+            //         'jenis_kerawanan' => 'Bolos',
             //         'created_at' => now(),
             //         'updated_at' => now(),
             //     ],
             //     [
-            //         'jenis_kerawanan' => 'Bimbingan Karir',
+            //         'jenis_kerawanan' => 'Telat',
             //         'created_at' => now(),
             //         'updated_at' => now(),
             //     ],
             //     [
-            //         'jenis_kerawanan' => 'Bimbingan Sosial',
+            //         'jenis_kerawanan' => 'Judi',
             //         'created_at' => now(),
             //         'updated_at' => now(),
             //     ],
             //     [
-            //         'jenis_kerawanan' => 'Bimbingan Pribadi',
+            //         'jenis_kerawanan' => 'Rokok',
             //         'created_at' => now(),
             //         'updated_at' => now(),
             //     ],

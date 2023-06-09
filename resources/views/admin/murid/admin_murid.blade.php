@@ -75,6 +75,7 @@
                 <thead>
                     <tr>
                         <th>User id</th>
+                        <th>Name</th>
                         <th>kelas</th>
                         <th>Walas</th>
                         <th>Nipd</th>
@@ -88,6 +89,9 @@
                         <tr>
                             <td class="py-1">
                                 {{ $item->user_id }}
+                            </td>
+                            <td class="py-1">
+                                {{ $item->name }}
                             </td>
                             <td> 
                               {{ $item->kelas->tingkat_kelas }}{{ $item->kelas->jurusan }}

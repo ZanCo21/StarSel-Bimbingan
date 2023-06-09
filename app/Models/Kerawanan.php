@@ -14,8 +14,9 @@ class Kerawanan extends Model
     protected $fillable = [
         'id',
         'walas_id',
+        'gurubk_id',
         'murid_id',
-        'jenis_kewaranan',
+        'kerawanan_id',
         'kesimpulan',
         'created_at',
         'updated_at',
@@ -30,5 +31,18 @@ class Kerawanan extends Model
     public function walas()
     {
         return $this->hasMany(Walas::class, 'user_id', 'walas_id');
+    }
+
+    public function jeniskerawanan()
+    {
+        return $this->belongsTo(jeniskerawanan::class, 'kerawanan_id','id');
+    }
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id');
+    }
+    public function gurus()
+    {
+        return $this->hasMany(Gurubk::class,'user_id');
     }
 }

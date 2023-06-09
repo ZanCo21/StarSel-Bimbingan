@@ -19,195 +19,299 @@
         </div>
     </div>
 
-    {{-- form add kelas --}}
-    <div class="card-bodyform">
-        <h4 class="card-title">Default form</h4>
-        <p class="card-description">Basic form layout</p>
-        <form class="forms-sample" action="/guru/konsultais/add" method="POST">
-            {{ csrf_field() }}
-            <div class="form-group">
-                <Label>Pilih Layanan</Label>
-                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="layanan_id">
-                    <option disabled>Pilih Layanan</option>
-                    @foreach ($getlayanan as $item)
-                        <option value="{{ $item->id }}">{{ $item->jenis_layanan }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <Label>Pilih Kelas</Label>
-                <select class="form-control form-control-lg" id="kelas_id">
-                    <option disabled selected>Pilih Kelas</option>
-                    @foreach ($getkelas as $item)
-                        <option value="{{ $item->id }}" walas="{{ $item->walas_id }}">{{ $item->tingkat_kelas }}
-                            {{ $item->jurusan }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <Label>Pilih Murid</Label>
-                <select class="form-control form-control-lg" id="murid_id" name="murid_id">
-                    <option disabled>Pilih Murid</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="hidden" class="form-control" id="walas_id" name="walas_id"
-                    placeholder="ini untuk menangkap walas_id " value="">
-            </div>
-            {{-- <div class="form-group">
-                <input type="hidden" class="form-control" id="muridhidden" name="murid_id"
-                    placeholder="ini untuk menangkap walas_id " value="">
-            </div> --}}
-            <div class="form-group">
-                <label>Tema</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tema" name="tema">
-            </div>
-            <div class="form-group">
-                <label>Keluhan</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Keluhan" name="keluhan">
-            </div>
-            <div class="form-group">
-                <label>Tanggal Konseling</label>
-                <input type="date" class="form-control" id="exampleInputUsername1" placeholder="tanggal"
-                    name="tanggal_konseling">
-            </div>
-            <div class="form-group">
-                <label>Tempat</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tempat" name="tempat">
-            </div>
-            <button class="btn btn-primary mr-2"> Submit </button>
-            <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
-        </form>
-    </div>
-    {{-- end kelas --}}
 
-    <div class="card-body" id="tableguru" style="background-color: white">
-        <h4 class="card-title">New Data Konsultasi</h4>
-        <p class="card-description"> Data <code>.Konsultasi</code>
-        </p>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Murid</th>
-                        <th>Tema</th>
-                        <th>Status</th>
-                        <th>Created</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($getkonsul as $item)
-                    <tr>
-                        <td class="py-1">
-                            {{ $item->id }}
-                        </td>
-                        <td>
-                            {{ $item->murid->name }}
-                        </td>
-                        <td>
-                            {{ $item->tema }}
-                        </td>
-                        <td>
-                            @if ( $item->status == 'pending' )
-                            <span class="badge badge-warning">{{ $item->status }}</span>
-                            @else
-                            <span class="badge badge-success">{{ $item->status }}</span>
-                            @endif
-                        </td>
-                        <td>
-                            {{ $item->created_at }}
-                        </td>
-                        <td>
-                            <a href="">
-                                <label class="badge badge-warning">Detail</label>
-                            </a>
-                            <a href="">
-                                <label class="badge badge-success">Edit</label>
-                            </a>
-                            <a href="/admin/konsul/delete/{{ $item->id }}">
-                                <label class="badge badge-danger">Delete</label>
-                            </a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+    <div>
+        <div style="display:none; margin-bottom: 2%" class="card-btn">
+            <button type="button" class="btn btn-primary" style="margin-right: 2%" onclick="toggleDiv('div1')"> Bimbingan
+                Pribadi </button>
+            <button type="button" class="btn btn-success"style="margin-right: 2%" onclick="toggleDiv('div2')"> Bimbingan
+                Sosial </button>
+            <button type="button" class="btn btn-danger"style="margin-right: 2%"> Bimbingan Karir </button>
+            <button type="button" class="btn btn-warning"> Bimbingan Belajar </button>
+            </a>
         </div>
-    </div>
+        {{-- form add konspri --}}
+        <div id="div1" class="card-bodyform">
+            <h4 class="card-title" style="color: blue">Konsultsi Pribadi</h4>
+            <form class="forms-sample" action="/guru/konsultais/add" method="POST">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <Label>Pilih Layanan</Label>
+                    <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="layanan_id">
+                        <option disabled>Pilih Layanan</option>
+                        @foreach ($getlayanan as $item)
+                            <option value="{{ $item->id }}">{{ $item->jenis_layanan }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <Label>Pilih Kelas</Label>
+                    <select class="form-control form-control-lg" id="kelas_id">
+                        <option disabled selected>Pilih Kelas</option>
+                        @foreach ($getkelas as $item)
+                            <option value="{{ $item->id }}" walas="{{ $item->walas_id }}">{{ $item->tingkat_kelas }}
+                                {{ $item->jurusan }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <Label>Pilih Murid</Label>
+                    <select class="form-control form-control-lg" id="murid_id" name="murid_id">
+                        <option disabled>Pilih Murid</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="walas_id" name="walas_id"
+                        placeholder="ini untuk menangkap walas_id " value="">
+                </div>
+                <div class="form-group">
+                    <label>Tema</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tema" name="tema">
+                </div>
+                <div class="form-group">
+                    <label>Keluhan</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Keluhan"
+                        name="keluhan">
+                </div>
+                <div class="form-group">
+                    <label>Tanggal Konseling</label>
+                    <input type="date" class="form-control" id="exampleInputUsername1" placeholder="tanggal"
+                        name="tanggal_konseling">
+                </div>
+                <div class="form-group">
+                    <label>Tempat</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tempat"
+                        name="tempat">
+                </div>
+                <button class="btn btn-primary mr-2"> Submit </button>
+                <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
+            </form>
+        </div>
+        {{-- end kelas --}}
 
-    <script>
-        // Ambil elemen dengan ID
-        const openPopupButton = document.getElementById('openPopup');
-        const closePopupButton = document.getElementById('cancle-form');
+        {{-- form add fomsos --}}
+        <div id="div2" class="card-bodyformm" style="display: none;">
+            <h4 class="card-title" style="color: green">Konsultasi Sosial</h4>
+            <p class="card-description">Basic form layout</p>
+            <form class="forms-sample" action="/guru/konsultais/add" method="POST">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <Label>Pilih Layanan</Label>
+                    <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="layanan_id">
+                        <option disabled>Pilih Layanan</option>
+                        @foreach ($getlayanan as $item)
+                            <option value="{{ $item->id }}">{{ $item->jenis_layanan }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <Label>Pilih Kelas</Label>
+                    <select class="form-control form-control-lg" id="kelas_id">
+                        <option disabled selected>Pilih Kelas</option>
+                        @foreach ($getkelas as $item)
+                            <option value="{{ $item->id }}" walas="{{ $item->walas_id }}">
+                                {{ $item->tingkat_kelas }}
+                                {{ $item->jurusan }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <Label>Pilih Murid</Label>
+                    <select class="form-control form-control-lg" id="murid_id" name="murid_id">
+                        <option disabled>Pilih Murid</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="walas_id" name="walas_id"
+                        placeholder="ini untuk menangkap walas_id " value="">
+                </div>
+                <div class="form-group">
+                    <label>Tema</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tema"
+                        name="tema">
+                </div>
+                <div class="form-group">
+                    <label>Keluhan</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Keluhan"
+                        name="keluhan">
+                </div>
+                <div class="form-group">
+                    <label>Tanggal Konseling</label>
+                    <input type="date" class="form-control" id="exampleInputUsername1" placeholder="tanggal"
+                        name="tanggal_konseling">
+                </div>
+                <div class="form-group">
+                    <label>Tempat</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tempat"
+                        name="tempat">
+                </div>
+                <button class="btn btn-primary mr-2"> Submit </button>
+                <button id="cancle-formm" type="button" class="btn btn-light">Cancel</button>
+            </form>
+        </div>
+        {{-- end kelas --}}
 
-        // Fungsi untuk menampilkan pop-up
-        function openPopup() {
-            // Ambil elemen card-body
-            const cardBody = document.querySelector('.card-bodyform');
-            const cardtable = document.querySelector('.card-body');
+        <div class="card-body" id="tableguru" style="background-color: white">
+            <h4 class="card-title">New Data Konsultasi</h4>
+            <p class="card-description"> Data <code>.Konsultasi</code>
+            </p>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Murid</th>
+                            <th>Tema</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($getkonsul as $item)
+                            <tr>
+                                <td class="py-1">
+                                    {{ $item->id }}
+                                </td>
+                                <td>
+                                    {{ $item->murid->name }}
+                                </td>
+                                <td>
+                                    {{ $item->tema }}
+                                </td>
+                                <td>
+                                    @if ($item->status == 'pending')
+                                        <span class="badge badge-warning">{{ $item->status }}</span>
+                                    @else
+                                        <span class="badge badge-success">{{ $item->status }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $item->created_at }}
+                                </td>
+                                <td>
+                                    <a href="">
+                                        <label class="badge badge-warning">Detail</label>
+                                    </a>
+                                    <a href="/guru/konsul/getkonsul/{{ $item->id }}">
+                                        <label class="badge badge-success">Edit</label>
+                                    </a>
+                                    <a href="/admin/konsul/delete/{{ $item->id }}">
+                                        <label class="badge badge-danger">Delete</label>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            // ini buat menghilangkan div tapi masih error
+            function toggleDiv(divId) {
+                var div = document.getElementById(divId);
+                if (div.style.display === "none") {
+                    div.style.display = "block";
+                } else {
+                    div.style.display = "none";
+                }
+            }
+
+            // ini buat menghilangkan table pas klik add konsul
+            // Ambil elemen dengan ID
+            const openPopupButton = document.getElementById('openPopup');
+            const closePopupButton = document.getElementById('cancle-form');
+            const closePopupButtonn = document.getElementById('cancle-formm');
+
+            // Fungsi untuk menampilkan pop-up
+            function openPopup() {
+                // Ambil elemen card-body
+                const cardBody = document.querySelector('.card-bodyform');
+                const cardBodyy = document.querySelector('.card-btn');
+                const cardtable = document.querySelector('.card-body');
 
 
-            // Tampilkan elemen card-body sebagai pop-up
-            cardBody.style.display = 'block';
-            cardtable.style.display = 'none';
-        }
+                // Tampilkan elemen card-body sebagai pop-up
+                cardBody.style.display = 'block';
+                cardBodyy.style.display = 'block';
+                cardtable.style.display = 'none';
+            }
 
-        function closePopup() {
-            // Ambil elemen card-body
-            const cardBody = document.querySelector('.card-bodyform');
-            const cardtable = document.querySelector('.card-body');
+            function closePopup() {
+                // Ambil elemen card-body
+                const cardBody = document.querySelector('.card-bodyform');
+                const cardBodysos = document.querySelector('.card-bodyformm');
+                const cardBodyy = document.querySelector('.card-btn');
+                const cardtable = document.querySelector('.card-body');
 
 
-            // Tampilkan elemen card-body sebagai pop-up
-            cardBody.style.display = 'none';
-            cardtable.style.display = 'block';
-        }
+                // Tampilkan elemen card-body sebagai pop-up
+                cardBodysos.style.display = 'none';
+                cardBody.style.display = 'none';
+                cardBodyy.style.display = 'none';
+                cardtable.style.display = 'block';
+            }
+            function closePopupp() {
+                // Ambil elemen card-body
+                const cardBody = document.querySelector('.card-bodyform');
+                const cardBodysos = document.querySelector('.card-bodyformm');
+                const cardBodyy = document.querySelector('.card-btn');
+                const cardtable = document.querySelector('.card-body');
 
-        // Tambahkan event listener untuk memanggil fungsi openPopup saat tombol diklik
-        openPopupButton.addEventListener('click', openPopup);
-        closePopupButton.addEventListener('click', closePopup);
 
-        $(document).ready(function() {
-            $('#kelas_id').change(function() {
-                var kelas = $(this).val();
+                // Tampilkan elemen card-body sebagai pop-up
+                cardBodysos.style.display = 'none';
+                cardBody.style.display = 'none';
+                cardBodyy.style.display = 'none';
+                cardtable.style.display = 'block';
+            }
 
-                $.ajax({
-                    url: '/guru/getmurid/' + kelas,
-                    type: 'GET',
-                    success: function(response) {
-                        var muridSelect = $('#murid_id');
-                        muridSelect.empty();
+            // Tambahkan event listener untuk memanggil fungsi openPopup saat tombol diklik
+            openPopupButton.addEventListener('click', openPopup);
+            closePopupButton.addEventListener('click', closePopup);
+            closePopupButtonn.addEventListener('click', closePopupp);
+            
 
-                        $.each(response, function(key, value) {
-                            muridSelect.append('<option value="' + value.user_id +
-                                '">' + value.name + '</option>');
-                        });
-                    }
+            $(document).ready(function() {
+                $('#kelas_id').change(function() {
+                    var kelas = $(this).val();
+
+                    $.ajax({
+                        url: '/guru/getmurid/' + kelas,
+                        type: 'GET',
+                        success: function(response) {
+                            var muridSelect = $('#murid_id');
+                            muridSelect.empty();
+
+                            $.each(response, function(key, value) {
+                                muridSelect.append('<option value="' + value.user_id +
+                                    '">' + value.name + '</option>');
+                            });
+                        }
+                    });
                 });
             });
-        });
 
 
-        $(document).ready(function() {
-            $('#kelas_id').on('change', function() {
-                var selectedOption = $(this).find('option:selected');
-                var walasId = selectedOption.attr('walas');
+            $(document).ready(function() {
+                $('#kelas_id').on('change', function() {
+                    var selectedOption = $(this).find('option:selected');
+                    var walasId = selectedOption.attr('walas');
 
-                // Set value pada input hidden dengan nama walas_id
-                $('#walas_id').val(walasId);
+                    // Set value pada input hidden dengan nama walas_id
+                    $('#walas_id').val(walasId);
+                });
             });
-        });
 
-        $(document).ready(function() {
-            $('#murid_id').on('change', function() {
-                var muridid = $(this).val();
+            $(document).ready(function() {
+                $('#murid_id').on('change', function() {
+                    var muridid = $(this).val();
 
 
-                // Set value pada input hidden dengan nama walas_id
-                $('#muridhidden').val(muridid);
+                    // Set value pada input hidden dengan nama walas_id
+                    $('#muridhidden').val(muridid);
+                });
             });
-        });
-    </script>
-@endsection
+        </script>
+    @endsection

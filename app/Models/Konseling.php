@@ -44,4 +44,9 @@ class Konseling extends Model
     {
         return $this->hasMany(Gurubk::class,'user_id');
     }
+    
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class,'guru_id');
+    }
 }
