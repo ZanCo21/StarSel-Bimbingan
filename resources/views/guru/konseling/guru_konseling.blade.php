@@ -22,16 +22,16 @@
 
     <div>
         <div style="display:none; margin-bottom: 2%" class="card-btn">
-            <button type="button" class="btn btn-primary" style="margin-right: 2%" onclick="toggleDiv('div1')"> Bimbingan
+            <button type="button" class="btn btn-primary" style="margin-right: 2%" onclick="formPribadi()"> Bimbingan
                 Pribadi </button>
-            <button type="button" class="btn btn-success"style="margin-right: 2%" onclick="toggleDiv('div2')"> Bimbingan
+            <button type="button" class="btn btn-success"style="margin-right: 2%" onclick="formSosial()"> Bimbingan
                 Sosial </button>
-            <button type="button" class="btn btn-danger"style="margin-right: 2%"> Bimbingan Karir </button>
-            <button type="button" class="btn btn-warning"> Bimbingan Belajar </button>
+            <button type="button" class="btn btn-danger"style="margin-right: 2%" onclick="formKarir()"> Bimbingan Karir </button>
+            <button type="button" class="btn btn-warning" onclick="formBelajar()"> Bimbingan Belajar </button>
             </a>
         </div>
         {{-- form add konspri --}}
-        <div id="div1" class="card-bodyform">
+        <div id="form-pribadi" class="card-bodyform">
             <h4 class="card-title" style="color: blue">Konsultsi Pribadi</h4>
             <form class="forms-sample" action="/guru/konsultais/add" method="POST">
                 {{ csrf_field() }}
@@ -90,7 +90,7 @@
         {{-- end kelas --}}
 
         {{-- form add fomsos --}}
-        <div id="div2" class="card-bodyformm" style="display: none;">
+        <div id="form-sosial" class="card-bodyform" style="display: none;">
             <h4 class="card-title" style="color: green">Konsultasi Sosial</h4>
             <p class="card-description">Basic form layout</p>
             <form class="forms-sample" action="/guru/konsultais/add" method="POST">
@@ -209,13 +209,22 @@
 
         <script>
             // ini buat menghilangkan div tapi masih error
-            function toggleDiv(divId) {
-                var div = document.getElementById(divId);
-                if (div.style.display === "none") {
-                    div.style.display = "block";
-                } else {
-                    div.style.display = "none";
-                }
+            function formPribadi() {
+                var fp = document.getElementById('form-pribadi');
+                var fs = document.getElementById('form-sosial');
+                if (fp.style.display === "none") {
+                    fp.style.display = "block";
+                    fs.style.display = "none";
+                } 
+            }
+
+            function formSosial() {
+                var fs = document.getElementById('form-sosial');
+                var fp = document.getElementById('form-pribadi');
+                if (fs.style.display === "none") {
+                    fs.style.display = "block";
+                    fp.style.display = "none";
+                } 
             }
 
             // ini buat menghilangkan table pas klik add konsul

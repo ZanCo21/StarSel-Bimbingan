@@ -1842,16 +1842,15 @@
   /* ini */
 /* css select multipel menu */
 .select-menu{
+  padding: 0 2.25rem;
   width: 380px;
 }
 .select-menu .select-btn{
   display: flex;
   height: 55px;
   /* background: #fff; */
-  padding: 0px 0 0px 25px;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 11px;
+  text-transform: capitalize;
+  font-size: 0.875rem;
   border-radius: 8px;
   align-items: center;
   cursor: pointer;
@@ -1860,6 +1859,7 @@
 }
 .select-btn i{
   font-size: 25px;
+  margin-right: 3%;
   transition: 0.3s;
 }
 .select-menu.active .select-btn i{
