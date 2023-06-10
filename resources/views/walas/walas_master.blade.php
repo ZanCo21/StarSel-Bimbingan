@@ -66,11 +66,31 @@
                     </a>
                 </li> --}}
                 <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                      <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                      <span class="menu-title">Jadwal Bimbingan</span>
+                      <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                      <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{ Route('walas_konsultasi') }}">Jadwal</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="pages/ui-features/dropdowns.html">Bimbingan selesai</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="pages/ui-features/typography.html">Bimbingan tertunda</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ Route('walas_konsultasi') }}">
                         <i class="mdi mdi-account-multiple-plus menu-icon"></i>
                         <span class="menu-title">Hasil Konsultasi</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ Route('walas_kerawanan') }}">
                         <i class="mdi mdi-account-multiple-plus menu-icon"></i>

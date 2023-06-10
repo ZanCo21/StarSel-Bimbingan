@@ -29,15 +29,29 @@ class Murid extends Model
 
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class);
+        return $this->belongsTo(Kelas::class, 'kelas_id');
     }
-
+    public function kelass()
+    {
+        return $this->hasMany(Kelas::class, 'id', 'kelas_id');
+    }
     public function walas()
     {
-        return $this->belongsTo(Walas::class, 'walas_id', 'user_id');
+        return $this->kelas()->belongsTo(Walas::class, 'walas_id');
+    }
+    public function walass()
+    {
+        return $this->hasMany(Walas::class, 'user_id');
     }
     public function konseling()
     {
         return $this->belongsTo(Konseling::class);
+    }
+    public function peta_kerawanans(){
+        return $this->belongsTo(Kerawanan::class);
+    }
+    public function peta_kerawanan()
+    {
+        return $this->hasMany(Kerawanan::class, 'murid_id','user_id');
     }
 }

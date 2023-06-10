@@ -22,14 +22,16 @@
     {{-- form add guru --}}
     <div class="card-bodyform">
         <h4 class="card-title">ADD KERAWANAN</h4>
+
         <form class="forms-sample" action="/walas/peta-kerawanan/add" method="POST">
+
             {{ csrf_field() }}
             <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="walas_id">
                     <option disabled selected>Pilih Nama Wali Kelas</option>
-                    @foreach ($getwalas as $item)
-                    <option value="{{ $item->user_id }}">
-                        {{ $item->name_guru }}
+                    @foreach ($getWalas as $get)
+                        <option value="{{ $get->user_id }}">
+                            {{ $get->name_guru }}
                         </option>
                     @endforeach
                 </select>
@@ -37,21 +39,42 @@
             <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="murid_id">
                     <option disabled selected>Pilih Nama Murid</option>
-                    @foreach ($getmurid as $item)
-                    <option value="{{ $item->user_id }}">
-                        {{ $item->name }}
-                        </option>
+                    @foreach ($getkerawanan as $get)
+                        @foreach ($get->murids as $item)
+                            <option value="{{ $item->user_id }}">
+                                {{ $item->name }}
+                            </option>
+                        @endforeach
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label for="exampleInputUsername1">Jenis Kerawanan</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tawuran"
-                    name="jenis_kewaranan">
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="kerawanan_id">
+                    <option disabled selected>Jenis Kerawanan</option>
+
+                    @foreach ($getJenisKerawanan as $item)
+                        <option value="{{ $item->id }}">
+                            {{ $item->jenis_kerawanan }}
+                        </option>
+                    @endforeach
+
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="gurubk_id">
+                    <option disabled selected>Pilih Guru Bk</option>
+                    @foreach ($getGurubk as $get)
+                        <option value="{{ $get->user_id }}">
+                            {{ $get->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
             <button class="btn btn-primary mr-2"> Submit </button>
             <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
+
         </form>
+
     </div>
 
     <div class="card-body" id="tableguru" style="background-color: white">
@@ -63,8 +86,9 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Nama Walas</th>
                         <th>Nama Murid</th>
+                        <th>Nama Walas</th>
+                        <th>Nama Guru Bimbingan</th>
                         <th>Jenis_kerawanan</th>
                         <th>Action</th>
                     </tr>
@@ -88,17 +112,26 @@
                                 @endif
                             </td>
                             <td>
-                                {{ $get->jenis_kewaranan }}
+
+                                @foreach ($getGurubk as $ss)
+                                    {{ $ss->name }}
+                                @endforeach
+
+                            </td>
+                            <td>
+                                @foreach ($get->jenis_kerawanan as $item)
+                                    {{ $item->jenis_kerawanan }}
+                                @endforeach
                             </td>
                             <td>
                                 <a href="/walas/peta-kerawanan/details/{{ $get->id }}">
                                     <label class="badge badge-primary">Details</label>
-                                <a href="/walas/peta-kerawanan/get/{{ $get->id }}">
-                                    <label class="badge badge-success">Edit</label>
-                                </a>
-                                <a href="/walas/peta-kerawanan/delete/{{$get->id}}">
-                                    <label class="badge badge-danger">Delete</label>
-                                </a>
+                                    <a href="/walas/peta-kerawanan/get/{{ $get->id }}">
+                                        <label class="badge badge-success">Edit</label>
+                                    </a>
+                                    <a href="/walas/peta-kerawanan/delete/{{ $get->id }}">
+                                        <label class="badge badge-danger">Delete</label>
+                                    </a>
                             </td>
                         </tr>
                     @endforeach

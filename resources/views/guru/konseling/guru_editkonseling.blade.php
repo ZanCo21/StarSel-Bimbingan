@@ -28,7 +28,7 @@
             <div class="form-group">
                 <Label>Pilih Murid</Label>
                 <select class="form-control form-control-lg" id="murid_id" name="murid_id">
-                    <option value="{{ $getetkonsulpribadi->id }}">{{ $getetkonsulpribadi->murid->name }}</option>
+                    <option value="{{ $getetkonsulpribadi->id }}">{{ $getetkonsulpribadi->murids->name }}</option>
                 </select>
             </div>
             <div class="form-group">
