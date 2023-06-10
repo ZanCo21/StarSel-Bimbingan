@@ -11,11 +11,11 @@
                     <p class="m-0 pr-3">Dashboard</p>
                 </a>
                 <a class="pl-3 mr-4" href="#">
-                    <p class="m-0">GURU-KONSULTASI</p>
+                    <p class="m-0">GURU-KONSULTASI SOSIAL</p>
                 </a>
             </div>
-            <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                <i class="mdi mdi-plus-circle"></i> Add Konsultais </button>
+            {{-- <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
+                <i class="mdi mdi-plus-circle"></i> Add Konsultais </button> --}}
         </div>
     </div>
 
@@ -48,7 +48,8 @@
             </div>
             <div class='form-group'>
                 <p>Murid</p>
-                <select class="js-example-basic-multiple" id="multiplemurid" multiple="multiple" style="width: 100%;" name="murid_id[]">
+                <select class="js-example-basic-multiple" id="multiplemurid" multiple="multiple" style="width: 100%;"
+                    name="murid_id[]">
                     <option value=""></option>
                 </select>
             </div>
@@ -85,7 +86,7 @@
     </div>
     {{-- end kelas --}}
     <div class="card-body" id="tableguru" style="background-color: white">
-        <h4 class="card-title">New Data Bimbingan Pribadi</h4>
+        <h4 class="card-title">Data Bimbingan Sosial</h4>
         <p class="card-description"> Data <code>.Konsultasi</code>
         </p>
         <div class="table-responsive">
@@ -101,40 +102,105 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($getkonsul as $item)
+                    @foreach ($getkonsul as $item)
+                    @if ($item->hasil_konseling == null)
+                        <tr>
+                            <td class="py-1">
+                                {{ $item->id }}
+                            </td>
+                            <td>
+                                {{ $item->murid->name }}
+                            </td>
+                            <td>
+                                {{ $item->tema }}
+                            </td>
+                            <td>
+                                @if ($item->status == 'pending')
+                                    <span class="badge badge-warning">{{ $item->status }}</span>
+                                @else
+                                    <span class="badge badge-success">{{ $item->status }}</span>
+                                @endif
+                            </td>
+                            <td>
+                                {{ $item->created_at }}
+                            </td>
+                            <td>
+                                <a href="">
+                                    <label class="badge badge-warning">Detail</label>
+                                </a>
+                                <a href="/guru/konseling/getbimbingansosial/{{ $item->id }}">
+                                    <label class="badge badge-success">Input Hasil</label>
+                                </a>
+                                <a href="/guru/konsul/getkonsul/{{ $item->id }}">
+                                    <label class="badge badge-primary">Edit</label>
+                                </a>
+                                <a href="/admin/konsul/delete/{{ $item->id }}">
+                                    <label class="badge badge-danger">Delete</label>
+                                </a>
+                            </td>
+                        </tr>
+                        @else
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-body" id="tableguru" style="background-color: white; margin-top: 3%; margin-bottom: 3%;">
+        <h4 class="card-title">Bimbingan Sosial <br> .counseling results</h4>
+        <p class="card-description"> Data <code>.counseling results</code>
+        </p>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td class="py-1">
-                            {{ $item->id }}
-                        </td>
-                        <td>
-                            {{ $item->murid->name }}
-                        </td>
-                        <td>
-                            {{ $item->tema }}
-                        </td>
-                        <td>
-                            @if ($item->status == 'pending')
-                            <span class="badge badge-warning">{{ $item->status }}</span>
-                            @else
-                            <span class="badge badge-success">{{ $item->status }}</span>
-                            @endif
-                        </td>
-                        <td>
-                            {{ $item->created_at }}
-                        </td>
-                        <td>
-                            <a href="">
-                                <label class="badge badge-warning">Detail</label>
-                            </a>
-                            <a href="/guru/konsul/getkonsul/{{ $item->id }}">
-                                <label class="badge badge-success">Edit</label>
-                            </a>
-                            <a href="/admin/konsul/delete/{{ $item->id }}">
-                                <label class="badge badge-danger">Delete</label>
-                            </a>
-                        </td>
+                        <th>Id</th>
+                        <th>Murid</th>
+                        <th>Tema</th>
+                        <th>Status</th>
+                        <th>Hasil konseling</th>
+                        <th>Created</th>
+                        <th>Action</th>
                     </tr>
-                    @endforeach --}}
+                </thead>
+                <tbody>
+                    @foreach ($getkonsul as $item)
+                        @if ($item->hasil_konseling == null)
+                        @else
+                            <tr>
+                                <td class="py-1">
+                                    {{ $item->id }}
+                                </td>
+                                <td>
+                                    {{ $item->murid->name }}
+                                </td>
+                                <td>
+                                    {{ $item->tema }}
+                                </td>
+                                <td>
+                                    @if ($item->status == 'pending')
+                                        <span class="badge badge-warning">{{ $item->status }}</span>
+                                    @else
+                                        <span class="badge badge-success">{{ $item->status }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $item->created_at }}
+                                </td>
+                                <td>
+                                    {{ $item->hasil_konseling }}
+                                </td>
+                                <td>
+                                    <a href="">
+                                        <label class="badge badge-warning">Detail</label>
+                                    </a>
+                                    <a href="/admin/konsul/delete/{{ $item->id }}">
+                                        <label class="badge badge-danger">Delete</label>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -148,32 +214,32 @@
         });
 
         $("#multiplemurid").change(function() {
-                var idmhs = $("#multiplemurid").val();
+            var idmhs = $("#multiplemurid").val();
 
-                $("#multiplemurid").attr("multiple", "multiple");
-                $.get("{{ url('ngampumk') }}/" + idmhs, function(data) {
-                    $('#multiplemurid').html(data);
-                });
-                $("#selectmk").select2({
-                    placeholder: 'Pilih Matakuliah',
-                    allowClear: true,
-                    ajax: {
-                        url: "{{ url('selectmk') }}" +'/'+ idmhs,
-                        processResults: function({
-                            data
-                        }) {
-                            return {
-                                results: $.map(data, function(item) {
-                                    return {
-                                        id: item.id,
-                                        text: item.nama_matakuliah
-                                    }
-                                })
-                            }
+            $("#multiplemurid").attr("multiple", "multiple");
+            $.get("{{ url('ngampumk') }}/" + idmhs, function(data) {
+                $('#multiplemurid').html(data);
+            });
+            $("#selectmk").select2({
+                placeholder: 'Pilih Matakuliah',
+                allowClear: true,
+                ajax: {
+                    url: "{{ url('selectmk') }}" + '/' + idmhs,
+                    processResults: function({
+                        data
+                    }) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    id: item.id,
+                                    text: item.nama_matakuliah
+                                }
+                            })
                         }
                     }
-                });
+                }
             });
+        });
 
         // Ambil elemen dengan ID
         const openPopupButton = document.getElementById('openPopup');

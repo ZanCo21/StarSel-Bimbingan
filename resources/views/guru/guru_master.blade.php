@@ -69,7 +69,7 @@
                 <div class="select-menu">
                     <div class="select-btn">
                         <i class="mdi mdi-compass-outline menu-icon" style="font-size: 22px; pa"></i>
-                        <span class="sBtn-text menu-title">Select your option</span>
+                        <span class="sBtn-text menu-title">Bimbingan</span>
                         <i class="bx bx-chevron-down "></i>
                     </div>
                     <ul class="options">
@@ -87,7 +87,9 @@
                         </li>
                         <li class="option">
                             <i class="bx bxl-linkedin-square" style="color: #0E76A8;"></i>
-                            <span class="option-text">Bimbingan Karir</span>
+                            <a href="/guru/konseling/bimbingankarir">
+                                <span class="option-text">Bimbingan Karir</span>
+                            </a>
                         </li>
                         <li class="option">
                             <i class="bx bxl-facebook-circle" style="color: #4267B2;"></i>
@@ -95,29 +97,6 @@
                         </li>
                     </ul>
                 </div>
-                {{-- <li class="nav-item">
-                    <a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                      <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-                      <span class="menu-title">Bimbingan</span>
-                      <i class="menu-arrow" style="color: black"></i>
-                    </a>
-                    <div class="collapse" id="ui-basic" style="">
-                      <ul class="nav flex-column sub-menu">
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{url('/guru/konseling/bimbinganpribadi')}}">Bimbingan Pribadi</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="/guru/konseling/bimbingansosial ">Bimbingan Sosial</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="">Bimbingan Karir</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Bimbingan Belajar</a>
-                          </li>
-                      </ul>
-                    </div>
-                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/guru/konseling')}}">
                         <i class="mdi mdi-account-multiple-plus menu-icon"></i>

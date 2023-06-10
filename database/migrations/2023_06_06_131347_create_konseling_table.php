@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('tempat')->nullable();
             $table->string('hasil_konseling')->nullable();
             $table->string('kesimpulan')->nullable();
-            $table->enum('status', ['pending', 'accept']);
+            $table->enum('status', ['reschedule','pending','accept', 'complete']);
 
             $table->foreign('guru_id')->references('user_id')->on('gurubk')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('layanan_id')->references('id')->on('layanans')->onDelete('cascade')->onUpdate('cascade');

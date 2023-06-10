@@ -35,7 +35,7 @@
             <h4 class="card-title" style="color: blue">Konsultsi Pribadi</h4>
             <form class="forms-sample" action="/guru/konsultais/add" method="POST">
                 {{ csrf_field() }}
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <Label>Pilih Layanan</Label>
                     <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="layanan_id">
                         <option disabled>Pilih Layanan</option>
@@ -43,6 +43,12 @@
                             <option value="{{ $item->id }}">{{ $item->jenis_layanan }}</option>
                         @endforeach
                     </select>
+                </div> --}}
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="Tema" name="layanan_id" value="4">
+                </div>
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="status" name="status" value="accept">
                 </div>
                 <div class="form-group">
                     <Label>Pilih Kelas</Label>
@@ -92,10 +98,9 @@
         {{-- form add fomsos --}}
         <div id="form-sosial" class="card-bodyform" style="display: none;">
             <h4 class="card-title" style="color: green">Konsultasi Sosial</h4>
-            <p class="card-description">Basic form layout</p>
             <form class="forms-sample" action="/guru/konsultais/add" method="POST">
                 {{ csrf_field() }}
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <Label>Pilih Layanan</Label>
                     <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="layanan_id">
                         <option disabled>Pilih Layanan</option>
@@ -103,13 +108,16 @@
                             <option value="{{ $item->id }}">{{ $item->jenis_layanan }}</option>
                         @endforeach
                     </select>
+                </div> --}}
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="Tema" name="layanan_id" value="3">
                 </div>
                 <div class="form-group">
                     <Label>Pilih Kelas</Label>
-                    <select class="form-control form-control-lg" id="kelas_id">
+                    <select class="form-control form-control-lg" id="kelas_idsos">
                         <option disabled selected>Pilih Kelas</option>
                         @foreach ($getkelas as $item)
-                            <option value="{{ $item->id }}" walas="{{ $item->walas_id }}">
+                            <option style="color: red;" value="{{ $item->id }}" walas="{{ $item->walas_id }}">
                                 {{ $item->tingkat_kelas }}
                                 {{ $item->jurusan }}</option>
                         @endforeach
@@ -117,12 +125,12 @@
                 </div>
                 <div class="form-group">
                     <Label>Pilih Murid</Label>
-                    <select class="form-control form-control-lg" id="murid_id" name="murid_id">
+                    <select class="form-control form-control-lg" id="murid_idsos" name="murid_id">
                         <option disabled>Pilih Murid</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="hidden" class="form-control" id="walas_id" name="walas_id"
+                    <input type="hidden" class="form-control" id="walas_idsos" name="walas_id"
                         placeholder="ini untuk menangkap walas_id " value="">
                 </div>
                 <div class="form-group">
@@ -194,7 +202,7 @@
                                         <label class="badge badge-warning">Detail</label>
                                     </a>
                                     <a href="/guru/konsul/getkonsul/{{ $item->id }}">
-                                        <label class="badge badge-success">Edit</label>
+                                        <label class="badge badge-primary">Edit</label>
                                     </a>
                                     <a href="/admin/konsul/delete/{{ $item->id }}">
                                         <label class="badge badge-danger">Delete</label>
@@ -208,6 +216,47 @@
         </div>
 
         <script>
+                    $(document).ready(function() {
+                $('#kelas_idsos').change(function() {
+                    var kelas = $(this).val();
+
+                    $.ajax({
+                        url: '/guru/getmurid/' + kelas,
+                        type: 'GET',
+                        success: function(response) {
+                            var muridSelect = $('#murid_idsos');
+                            muridSelect.empty();
+
+                            $.each(response, function(key, value) {
+                                muridSelect.append('<option value="' + value.user_id +
+                                    '">' + value.name + '</option>');
+                            });
+                        }
+                    });
+                });
+            });
+
+
+            $(document).ready(function() {
+                $('#kelas_idsos').on('change', function() {
+                    var selectedOption = $(this).find('option:selected');
+                    var walasId = selectedOption.attr('walas');
+
+                    // Set value pada input hidden dengan nama walas_id
+                    $('#walas_idsos').val(walasId);
+                });
+            });
+
+            $(document).ready(function() {
+                $('#murid_id').on('change', function() {
+                    var muridid = $(this).val();
+
+
+                    // Set value pada input hidden dengan nama walas_id
+                    $('#muridhidden').val(muridid);
+                });
+            });
+
             // ini buat menghilangkan div tapi masih error
             function formPribadi() {
                 var fp = document.getElementById('form-pribadi');

@@ -51,7 +51,7 @@ class GurubkController extends Controller
          'walas_id' => $request->input('walas_id'),
          'tema' => $request->input('tema'),
          'keluhan' => $request->input('keluhan'),
-         'status' => 'pending',
+         'status' => $request->input('status'),
          'tanggal_konseling' => $request->input('tanggal_konseling'),
          'tempat' => $request->input('tempat'),
       ]);
@@ -109,22 +109,44 @@ class GurubkController extends Controller
 
    public function getmuridbimbinganpribadi($id)
    {
+      $getkonsul = Konseling::find($id);
       $id = 4;
       $getkonsultable = Konseling::where('layanan_id', $id)->get();
-      $getkonsul = Konseling::find($id);
 
       return view('guru.bimbingan.bimbingan_pribadi.guru_editbimbingan_pribadi', compact('getkonsul', 'getkonsultable'));
    }
-
+   
    public function updatebimbingan_pribadi(Request $request, $id)
    {
-      $id = 4;
-      $getkonsul = Konseling::where('layanan_id', $id)->get();
-      $updatekelas = Konseling::find($id);
-      $updatekelas->update($request->all());
-
-      return view('guru.bimbingan.bimbingan_pribadi.guru_bimbingan_pribadi', compact('getkonsul'));
+       $request->validate([
+           'hasil_konseling' => 'required',
+       ]);
+   
+       $updatepribadi = Konseling::find($id);
+   
+       $updatepribadi->hasil_konseling = $request->hasil_konseling;
+       $updatepribadi->status = 'complete';
+       $updatepribadi->save();
+   
+       $id = 4;
+       $getkonsul = Konseling::where('layanan_id', $id)->get();
+       return redirect('/guru/konseling/bimbinganpribadi');
    }
+
+   public function updatebimbingan_pribadi_pending(Request $request, $id)
+   {
+   
+       $updatepribadi = Konseling::find($id);
+   
+       $updatepribadi->tanggal_konseling = $request->hasil_konseling;
+       $updatepribadi->status = 'complete';
+       $updatepribadi->save();
+   
+       $id = 4;
+       $getkonsul = Konseling::where('layanan_id', $id)->get();
+       return redirect('/guru/konseling/bimbinganpribadi');
+   }
+   
 
    public function createpeta(Request $request)
    {
@@ -176,12 +198,46 @@ class GurubkController extends Controller
 
       return redirect('/guru/konseling/bimbinganpribadi');
    }
+
+
+
+
+
    // guru bimbingan sosial
+      public function updatebimbingan_sosial(Request $request, $id)
+   {
+      $request->validate([
+         'hasil_konseling' => 'required',
+     ]);
+ 
+     $updatepribadi = Konseling::find($id);
+ 
+     $updatepribadi->hasil_konseling = $request->hasil_konseling;
+     $updatepribadi->status = 'accept';
+     $updatepribadi->save();
+ 
+   //   $id = 4;
+   //   $getkonsul = Konseling::where('layanan_id', $id)->get();
+
+      return redirect('/guru/konseling/bimbingansosial');
+   }
+
+   public function getmuridbimbingansosial($id)
+   {
+      $getkonsul = Konseling::find($id);
+      // $id = 4;
+      // $getkonsultable = Konseling::where('layanan_id', $id)->get();
+
+      return view('guru.bimbingan.bimbingan_sosial.guru_editbimbingan_sosial',compact('getkonsul'));
+   }
+
    public function viewbimbingansosial()
    {
       $getlayanan = Layanan::all();
       $getkelas = Kelas::where('gurubk_id', Auth::id())->get();
-      return view('guru.bimbingan.bimbingan_sosial.guru_bimbingan_sosial', compact('getkelas','getlayanan'));
+      $id = 3;
+      $getkonsul = Konseling::where('layanan_id', $id)->get();
+      return view('guru.bimbingan.bimbingan_sosial.guru_bimbingan_sosial', compact('getkelas','getlayanan','getkonsul'));
    }
 
    public function addbimbingansosial(Request $request)
@@ -221,4 +277,40 @@ class GurubkController extends Controller
      }
    }
    /*  guru bibimngan sosial end */
+
+   // guru bimbingan karir
+   public function karirview()
+   {
+      $id = 2;
+      
+      $getkonsulkarir = Konseling::where('layanan_id', $id)->get();
+
+      return view('guru.bimbingan.bimbingan_karir.guru_bimbingan_karir',compact('getkonsulkarir'));
+   }
+
+   public function getmuridbimbingankarir($id)
+   {
+      $getkonsul = Konseling::find($id);
+      // $id = 4;
+      // $getkonsultable = Konseling::where('layanan_id', $id)->get();
+
+      return view('guru.bimbingan.bimbingan_karir.guru_editbimbingan_karir',compact('getkonsul'));
+   }
+
+   public function updatebimbingan_karir(Request $request, $id)
+   {
+      $request->validate([
+         'tanggal_konseling' => 'required',
+     ]);
+ 
+     $updatepribadi = Konseling::find($id);
+ 
+     $updatepribadi->tanggal_konseling = $request->tanggal_konseling;
+     $updatepribadi->tempat = $request->tempat;
+     $updatepribadi->status = 'accept';
+     $updatepribadi->save();
+ 
+     return redirect('/guru/konseling/bimbingankarir');
+   }
+   // guru bimbingan karir end
 }

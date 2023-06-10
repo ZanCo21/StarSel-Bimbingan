@@ -20,7 +20,7 @@
                 <select class="form-control form-control-lg" id="kelas_id">
                     <option disabled selected>Pilih Kelas</option>
                     @foreach ($getkelas as $item)
-                        <option value="{{ $item->id }}" walas="{{ $item->walas_id }}">{{ $item->tingkat_kelas }}
+                        <option selected value="{{ $item->id }}" walas="{{ $item->walas_id }}">{{ $item->tingkat_kelas }}
                             {{ $item->jurusan }}</option>
                     @endforeach
                 </select>
@@ -28,7 +28,7 @@
             <div class="form-group">
                 <Label>Pilih Murid</Label>
                 <select class="form-control form-control-lg" id="murid_id" name="murid_id">
-                    <option value="{{ $getetkonsulpribadi->id }}">{{ $getetkonsulpribadi->murids->name }}</option>
+                    <option value="{{ $getetkonsulpribadi->murid_id }}">{{ $getetkonsulpribadi->murids->name }}</option>
                 </select>
             </div>
             <div class="form-group">

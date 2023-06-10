@@ -90,6 +90,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="mdi mdi-account-multiple-plus menu-icon"></i>
+                        <span class="menu-title">Bimbingan Karir</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{Route('logout')}}">
                         <i class="mdi mdi-logout menu-icon"></i>
                         <span class="menu-title">Logout</span>

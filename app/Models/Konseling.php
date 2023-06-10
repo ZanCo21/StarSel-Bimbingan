@@ -22,6 +22,7 @@ class Konseling extends Model
         'keluhan',
         'tanggal_konseling',
         'tempat',
+        'status',
         'hasil_konseling',
     ];
 
