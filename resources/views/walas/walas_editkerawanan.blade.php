@@ -19,47 +19,52 @@
         </div>
     </div>
 
-{{-- form --}}
+    {{-- form --}}
     {{-- form edit kelas --}}
     <div class="card-body">
         <h4 class="card-title">Default form</h4>
         <p class="card-description">Basic form layout</p>
-        @foreach ($getkerawanan as $get)
-        <form class="forms-sample" action="/walas/peta-kerawanan/update/{{ $get->id }}" method="POST">
-        @endforeach
-            {{ csrf_field() }}
-            <div class="form-group">
-                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="walas_id">
-                    <option disabled selected>Pilih Nama Wali Kelas</option>
-                    @foreach ($getwalas as $item)
-                    <option value="{{ $item->user_id }}">
-                        {{ $item->name_guru }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="murid_id">
-                    <option disabled selected>Pilih Nama Murid</option>
-                    @foreach ($getmurid as $item)
-                    <option value="{{ $item->user_id }}">
-                        {{ $item->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputUsername1">Jenis Kerawanan</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tawuran"
-                    name="jenis_kewaranan">
-            </div>
-            <button class="btn btn-primary mr-2"> Submit </button>
-            <a href="/walas/peta-kerawanan">
-                <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
-            </a>
+            <form class="forms-sample" action="/walas/peta-kerawanan/update/{{ $getkerawanans->id }}" method="POST">
+        {{ csrf_field() }}
+        <div class="form-group">
+            <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="walas_id">
+                    <option selected value="{{ $getkerawanans->walas_id }}">
+                        {{ $getkerawanans->walass->name_guru }}
+                    </option>
+                
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="murid_id">
+                    <option selected value="{{ $getkerawanans->murid_id }}">
+                        {{ $getkerawanans->murid->name }}
+                    </option>
+              
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="gurubk_id">
+                    <option selected value="{{ $getkerawanans->gurubk_id }}">
+                        {{ $getkerawanans->gurus->name }}
+                    </option>      
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="kerawanan_id">
+                @foreach ($getJenisKerawanan as $item)
+                    <option value="{{ $item->id }}">
+                        {{ $item->jenis_kerawanan }}
+                    </option>
+                @endforeach
+
+            </select>
+        </div>
+        <button class="btn btn-primary mr-2"> Submit </button>
+        <a href="/walas/peta-kerawanan">
+            <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
+        </a>
         </form>
     </div>
     {{-- form add guru end --}}
-{{-- form --}}
-
+    {{-- form --}}
 @endsection

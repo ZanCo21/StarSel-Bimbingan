@@ -34,16 +34,31 @@ class Konseling extends Model
     {
         return $this->belongsTo(Layanan::class, 'layanan_id', 'id');
     }
-    
+    public function layanans()
+    {
+        return $this->hasMany(Layanan::class, 'id', 'layanan_id');
+    }
     public function murid()
+    {
+        return $this->hasMany(Murid::class, 'user_id', 'murid_id');
+    }
+    public function murids()
     {
         return $this->belongsTo(Murid::class, 'murid_id');
     }
 
+    public function walas()
+    {
+        return $this->hasMany(walas::class,'user_id', 'walas_id');
+    }
     public function gurus()
     {
-        return $this->hasMany(Gurubk::class,'user_id');
+        return $this->hasMany(Gurubk::class, 'user_id', 'guru_id');
     }
+    // public function kelass()
+    // {
+    //     return $this->hasMany(kelas::class, 'id', 'walas_id');
+    // }
     
     public function kelas()
     {

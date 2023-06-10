@@ -174,7 +174,7 @@
                                     {{ $item->id }}
                                 </td>
                                 <td>
-                                    {{ $item->murid->name }}
+                                    {{ $item->murids->name }}
                                 </td>
                                 <td>
                                     {{ $item->tema }}

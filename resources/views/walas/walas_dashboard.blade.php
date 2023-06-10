@@ -29,6 +29,9 @@
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Full Name</h6>
                             </div>
+                            {{-- @foreach ($walas as $item)
+                                
+                            @endforeach --}}
                             <div class="col-sm-9 text-secondary">
                                 Kenneth Valdez
                             </div>
@@ -107,8 +110,8 @@
                             {{ $get->id }}
                         </td>
                         <td>
-                            @foreach ($get->murids as $murid)
-                                {{ $murid->name }}
+                            @foreach ($get->murid as $murids)
+                                {{ $murids->name }}
                             @endforeach
                         </td>
                         <td>

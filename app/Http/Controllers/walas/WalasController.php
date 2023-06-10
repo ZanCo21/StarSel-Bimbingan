@@ -8,8 +8,11 @@ use App\Models\Konseling;
 use App\Models\User;
 use App\Models\Murid;
 use App\Models\Kelas;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB as data;
 use App\Models\Kerawanan;
 use App\Http\Controllers\Controller;
+use App\Models\JenisKerawanan;
 use Illuminate\Http\Request;
 
 class WalasController extends Controller
@@ -19,46 +22,92 @@ class WalasController extends Controller
      */
     public function index()
     {
-        $getjadwals = Konseling::whereHas('murids', function ($query) {
+        $loggedInUserId = Auth::id();
+        $kelasWalas = session('kelasWalas');
+        $getjadwals = Konseling::whereHas('murid', function ($query) use ($kelasWalas) {
             $query->whereColumn('murids.user_id', 'konseling.murid_id');
         })
-        ->whereHas('gurus', function ($query) {
-            $query->whereColumn('gurubk.user_id', 'konseling.guru_id');
-        })
-        ->with('gurus','murids')
-        ->get();
-        
+            ->whereHas('walas', function ($query) use ($loggedInUserId) {
+                $query->whereColumn('walas.user_id', 'konseling.walas_id')
+                    ->where('walas.user_id', $loggedInUserId);
+            })
+            ->whereHas('gurus', function ($query) {
+                $query->whereColumn('gurubk.user_id', 'konseling.guru_id');
+            })
+            ->with('walas', 'murid', 'gurus')
+            ->get();
+
         return view('walas.walas_konsultasi', compact('getjadwals'));
     }
 
-    public function maindash() {
-        $getjadwals = Konseling::whereHas('murids', function ($query) {
+    public function maindash()
+    {
+        $loggedInUserId = Auth::id();
+        $kelasWalas = session('kelasWalas');
+        $getjadwals = Konseling::whereHas('murid', function ($query) use ($kelasWalas) {
             $query->whereColumn('murids.user_id', 'konseling.murid_id');
         })
-        ->whereHas('gurus', function ($query) {
-            $query->whereColumn('gurubk.user_id', 'konseling.guru_id');
-        })
-        ->with('gurus','murids')
-        ->get();
-        
+            ->whereHas('walas', function ($query) use ($loggedInUserId) {
+                $query->whereColumn('walas.user_id', 'konseling.walas_id')
+                    ->where('walas.user_id', $loggedInUserId);
+            })
+            ->whereHas('gurus', function ($query) {
+                $query->whereColumn('gurubk.user_id', 'konseling.guru_id');
+            })
+            ->whereHas('layanans', function ($query) {
+                $query->whereColumn('layanans.id', 'konseling.layanan_id');
+            })
+            ->with('walas', 'murid', 'gurus', 'layanans')
+            ->get();
+
         return view('walas.walas_dashboard', compact('getjadwals'));
     }
 
-    public function petakerawanan() {
-        $getmurid = Murid::all();
-        $getwalas = Walas::all();
-        $getkerawanan = Kerawanan::whereHas('murids', function ($query) {
-            $query->whereColumn('murids.user_id', 'peta_kerawanan.murid_id');
-        })
-        ->whereHas('walas', function ($query) {
-            $query->whereColumn('walas.user_id', 'peta_kerawanan.walas_id');
-        })
-        ->with('walas','murids')
-        ->get();
+    public function petakerawanan()
+    {
+        $getJenisKerawanan = JenisKerawanan::all();
+        $loggedInUserId = Auth::id();
 
-        return view('walas.walas_kerawanan', compact('getkerawanan','getmurid','getwalas'));
+        // $getmurids = Murid::where('kelas_id', Auth::id())->get();
+        // $getMurid = Murid::whereHas('kelass', function ($query) use ($loggedInUserId) {
+        //     $query->whereColumn('kelas.id', 'murids.kelas_id')
+        //         ->where('kelas.walas_id', $loggedInUserId);
+        // })
+        //     ->with('kelass')
+        //     ->get();
+
+        $getWalas = Walas::whereHas('kelass', function ($query) use ($loggedInUserId) {
+            $query->whereColumn('kelas.walas_id', 'walas.user_id')
+                ->where('kelas.walas_id', $loggedInUserId);
+        })
+            ->with('kelass')
+            ->get();
+
+        $getGurubk = Gurubk::whereHas('kelass', function ($query) use ($loggedInUserId) {
+            $query->whereColumn('kelas.gurubk_id', 'gurubk.user_id')
+                ->where('kelas.walas_id', $loggedInUserId);
+        })
+            ->with('kelass')
+            ->get();
+
+        $getkerawanan =
+            Kerawanan::whereHas('murids', function ($query) {
+                $query->whereColumn('murids.user_id', 'peta_kerawanan.murid_id');
+            })
+            ->whereHas('walas', function ($query) use ($loggedInUserId) {
+                $query->whereColumn('walas.user_id', 'peta_kerawanan.walas_id')
+                    ->where('walas.user_id', $loggedInUserId);
+            })
+            ->whereHas('jenis_kerawanan', function ($query) {
+                $query->whereColumn('jenis_kerawanan.id', 'peta_kerawanan.kerawanan_id');
+            })
+            ->with('walas', 'murids', 'jenis_kerawanan')
+            ->get();
+
+        return view('walas.walas_kerawanan', compact('getkerawanan', 'getJenisKerawanan', 'getWalas', 'getGurubk'));
     }
-    public function jadwalkonsul(){
+    public function jadwalkonsul()
+    {
         return view('walas.walas_jadwal');
     }
     /**
@@ -87,17 +136,19 @@ class WalasController extends Controller
     // }
     public function create(Request $request)
     {
-       
+
         $request->validate([
+            'gurubk_id' => 'required',
             'walas_id' => 'required',
             'murid_id' => 'required',
-            'jenis_kewaranan' => 'required',
+            'kerawanan_id' => 'required',
         ]);
 
         $user = Kerawanan::create([
+            'gurubk_id' => $request->input('gurubk_id'),
             'walas_id' => $request->input('walas_id'),
             'murid_id' => $request->input('murid_id'),
-            'jenis_kewaranan' => $request->input('jenis_kewaranan'),
+            'kerawanan_id' => $request->input('kerawanan_id'),
         ]);
 
         return redirect('/walas/peta-kerawanan');
@@ -123,18 +174,43 @@ class WalasController extends Controller
      */
     public function edit(string $id)
     {
-        $getmurid = Murid::all();
-        $getwalas = Walas::all();
+        $getJenisKerawanan = JenisKerawanan::all();
+        $loggedInUserId = Auth::id();
+        $getkerawanans = Kerawanan::find($id);
+        $getMurid = Murid::whereHas('kelass', function ($query) use ($loggedInUserId) {
+            $query->whereColumn('kelas.id', 'murids.kelas_id')
+                ->where('kelas.walas_id', $loggedInUserId);
+        })
+            ->with('kelass')
+            ->get();
+
+        $getWalas = Walas::whereHas('kelass', function ($query) use ($loggedInUserId) {
+            $query->whereColumn('kelas.walas_id', 'walas.user_id')
+                ->where('kelas.walas_id', $loggedInUserId);
+        })
+            ->with('kelass')
+            ->get();
+
+        $getGurubk = Gurubk::whereHas('kelass', function ($query) use ($loggedInUserId) {
+            $query->whereColumn('kelas.gurubk_id', 'gurubk.user_id')
+                ->where('kelas.walas_id', $loggedInUserId);
+        })
+            ->with('kelass')
+            ->get();
         $getkerawanan = Kerawanan::whereHas('murids', function ($query) {
             $query->whereColumn('murids.user_id', 'peta_kerawanan.murid_id');
         })
-        ->whereHas('walas', function ($query) {
-            $query->whereColumn('walas.user_id', 'peta_kerawanan.walas_id');
-        })
-        ->with('walas','murids')
-        ->get();
+            ->whereHas('walas', function ($query) use ($loggedInUserId) {
+                $query->whereColumn('walas.user_id', 'peta_kerawanan.walas_id')
+                    ->where('walas.user_id', $loggedInUserId);;
+            })
+            ->whereHas('jenis_kerawanan', function ($query) {
+                $query->whereColumn('jenis_kerawanan.id', 'peta_kerawanan.kerawanan_id');
+            })
+            ->with('walas', 'murids')
+            ->get();
 
-        return view('walas.walas_editkerawanan', compact('getkerawanan','getmurid','getwalas'));
+        return view('walas.walas_editkerawanan', compact('getkerawanan','getMurid', 'getWalas','getGurubk','getJenisKerawanan','getkerawanans'));
     }
 
     /**
@@ -143,14 +219,9 @@ class WalasController extends Controller
     public function update(Request $request, string $id)
     {
         $editkerawanan = Kerawanan::find($id);
-    
-        $dt1 = [
-            'walas_id' => $request->walas_id,
-            'murid_id' => $request->murid_id,
-            'jenis_kewaranan' => $request->jenis_kewaranan,
-        ];
-        $editkerawanan->update($dt1);
-    
+
+        $editkerawanan->update($request->all());
+
         return redirect('/walas/peta-kerawanan');
     }
 

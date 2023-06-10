@@ -31,4 +31,8 @@ class Gurubk extends Model
     {
         return $this->hasMany(Kelas::class);
     }
+    public function kelass()
+    {
+        return $this->hasMany(Kelas::class, 'gurubk_id', 'user_id');
+    }
 }

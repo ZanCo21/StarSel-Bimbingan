@@ -54,8 +54,13 @@
                                 {{ $get->id }}
                             </td>
                             <td>
-                                @foreach ($get->murids as $murid)
-                                    {{ $murid->name }}
+                                @foreach ($get->layanans as $item)
+                                    {{ $item->jenis_layanan }}
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach ($get->murid as $murids)
+                                    {{ $murids->name }}
                                 @endforeach
                             </td>
                             <td>
