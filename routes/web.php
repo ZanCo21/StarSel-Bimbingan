@@ -73,7 +73,7 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:admin']], function () {
     Route::get('/admin/layanan/get/{id}', [AdminController::class, 'editgetlayanan'])->name('getedit_admin_layanan');
     Route::post('/admin/layanan/update/{id}', [AdminController::class, 'updatelayanan']);
     // admin-layanans end
-
+    
     // // admin-bimbingan karir
     // Route::get('/admin/karir', [AdminController::class, 'karirview'])->name('admin_karir');
     // // Route::post('/admin/karir/add', [AdminController::class, 'createkarir'])->name('add_admin_karir');
@@ -81,6 +81,10 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:admin']], function () {
     // // Route::get('/admin/karir/get/{id}', [AdminController::class, 'editgetkarir'])->name('getedit_admin_karir');
     // // Route::post('/admin/karir/update/{id}', [AdminController::class, 'updatekarir']);
     // // admin-karir end
+    Route::get('/exportgurubk', [AdminController::class, 'GuruBkExport']);
+    Route::get('/exportmurid', [AdminController::class, 'MuridExport']);
+    Route::get('/exportwalas', [AdminController::class, 'WalasExport']);
+
 });
 
 Route::group(['middleware' => ['auth', 'RoleMiddleware:guru']], function () {

@@ -3,6 +3,9 @@
     <div class="page-header flex-wrap">
         <div class="header-left">
             <button class="btn btn-primary mb-2 mb-md-0 mr-2"> Create new document </button>
+            <a href="/exportgurubk">
+                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Export documents </button>
+            </a>
             <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Import documents </button>
         </div>
         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">

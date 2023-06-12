@@ -8,11 +8,33 @@ use App\Models\Murid;
 use App\Models\Walas;
 use App\Models\Gurubk;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Layanan;
+
+use App\Exports\GuruBkExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+
+use App\Exports\MuridExport;
+use App\Exports\WalasExport;
+
 
 class AdminController extends Controller
 {
+
+    // export guru bk
+   public function GuruBkExport() {
+    return Excel::download(new GuruBkExport, 'data_pribadi_gurubk.xlsx');
+ }
+
+    // export murod
+   public function MuridExport() {
+    return Excel::download(new MuridExport, 'data_pribadi_murid.xlsx');
+ }
+
+    // export walas
+   public function WalasExport() {
+    return Excel::download(new WalasExport, 'data_pribadi_walas.xlsx');
+ }
 
     //  admin-guru
     public function index()

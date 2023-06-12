@@ -9,13 +9,22 @@ use App\Models\Walas;
 use App\Models\Layanan;
 use App\Models\Kerawanan;
 use App\Models\Konseling;
-use Illuminate\Http\Request;
 use App\Models\JenisKerawanan;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+use App\Exports\GuruBkExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+ 
 class GurubkController extends Controller
 {
+
+   // // export guru bk
+   // public function GuruBkExport() {
+   //    return Excel::download(new GuruBkExport, 'Data.xlsx');
+   // }
 
 
    // guru-jadwal
