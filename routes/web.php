@@ -1,11 +1,16 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\logController;
 use App\Http\Controllers\guru\GurubkController;
 use App\Http\Controllers\walas\WalasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\login\LoginRegisController;
+use App\Http\Controllers\walas\getKerawananController;
+use App\Http\Controllers\walas\getkonsulController;
+use App\Http\Controllers\walas\HasilBimbinganController;
+use App\Http\Controllers\walas\SearchController;
 use App\Models\Gurubk;
 
 /*
@@ -71,7 +76,10 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:admin']], function () {
     Route::get('/admin/layanan/get/{id}', [AdminController::class, 'editgetlayanan'])->name('getedit_admin_layanan');
     Route::post('/admin/layanan/update/{id}', [AdminController::class, 'updatelayanan']);
     // admin-layanans end
-    
+
+    // admin log login
+    Route::get('/admin/log-login', [logController::class, 'authenticated'])->name('admin_log_login');
+
     // // admin-bimbingan karir
     // Route::get('/admin/karir', [AdminController::class, 'karirview'])->name('admin_karir');
     // // Route::post('/admin/karir/add', [AdminController::class, 'createkarir'])->name('add_admin_karir');
@@ -171,9 +179,25 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:walas']], function () {
     Route::get('/walas/dashboard', [WalasController::class, 'maindash'])->name('walas_dashboard');
     Route::get('/walas/jadwal-konsultasi', [WalasController::class, 'jadwalkonsul'])->name('walas_jadwal');
     Route::get('/walas/hasil-konsultasi', [WalasController::class, 'index'])->name('walas_konsultasi');
+    Route::get('/walas/hasil-konsultasi/search', [WalasController::class, 'action'])->name('actions');
     Route::get('/walas/peta-kerawanan', [WalasController::class, 'petakerawanan'])->name('walas_kerawanan');
     Route::get('/walas/peta-kerawanan/get/{id}', [WalasController::class, 'edit'])->name('edit_walas_kerawanan');
     Route::post('/walas/peta-kerawanan/update/{id}', [WalasController::class, 'update']);
     Route::post('/walas/peta-kerawanan/add', [WalasController::class, 'create'])->name('add_walas_kerawanan');
     Route::get('/walas/peta-kerawanan/delete/{id}', [WalasController::class, 'destroy'])->name('delete_walas_kerawanan');
+    Route::get('/walas/peta-kerawanan/search', [SearchController::class, 'actions_kerawanan'])->name('action_kerawanan');
+    Route::get('/walas/jadwal-konsultasi/pending', [SearchController::class, 'pending_view'])->name('walas_konsultasi_pending');
+    Route::get('/walas/jadwal-konsultasi/pending/search', [SearchController::class, 'actions_pending'])->name('action_pending');
+    Route::get('/walas/jadwal-konsultasi/accept', [SearchController::class, 'accept_view'])->name('walas_konsultasi_accept');
+    Route::get('/walas/jadwal-konsultasi/accept/search', [SearchController::class, 'actions_accept'])->name('action_accept');
+    Route::get('/walas/jadwal-konsultasi/complete', [SearchController::class, 'complete_view'])->name('walas_konsultasi_complete');
+    Route::get('/walas/jadwal-konsultasi/complete/search', [SearchController::class, 'actions_complete'])->name('action_complete');
+    Route::get('/walas/jadwal-konsultasi/reschedule', [SearchController::class, 'reschedule_view'])->name('walas_konsultasi_reschedule');
+    Route::get('/walas/jadwal-konsultasi/reschedule/search', [SearchController::class, 'actions_reschedule'])->name('action_reschedule');
+    Route::get('/walas/hasil-bimbingan-sosial', [HasilBimbinganController::class, 'index'])->name('bimbingan_sosial');
+    Route::get('/walas/hasil-bimbingan-sosial/search', [HasilBimbinganController::class, 'actions_hasil'])->name('actions_hasils');
+    Route::get('/walas/hasil-konsultasi/details/{id}', [getkonsulController::class, 'index'])->name('details_konsultasi');
+    Route::get('/walas/hasil-konsultasi/kesimpulan/{id}',[getkonsulController::class, 'bimbingan_kesimpulan'])->name('bimbingan_kesimpulan');
+    Route::post('/walas/hasil-konsultasi/kesimpulan/update/{id}', [getkonsulController::class, 'action_kesimpulan'])->name('bimbingan_kesimpulan_update');
+    Route::get('/walas/peta-kerawanan/details/{userId}', [getKerawananController::class, 'index'])->name('details_kerawanan');
 });

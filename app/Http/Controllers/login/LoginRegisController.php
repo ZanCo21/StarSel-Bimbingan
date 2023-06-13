@@ -5,6 +5,7 @@ namespace App\Http\Controllers\login;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\LoginLog;
 use Illuminate\Support\Facades\Auth;
 
 class LoginRegisController extends Controller
@@ -22,7 +23,11 @@ class LoginRegisController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-
+            LoginLog::create([
+                'user_id' => $user->id,
+                'ip_address' => $request->ip(),
+                'timestamp' => now()
+            ]);
             if ($user->role == 'admin') {
                 return redirect()->route('admin');
             } elseif ($user->role == 'murid') {

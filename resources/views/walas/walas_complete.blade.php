@@ -11,7 +11,7 @@
                     <p class="m-0 pr-3">Dashboard</p>
                 </a>
                 <a class="pl-3 mr-4" href="#">
-                    <p class="m-0">HASIL-KONSULTASI</p>
+                    <p class="m-0">JADWAL-KONSULTASI</p>
                 </a>
             </div>
             {{-- <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
@@ -29,9 +29,9 @@
             <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
         </form>
     </div> --}}
-
     <div class="card-body" id="tableguru" style="background-color: white">
-        <h4 class="card-title">Hasil Konsultasi</h4>
+
+        <h4 class="card-title">Jadwal Konsultasi</h4>
         <p class="card-description"> Data <code>.Konsultasi</code>
         </p>
         <div class="table-responsive">
@@ -41,26 +41,33 @@
                     <tr>
                         <th>id</th>
                         <th>Nama Siswa</th>
-                        <th>Nama Guru</th>
+                        <th>Guru Bimbingan</th>
                         <th>Layanan</th>
                         <th>Status</th>
-                        <th>Di buat</th>
+                        <th>Dibuat</th>
+                        {{-- <th>Tema</th> --}}
+                        {{-- <th>Tempat</th> --}}
+                        {{-- <th>Keluhan</th> --}}
                         <th>Action</th>
+                        {{-- <th>Hasil Konseling</th> --}}
                     </tr>
                 </thead>
                 <tbody>
+
+                   
                 </tbody>
             </table>
         </div>
     </div>
+
     <script>
         $(document).ready(function() {
-    
+
             fetch_customer_data();
-    
+
             function fetch_customer_data(query = '') {
                 $.ajax({
-                    url: "{{ route('actions') }}",
+                    url: "{{ route('action_complete') }}",
                     method: 'GET',
                     data: {
                         query: query
@@ -68,10 +75,11 @@
                     dataType: 'json',
                     success: function(data) {
                         $('tbody').html(data.table_data);
+                        $('#total_records').text(data.total_data);
                     }
                 })
             }
-    
+
             $(document).on('keyup', '#search', function() {
                 var query = $(this).val();
                 fetch_customer_data(query);

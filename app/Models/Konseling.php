@@ -47,7 +47,10 @@ class Konseling extends Model
     {
         return $this->belongsTo(Murid::class, 'murid_id');
     }
-
+    public function guru()
+    {
+        return $this->belongsTo(Gurubk::class, 'guru_id');
+    }
     public function walas()
     {
         return $this->hasMany(walas::class,'user_id', 'walas_id');
@@ -59,10 +62,6 @@ class Konseling extends Model
     public function gurus()
     {
         return $this->hasMany(Gurubk::class, 'user_id', 'guru_id');
-    }
-    public function guru()
-    {
-        return $this->belongsTo(Gurubk::class,'guru_id');
     }
     // public function kelass()
     // {

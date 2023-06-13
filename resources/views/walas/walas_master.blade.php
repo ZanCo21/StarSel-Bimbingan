@@ -22,8 +22,8 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
 </head>
-
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_sidebar.html -->
@@ -77,10 +77,15 @@
                           <a class="nav-link" href="{{ Route('walas_konsultasi') }}">Jadwal</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="pages/ui-features/dropdowns.html">Bimbingan selesai</a>
+                            <a class="nav-link" href="{{ Route('walas_konsultasi_pending') }}">Bimbingan pending</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ Route('walas_konsultasi_accept') }}">Bimbingan accepted</a>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{ Route('walas_konsultasi_complete') }}">Bimbingan selesai</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="pages/ui-features/typography.html">Bimbingan tertunda</a>
+                          <a class="nav-link" href="{{ Route('walas_konsultasi_reschedule') }}">Bimbingan tertunda</a>
                         </li>
                       </ul>
                     </div>
@@ -91,6 +96,12 @@
                         <span class="menu-title">Hasil Konsultasi</span>
                     </a>
                 </li> --}}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ Route('bimbingan_sosial') }}">
+                        <i class="mdi mdi-account-multiple-plus menu-icon"></i>
+                        <span class="menu-title">Bimbingan Belajar</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ Route('walas_kerawanan') }}">
                         <i class="mdi mdi-account-multiple-plus menu-icon"></i>
@@ -312,6 +323,7 @@
         <!-- Custom js for this page -->
         <script src="/assets/js/dashboard/dashboard.js"></script>
         <!-- End custom js for this page -->
+       
 </body>
 
 </html>
