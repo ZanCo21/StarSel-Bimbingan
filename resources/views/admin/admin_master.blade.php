@@ -22,6 +22,11 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 </head>
 
 <body>
@@ -129,7 +134,7 @@
             </div>
             <!-- partial -->
             <!-- partial:partials/_navbar.html -->
-            <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <nav style="z-index: 1" class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
                 <div class="navbar-menu-wrapper d-flex align-items-stretch">
                     <button class="navbar-toggler navbar-toggler align-self-center" type="button"
                         data-toggle="minimize">
@@ -287,6 +292,18 @@
             </div>
             <!-- page-body-wrapper ends -->
         </div>
+        {{-- modal show --}}
+        <script type="text/javascript">
+            // $(document).ready(function() {
+            //     $("#ex1").click(function() {
+            //         var idGuru = $(this).data('user_id');
+            //         alert(idGuru) 
+            //     });
+            // });
+
+            var elementId = $('#ex1 .detail-btn').attr('id');
+            console.log(elementId);
+        </script>
         <!-- container-scroller -->
         <!-- plugins:js -->
         <script src="/assets/js/dashboard/vendor.bundle.base.js"></script>

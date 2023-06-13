@@ -81,9 +81,13 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:admin']], function () {
     // // Route::get('/admin/karir/get/{id}', [AdminController::class, 'editgetkarir'])->name('getedit_admin_karir');
     // // Route::post('/admin/karir/update/{id}', [AdminController::class, 'updatekarir']);
     // // admin-karir end
-    Route::get('/exportgurubk', [AdminController::class, 'GuruBkExport']);
-    Route::get('/exportmurid', [AdminController::class, 'MuridExport']);
-    Route::get('/exportwalas', [AdminController::class, 'WalasExport']);
+    Route::get('/export+gurubk+excel', [AdminController::class, 'GuruBkExportExcel']);
+    Route::get('/export+murid+excel', [AdminController::class, 'MuridExportExcel']);
+    Route::get('/export+walas+excel', [AdminController::class, 'WalasExportExcel']);
+
+    Route::get('/export+gurubk+pdf', [AdminController::class, 'GuruBkExportPdf']);
+    Route::get('/export+murid+pdf', [AdminController::class, 'MuridExportPdf']);
+    Route::get('/export+walas+pdf', [AdminController::class, 'WalasExportPdf']);
 
 });
 

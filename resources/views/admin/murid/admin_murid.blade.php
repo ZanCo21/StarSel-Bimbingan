@@ -2,11 +2,18 @@
 @section('konten')
     <div class="page-header flex-wrap">
         <div class="header-left">
-            <button class="btn btn-primary mb-2 mb-md-0 mr-2"> Create new document </button>
-            <a href="/exportmurid">
-                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Export documents </button>
+            <a href="/export+murid+excel">
+                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Export Excel </button>
             </a>
-            <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Import documents </button>
+            <a href="/export+murid+pdf">
+                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Export Pdf </button>
+            </a>
+            <a href="">
+                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Import Excel </button>
+            </a>
+            <a href="">
+                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Import Pdf </button>
+            </a>
         </div>
         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
             <div class="d-flex align-items-center">

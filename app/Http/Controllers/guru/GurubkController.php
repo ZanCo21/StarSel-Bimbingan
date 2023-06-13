@@ -21,11 +21,6 @@ use Illuminate\Http\Request;
 class GurubkController extends Controller
 {
 
-   // // export guru bk
-   // public function GuruBkExport() {
-   //    return Excel::download(new GuruBkExport, 'Data.xlsx');
-   // }
-
 
    // guru-jadwal
    public function getmuridbykelas($id)

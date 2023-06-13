@@ -37,7 +37,7 @@ class Murid extends Model
     }
     public function walas()
     {
-        return $this->kelas()->belongsTo(Walas::class, 'walas_id');
+        return $this->belongsTo(Walas::class, 'walas_id');
     }
     public function walass()
     {

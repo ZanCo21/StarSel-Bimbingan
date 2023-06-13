@@ -16,24 +16,39 @@ use App\Http\Controllers\Controller;
 
 use App\Exports\MuridExport;
 use App\Exports\WalasExport;
+use App\Http\Controllers\guru\GurubkController;
+
 
 
 class AdminController extends Controller
 {
 
     // export guru bk
-   public function GuruBkExport() {
+   public function GuruBkExportExcel() {
     return Excel::download(new GuruBkExport, 'data_pribadi_gurubk.xlsx');
  }
 
     // export murod
-   public function MuridExport() {
+   public function MuridExportExcel() {
     return Excel::download(new MuridExport, 'data_pribadi_murid.xlsx');
  }
 
     // export walas
-   public function WalasExport() {
+   public function WalasExportExcel() {
     return Excel::download(new WalasExport, 'data_pribadi_walas.xlsx');
+ }
+
+   public function GuruBkExportPdf() {
+    $guru = Gurubk::all();
+    return view('admin.pdf.guru_bk', compact('guru'));
+ }
+   public function MuridExportPdf() {
+    $murid = Murid::all();
+    return view('admin.pdf.murid', compact('murid'));
+ }
+   public function WalasExportPdf() {
+    $walas = Walas::all();
+    return view('admin.pdf.walas', compact('walas'));
  }
 
     //  admin-guru

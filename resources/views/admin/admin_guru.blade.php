@@ -2,11 +2,18 @@
 @section('konten')
     <div class="page-header flex-wrap">
         <div class="header-left">
-            <button class="btn btn-primary mb-2 mb-md-0 mr-2"> Create new document </button>
-            <a href="/exportgurubk">
-                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Export documents </button>
+            <a href="/export+gurubk+excel">
+                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Export Excel </button>
             </a>
-            <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Import documents </button>
+            <a href="/export+gurubk+pdf" target="_blank">
+                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Export Pdf </button>
+            </a>
+            <a href="">
+                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Import Excel </button>
+            </a>
+            <a href="">
+                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Import Pdf </button>
+            </a>
         </div>
         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
             <div class="d-flex align-items-center">
@@ -102,6 +109,8 @@
                                 <a href="/admin/guru/delete/{{$item->user_id}}">
                                     <label class="badge badge-danger">Delete</label>
                                 </a>
+                                
+                                {{-- <p class="badge badge-danger" data-id="<?php echo $item['user_id']; ?>"><a class="detail-btn " href="#ex1" rel="modal:open">DETAIL</a></p> --}}
                             </td>
                         </tr>
                     @endforeach
