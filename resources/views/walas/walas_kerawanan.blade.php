@@ -39,12 +39,10 @@
             <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="murid_id">
                     <option disabled selected>Pilih Nama Murid</option>
-                    @foreach ($getkerawanan as $get)
-                        @foreach ($get->murids as $item)
-                            <option value="{{ $item->user_id }}">
-                                {{ $item->name }}
+                    @foreach ($getMurid as $get)
+                            <option value="{{ $get->user_id }}">
+                                {{ $get->name }}
                             </option>
-                        @endforeach
                     @endforeach
                 </select>
             </div>
@@ -82,64 +80,50 @@
         <p class="card-description"> Data <code>.Konsultasi</code>
         </p>
         <div class="table-responsive">
+            <input type="text" class="form-control" id="search" placeholder="Name" />
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>id</th>
                         <th>Nama Murid</th>
-                        <th>Nama Walas</th>
                         <th>Nama Guru Bimbingan</th>
                         <th>Jenis_kerawanan</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($getkerawanan as $get)
-                        <tr>
-                            <td class="py-1">
-                                {{ $get->id }}
-                            </td>
-                            <td>
-                                @foreach ($get->murids as $murid)
-                                    {{ $murid->name }}
-                                @endforeach
-                            </td>
-                            <td>
-                                @if ($get->walas instanceof Illuminate\Database\Eloquent\Collection)
-                                    @foreach ($get->walas as $ss)
-                                        {{ $ss->name_guru }}
-                                    @endforeach
-                                @endif
-                            </td>
-                            <td>
-
-                                @foreach ($getGurubk as $ss)
-                                    {{ $ss->name }}
-                                @endforeach
-
-                            </td>
-                            <td>
-                                @foreach ($get->jenis_kerawanan as $item)
-                                    {{ $item->jenis_kerawanan }}
-                                @endforeach
-                            </td>
-                            <td>
-                                <a href="/walas/peta-kerawanan/details/{{ $get->id }}">
-                                    <label class="badge badge-primary">Details</label>
-                                    <a href="/walas/peta-kerawanan/get/{{ $get->id }}">
-                                        <label class="badge badge-success">Edit</label>
-                                    </a>
-                                    <a href="/walas/peta-kerawanan/delete/{{ $get->id }}">
-                                        <label class="badge badge-danger">Delete</label>
-                                    </a>
-                            </td>
-                        </tr>
-                    @endforeach
+                   
                 </tbody>
             </table>
         </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
+
+            fetch_customer_data();
+
+            function fetch_customer_data(query = '') {
+                $.ajax({
+                    url: "{{ route('action_kerawanan') }}",
+                    method: 'GET',
+                    data: {
+                        query: query
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        $('tbody').html(data.table_data);
+                        $('#total_records').text(data.total_data);
+                    }
+                })
+            }
+
+            $(document).on('keyup', '#search', function() {
+                var query = $(this).val();
+                fetch_customer_data(query);
+            });
+        });
+    </script>
     <script>
         // Ambil elemen dengan ID
         const openPopupButton = document.getElementById('openPopup');

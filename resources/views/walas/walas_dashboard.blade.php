@@ -12,11 +12,9 @@
                                 class="rounded-circle" width="150"
                                 height="150">
                             <div class="mt-3">
-                                <h4>Bu Sinta Nuralifah</h4>
-                                <p class="text-secondary mb-1">Full Stack Developer</p>
-                                <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                                <button class="btn btn-primary">Follow</button>
-                                <button class="btn btn-outline-primary">Message</button>
+                                <h4>{{ $getwalas->name_guru }}</h4>
+                                <p class="text-secondary mb-1">Wali Kelas</p>
+                                <p class="text-muted font-size-sm">{{ $kelas->tingkat_kelas }} {{ $kelas->jurusan }}</p>
                             </div>
                         </div>
                     </div>
@@ -29,11 +27,8 @@
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Full Name</h6>
                             </div>
-                            {{-- @foreach ($walas as $item)
-                                
-                            @endforeach --}}
                             <div class="col-sm-9 text-secondary">
-                                Kenneth Valdez
+                                {{ $getwalas->name_guru }}
                             </div>
                         </div>
                         <hr>
@@ -42,34 +37,34 @@
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                fip@jukmuh.al
+                                {{ $user->email }}
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Phone</h6>
+                                <h6 class="mb-0">NIP</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                (239) 816-9029
+                                {{ $getwalas->nip }}
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Mobile</h6>
+                                <h6 class="mb-0">Identity</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                (320) 380-4539
+                                {{ $user->role }}
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Address</h6>
+                                <h6 class="mb-0">Account Created</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Bay Area, San Francisco, CA
+                                {{ $getwalas->created_at }}
                             </div>
                         </div>
                         <hr>
@@ -85,61 +80,6 @@
 {{-- end profile --}}
 
 {{-- table --}}
-
-<div class="card-body" id="tableguru" style="background-color: white">
-    <h4 class="card-title">Jadwal Konsultasi</h4>
-    <p class="card-description"> Data <code>.Konsultasi</code>
-    </p>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Nama Siswa</th>
-                    <th>Nama Guru</th>
-                    <th>Tema</th>
-                    <th>Tempat</th>
-                    <th>Keluhan</th>
-                    <th>Hasil Konseling</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($getjadwals as $get)
-                    <tr>
-                        <td class="py-1">
-                            {{ $get->id }}
-                        </td>
-                        <td>
-                            @foreach ($get->murid as $murids)
-                                {{ $murids->name }}
-                            @endforeach
-                        </td>
-                        <td>
-                            @if ($get->gurus instanceof Illuminate\Database\Eloquent\Collection)
-                                @foreach ($get->gurus as $ss)
-                                    {{ $ss->name }}
-                                @endforeach
-                            @endif
-                        </td>
-                        <td>
-                            {{ $get->tema }}
-                        </td>
-                        <td>
-                            {{ $get->tempat }}
-                        </td>
-                        <td>
-                            {{ $get->keluhan }}
-                        </td>
-                        <td>
-                            {{ $get->hasil_konseling }}
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
-
 <script>
     // Ambil elemen dengan ID
     const openPopupButton = document.getElementById('openPopup');

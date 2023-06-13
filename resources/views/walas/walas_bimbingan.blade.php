@@ -11,27 +11,71 @@
                     <p class="m-0 pr-3">Dashboard</p>
                 </a>
                 <a class="pl-3 mr-4" href="#">
-                    <p class="m-0">HASIL-KONSULTASI</p>
+                    <p class="m-0">BIMBINGAN-SOSIAL</p>
                 </a>
             </div>
             {{-- <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                <i class="mdi mdi-plus-circle"></i> Add Konsultais </button> --}}
+                <i class="mdi mdi-plus-circle"></i> Add Kerawanan </button> --}}
         </div>
     </div>
-
     {{-- form add guru --}}
-    {{-- <div class="card-bodyform">
-        <h4 class="card-title">ADD KONSULTASI</h4>
-        <form class="forms-sample" action="/admin/guru/addguru" method="POST">
-            {{ csrf_field() }}
-          
+    <div class="card-bodyform">
+        <h4 class="card-title">ADD KERAWANAN</h4>
+
+        <form class="forms-sample" action="/walas/peta-kerawanan/add" method="POST">
+
+            {{-- {{ csrf_field() }}
+            <div class="form-group">
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="walas_id">
+                    <option disabled selected>Pilih Nama Wali Kelas</option>
+                    @foreach ($getWalas as $get)
+                        <option value="{{ $get->user_id }}">
+                            {{ $get->name_guru }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="murid_id">
+                    <option disabled selected>Pilih Nama Murid</option>
+                    @foreach ($getMurid as $get)
+                            <option value="{{ $get->user_id }}">
+                                {{ $get->name }}
+                            </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="kerawanan_id">
+                    <option disabled selected>Jenis Kerawanan</option>
+
+                    @foreach ($getJenisKerawanan as $item)
+                        <option value="{{ $item->id }}">
+                            {{ $item->jenis_kerawanan }}
+                        </option>
+                    @endforeach
+
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="gurubk_id">
+                    <option disabled selected>Pilih Guru Bk</option>
+                    @foreach ($getGurubk as $get)
+                        <option value="{{ $get->user_id }}">
+                            {{ $get->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
             <button class="btn btn-primary mr-2"> Submit </button>
-            <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
+            <button id="cancle-form" type="button" class="btn btn-light">Cancel</button> --}}
+
         </form>
-    </div> --}}
+
+    </div>
 
     <div class="card-body" id="tableguru" style="background-color: white">
-        <h4 class="card-title">Hasil Konsultasi</h4>
+        <h4 class="card-title">Peta Kerawanan</h4>
         <p class="card-description"> Data <code>.Konsultasi</code>
         </p>
         <div class="table-responsive">
@@ -40,27 +84,29 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Nama Siswa</th>
-                        <th>Nama Guru</th>
-                        <th>Layanan</th>
+                        <th>Nama Murid</th>
+                        <th>Nama Guru Bimbingan</th>
+                        
                         <th>Status</th>
                         <th>Di buat</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                   
                 </tbody>
             </table>
         </div>
     </div>
+
     <script>
         $(document).ready(function() {
-    
+
             fetch_customer_data();
-    
+
             function fetch_customer_data(query = '') {
                 $.ajax({
-                    url: "{{ route('actions') }}",
+                    url: "{{ route('actions_hasils') }}",
                     method: 'GET',
                     data: {
                         query: query
@@ -68,10 +114,11 @@
                     dataType: 'json',
                     success: function(data) {
                         $('tbody').html(data.table_data);
+                        $('#total_records').text(data.total_data);
                     }
                 })
             }
-    
+
             $(document).on('keyup', '#search', function() {
                 var query = $(this).val();
                 fetch_customer_data(query);
