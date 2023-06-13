@@ -11,9 +11,9 @@
                                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
                                     class="rounded-circle" width="150">
                                 <div class="mt-3">
-                                    <h4>John Doe</h4>
-                                    <p class="text-secondary mb-1">Full Stack Developer</p>
-                                    <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                                    <h4>{{ $getadmin->name }}</h4>
+                                    <p class="text-secondary mb-1">{{ $getadmin->role }}</p>
+                                    <p class="text-muted font-size-sm">{{ $getadmin->email }}</p>
                                     <button class="btn btn-primary">Follow</button>
                                     <button class="btn btn-outline-primary">Message</button>
                                 </div>
@@ -29,7 +29,7 @@
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    Kenneth Valdez
+                                    {{ $getadmin->name }}
                                 </div>
                             </div>
                             <hr>
@@ -38,7 +38,7 @@
                                     <h6 class="mb-0">Email</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    fip@jukmuh.al
+                                    {{ $getadmin->email }}
                                 </div>
                             </div>
                             <hr>
@@ -47,7 +47,7 @@
                                     <h6 class="mb-0">Phone</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    (239) 816-9029
+                                    {{-- (239) 816-9029 --}}
                                 </div>
                             </div>
                             <hr>
@@ -56,7 +56,7 @@
                                     <h6 class="mb-0">Mobile</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    (320) 380-4539
+                                    {{-- (320) 380-4539 --}}
                                 </div>
                             </div>
                             <hr>
@@ -65,7 +65,7 @@
                                     <h6 class="mb-0">Address</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    Bay Area, San Francisco, CA
+                                    {{-- Bay Area, San Francisco, CA --}}
                                 </div>
                             </div>
                             <hr>
@@ -79,72 +79,4 @@
                     </div>
                 </div>
 {{-- end profile --}}
-
-{{-- table --}}
-<div style="display: block; width: 100%;">
-    
-    <div class="card-body">
-        <h4 class="card-title">Data Konseling</h4>
-        <p class="card-description">  <code>.table</code>
-        </p>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>VatNo.</th>
-                        <th>Jadwal</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Jacob</td>
-                        <td>53275531</td>
-                        <td>12 May 2017</td>
-                        <td>
-                            <label class="badge badge-success">Accept</label>
-                        </td>
-                        <td>
-                            <label class="badge badge-danger">Detail</label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="card-body">
-        <h4 class="card-title">Data Konseling</h4>
-        <p class="card-description">  <code>.table</code>
-        </p>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>VatNo.</th>
-                        <th>Jadwal</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Jacob</td>
-                        <td>53275531</td>
-                        <td>12 May 2017</td>
-                        <td>
-                            <label class="badge badge-">Panding</label>
-                        </td>
-                        <td>
-                            <label class="badge badge-danger">Detail</label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-            @endsection
+@endsection

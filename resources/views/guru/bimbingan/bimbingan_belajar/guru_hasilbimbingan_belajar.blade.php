@@ -2,9 +2,9 @@
 @section('konten')
     {{-- form add hasil --}}
     <div class="card-body">
-        <h4 class="card-title">Hasil Konseling</h4>
-        <p class="card-description"></p>
-        <form class="forms-sample" action="/konseling/updatebimbingankarir/{{ $getkonsul->id }}" method="POST">
+        <h4 class="card-title">Default form</h4>
+        <p class="card-description">Basic form layout</p>
+        <form class="forms-sample" action="/konseling/updatebimbinganbelajar/{{ $getkonsul->id }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
                 <label>Hasil Konseling</label>
@@ -12,9 +12,7 @@
                     value="" name="hasil_konseling">
             </div>
             <button class="btn btn-primary mr-2"> Submit </button>
-            <a href="/guru/konseling/bimbingankarir">
-                <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
-            </a>
+            <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
         </form>
     </div>
     {{-- end hasil --}}

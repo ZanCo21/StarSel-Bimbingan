@@ -16,5 +16,11 @@ class JenisKerawanan extends Model
     ];
 
     protected $table = 'jenis_kerawanan';
+    protected $primaryKey = 'id';
+
+    public function kerawanan()
+    {
+        return $this->hasMany(Kerawanan::class,'id');
+    }
 
 }

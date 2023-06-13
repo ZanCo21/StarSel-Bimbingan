@@ -35,9 +35,7 @@ Route::get('/login-regis', function () {
 
 
 Route::group(['middleware' => ['auth', 'RoleMiddleware:admin']], function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.admin_dashboard');
-    })->name('admin');
+    Route::get('/admin/dashboard', [AdminController::class, 'admin_dashboard'])->name('admin');
     // admin guru
     Route::get('/admin/guru', [AdminController::class, 'index'])->name('admin_guru');
     Route::post('/admin/guru/update/{id}', [AdminController::class, 'updateguru']);
@@ -92,11 +90,16 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:admin']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'RoleMiddleware:guru']], function () {
-    Route::get('/guru/dashboard', function () {
-        return view('guru.guru_dashboard');
-    })->name('guru_dashboard');
+    // Route::get('/guru/dashboard', function () {
+    //     return view('guru.guru_dashboard');
+    // })->name('guru_dashboard');
+
+    Route::get('/guru/dashboard', [GurubkController::class, 'viewdashboardguru'])->name('guru_dashboard');
+
 
     // guru-konsultasi
+    Route::get('/guru/konsul/delete/{id}', [GurubkController::class, 'destroykonseling'])->name('delete_karir');
+
     Route::get('/guru/konseling', [GurubkController::class, 'index'])->name('guru_konsultasi');
     Route::get('/guru/getmurid/{id}', [GurubkController::class, 'getmuridbykelas'])->name('guru_konsultasi');
     Route::post('/guru/konsultais/add', [GurubkController::class, 'createkonsultasi'])->name('add_guru_konsultais');
@@ -104,6 +107,7 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:guru']], function () {
     Route::get('/guru/konsul/getkonsul/{id}', [GurubkController::class, 'getkonsul'])->name('guru_konsultasi');
     Route::post('/guru/konsul/update/{id}', [GurubkController::class, 'updatekonsul']);
     // guru-konsultasi
+
     // guru-bimbingan pribadi
     Route::get('/guru/konseling/bimbinganpribadi', [GurubkController::class, 'viewbimbinganpribadi'])->name('guru_konsultasi_viewbimbinganpribadi');
     Route::get('/guru/konseling/getbimbinganpribadi/{id}', [GurubkController::class, 'getmuridbimbinganpribadi'])->name('guru_konsultasi_viewbimbinganpribadi');
@@ -114,22 +118,53 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:guru']], function () {
     Route::get('/guru/peta-kerawanan/get/{id}', [GurubkController::class, 'edit'])->name('edit_guru_kerawanan');
     Route::post('/guru/peta-kerawanan/{id}', [GurubkController::class, 'update_kerawanan_bimbingan_pribadi']);
 
-    Route::post('/konseling/updatebimbinganpribadi-pending/{id}', [GurubkController::class, 'updatebimbingan_pribadi_pending']);
+    Route::get('/guru/bimbinganpribadi/detail/{id}', [GurubkController::class, 'getpribadidetail']);
+    // peetakerawanan
+    Route::get('/guru/petakerawanan/kesimpulan/{id}', [GurubkController::class, 'petakerawanan_kesimpulan'])->name('guru_konsultasi_viewbimbinganpribadi');
+    
+    Route::post('/guru/petakerawanan/addkesimpulan/{murid_id}', [GurubkController::class, 'addpetakerawanan_kesimpulan']);
+
+    Route::post('/konseling/updatebimbinganpribadi-pending/{id}', [GurubkController::class, 'updatebimbinganpribadipending']);
+    Route::get('/guru/konseling/getbimbinganpribadipending/{id}', [GurubkController::class, 'getmuridbimbinganpribadipending'])->name('guru_konsultasi_viewbimbinganpribadi');
+    Route::get('/guru/petakerawanan/detail/{userId}', [GurubkController::class, 'getdetail']);
+
     // guru-bimbingan pribadi end
 
     // guru-bimbingan sosial
+    Route::get('/guru/bimbingansosial/detail/{id}', [GurubkController::class, 'getsosialdetail']);
     Route::post('/konseling/updatebimbingansosial/{id}', [GurubkController::class, 'updatebimbingan_sosial']);
     Route::get('/guru/konseling/bimbingansosial', [GurubkController::class, 'viewbimbingansosial'])->name('guru_konsultasi_viewbimbingansosial');
     Route::get('/guru/konseling/getbimbingansosial/{id}', [GurubkController::class, 'getmuridbimbingansosial'])->name('guru_konsultasi_viewbimbinganpribadi');
     Route::get('/guru/konseling/bimbingansosial/getmurid', [GurubkController::class, 'viewbimbingansosial'])->name('guru_konsultasi_viewbimbingansosial');
     Route::post('/guru/konseling/addbimbingansosial', [GurubkController::class, 'addbimbingansosial'])->name('guru_konsultasi_viewbimbingansosial');
+
+    Route::post('/konseling/updatebimbingansosial-pending/{id}', [GurubkController::class, 'updatebimbingansosialpending']);
+    Route::get('/guru/konseling/getbimbingansosialpending/{id}', [GurubkController::class, 'getmuridbimbingansosialpending'])->name('guru_konsultasi_viewbimbingansosialprending');
     // guru-bimbingan sosial end
 
-        // admin-bimbingan karir
+    // admin-bimbingan karir
+    Route::get('/guru/bimbingankarir/detail/{id}', [GurubkController::class, 'getkarirdetail']);
     Route::get('/guru/konseling/bimbingankarir', [GurubkController::class, 'karirview'])->name('admin_karir');
     Route::get('/guru/konseling/getbimbingankarir/{id}', [GurubkController::class, 'getmuridbimbingankarir'])->name('guru_konsultasi_viewbimbinganpribadi');
+    Route::post('/guru/konseling/addbimbingankarir', [GurubkController::class, 'addbimbingankarir'])->name('guru_konsultasi_viewbimbingansosial');
     Route::post('/konseling/updatebimbingankarir/{id}', [GurubkController::class, 'updatebimbingan_karir']);
+
+    Route::get('/guru/konseling/deletekarir/{id}', [GurubkController::class, 'destroykarir'])->name('delete_karir');
+    Route::post('/konseling/updatebimbingankarir-pending/{id}', [GurubkController::class, 'updatebimbingankarirpending']);
+    Route::get('/guru/konseling/getbimbingankarirpending/{id}', [GurubkController::class, 'getmuridbimbingankarirpending'])->name('guru_konsultasi_viewbimbingansosialprending');
     // admin-karir end
+
+    // admin-bimbingan belajar
+    Route::get('/guru/bimbinganbelajar/detail/{id}', [GurubkController::class, 'getbelajardetail']);
+    Route::get('/guru/konseling/bimbinganbelajar', [GurubkController::class, 'belajarview'])->name('admin_belajar');
+    Route::get('/guru/konseling/getbimbinganbelajar/{id}', [GurubkController::class, 'getmuridbimbinganbelajar'])->name('guru_konsultasi_viewbimbinganpribadi');
+    Route::post('/guru/konseling/addbimbinganbelajar', [GurubkController::class, 'addbimbinganbelajar'])->name('guru_konsultasi_addwbimbinganbelajar');
+    Route::post('/konseling/updatebimbinganbelajar/{id}', [GurubkController::class, 'updatebimbingan_belajar']);
+
+    // Route::get('/guru/konseling/deletekarir/{id}', [GurubkController::class, 'destroykarir'])->name('delete_karir');
+    Route::post('/konseling/updatebimbinganbelajar-pending/{id}', [GurubkController::class, 'updatebimbinganbelajarpending']);
+    Route::get('/guru/konseling/getbimbinganbelajarpending/{id}', [GurubkController::class, 'getmuridbimbinganbelajarpending'])->name('guru_konsultasi_viewbimbinganbelajarprending');
+    // admin-belajar end
 });
 
 Route::group(['middleware' => ['auth', 'RoleMiddleware:walas']], function () {

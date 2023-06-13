@@ -25,7 +25,7 @@
                 </a>
             </div>
             <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                <i class="mdi mdi-plus-circle"></i> Add Kelas </button>
+                <i class="mdi mdi-plus-circle"></i> Add Walas </button>
         </div>
     </div>
 
@@ -44,8 +44,8 @@
                 <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Nip</label>
-                <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Tanggal lahir" name="nip">
+                <label for="exampleInputPassword1">Nipd</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" placeholder="002221" name="nip">
             </div>
             <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">

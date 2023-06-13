@@ -25,7 +25,7 @@
                 </a>
             </div>
             <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                <i class="mdi mdi-plus-circle"></i> Add Kelas </button>
+                <i class="mdi mdi-plus-circle"></i> Add Murid </button>
         </div>
     </div>
 

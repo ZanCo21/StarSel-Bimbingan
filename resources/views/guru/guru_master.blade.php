@@ -20,7 +20,7 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="/assets/css/admin/style.css" />
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="../assets/images/favicon.png" />
+    <link rel="shortcut icon" href="assets/images/logo/profileavatar.png'" />
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
     {{-- jquery --}}
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -29,6 +29,11 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+            <!-- jQuery Modal -->
+            {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> --}}
+
 </head>
 
 <body>
@@ -73,28 +78,30 @@
                         <i class="bx bx-chevron-down "></i>
                     </div>
                     <ul class="options">
+                        <a href="{{url('/guru/konseling/bimbinganpribadi')}}">
                         <li class="option">
                             <i class="bx bxl-github" style="color: #171515;"></i>
-                            <a href="{{url('/guru/konseling/bimbinganpribadi')}}">
                                 <span class="option-text">Bimbingan pribadi</span>
-                            </a>
-                        </li>
+                            </li>
+                        </a>
+                        <a href="/guru/konseling/bimbingansosial">
                         <li class="option">
                             <i class="bx bxl-instagram-alt" style="color: #E1306C;"></i>
-                            <a href="/guru/konseling/bimbingansosial">
                                 <span class="option-text">Bimbingan Sosial</span>
-                            </a>
-                        </li>
+                            </li>
+                        </a>
+                        <a href="/guru/konseling/bimbingankarir">
                         <li class="option">
                             <i class="bx bxl-linkedin-square" style="color: #0E76A8;"></i>
-                            <a href="/guru/konseling/bimbingankarir">
                                 <span class="option-text">Bimbingan Karir</span>
-                            </a>
-                        </li>
-                        <li class="option">
-                            <i class="bx bxl-facebook-circle" style="color: #4267B2;"></i>
-                            <span class="option-text">Bimbingan Belajar</span>
-                        </li>
+                            </li>
+                        </a>
+                        <a href="/guru/konseling/bimbinganbelajar">
+                            <li class="option">
+                                <i class="bx bxl-facebook-circle" style="color: #4267B2;"></i>
+                                <span class="option-text">Bimbingan Belajar</span>
+                            </li>
+                        </a>
                     </ul>
                 </div>
                 <li class="nav-item">
@@ -137,7 +144,7 @@
             </div>
             <!-- partial -->
             <!-- partial:partials/_navbar.html -->
-            <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <nav style="z-index: 1" class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
                 <div class="navbar-menu-wrapper d-flex align-items-stretch">
                     <button class="navbar-toggler navbar-toggler align-self-center" type="button"
                         data-toggle="minimize">
@@ -296,6 +303,7 @@
             <!-- page-body-wrapper ends -->
         </div>
         <!-- container-scroller -->
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
         integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -304,6 +312,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
     </script>
+
 
 <script>
     // select menu di guru master

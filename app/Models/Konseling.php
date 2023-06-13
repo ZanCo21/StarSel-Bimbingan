@@ -52,9 +52,17 @@ class Konseling extends Model
     {
         return $this->hasMany(walas::class,'user_id', 'walas_id');
     }
+    public function walass()
+    {
+        return $this->belongsTo(walas::class,'walas_id');
+    }
     public function gurus()
     {
         return $this->hasMany(Gurubk::class, 'user_id', 'guru_id');
+    }
+    public function guru()
+    {
+        return $this->belongsTo(Gurubk::class,'guru_id');
     }
     // public function kelass()
     // {

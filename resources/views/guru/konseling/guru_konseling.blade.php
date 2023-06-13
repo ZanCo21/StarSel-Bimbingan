@@ -27,7 +27,8 @@
                 Pribadi </button>
             <button type="button" class="btn btn-success"style="margin-right: 2%" onclick="formSosial()"> Bimbingan
                 Sosial </button>
-            <button type="button" class="btn btn-danger"style="margin-right: 2%" onclick="formKarir()"> Bimbingan Karir </button>
+            <button type="button" class="btn btn-danger"style="margin-right: 2%" onclick="formKarir()"> Bimbingan Karir
+            </button>
             <button type="button" class="btn btn-warning" onclick="formBelajar()"> Bimbingan Belajar </button>
             </a>
         </div>
@@ -36,20 +37,13 @@
             <h4 class="card-title" style="color: blue">Konsultsi Pribadi</h4>
             <form class="forms-sample" action="/guru/konsultais/add" method="POST">
                 {{ csrf_field() }}
-                {{-- <div class="form-group">
-                    <Label>Pilih Layanan</Label>
-                    <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="layanan_id">
-                        <option disabled>Pilih Layanan</option>
-                        @foreach ($getlayanan as $item)
-                            <option value="{{ $item->id }}">{{ $item->jenis_layanan }}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
                 <div class="form-group">
-                    <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="Tema" name="layanan_id" value="4">
+                    <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="Tema"
+                        name="layanan_id" value="4">
                 </div>
                 <div class="form-group">
-                    <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="status" name="status" value="accept">
+                    <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="status"
+                        name="status" value="accept">
                 </div>
                 <div class="form-group">
                     <Label>Pilih Kelas</Label>
@@ -75,6 +69,8 @@
                     <label>Tema</label>
                     <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tema" name="tema">
                 </div>
+                <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="Tema" name="status"
+                    value="accept">
                 <div class="form-group">
                     <label>Keluhan</label>
                     <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Keluhan"
@@ -99,39 +95,154 @@
         {{-- form add fomsos --}}
         <div id="form-sosial" class="card-bodyform" style="display: none;">
             <h4 class="card-title" style="color: green">Konsultasi Sosial</h4>
-            <form class="forms-sample" action="/guru/konsultais/add" method="POST">
+            <form class="forms-sample" action="/guru/konseling/addbimbingansosial" method="POST">
                 {{ csrf_field() }}
-                {{-- <div class="form-group">
-                    <Label>Pilih Layanan</Label>
-                    <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="layanan_id">
-                        <option disabled>Pilih Layanan</option>
-                        @foreach ($getlayanan as $item)
-                            <option value="{{ $item->id }}">{{ $item->jenis_layanan }}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
                 <div class="form-group">
-                    <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="Tema" name="layanan_id" value="3">
+                    <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="Tema"
+                        name="layanan_id" value="3">
                 </div>
+                <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="status"
+                    name="status" value="accept">
                 <div class="form-group">
                     <Label>Pilih Kelas</Label>
                     <select class="form-control form-control-lg" id="kelas_idsos">
                         <option disabled selected>Pilih Kelas</option>
                         @foreach ($getkelas as $item)
-                            <option style="color: red;" value="{{ $item->id }}" walas="{{ $item->walas_id }}">
+                            <option style="" value="{{ $item->id }}" walas="{{ $item->walas_id }}">
                                 {{ $item->tingkat_kelas }}
                                 {{ $item->jurusan }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group">
-                    <Label>Pilih Murid</Label>
-                    <select class="form-control form-control-lg" id="murid_idsos" name="murid_id">
-                        <option disabled>Pilih Murid</option>
+                <div class='form-group'>
+                    <p>Murid</p>
+                    <select class="js-example-basic-multiple" id="murid_idsos" multiple="multiple" style="width: 100%;"
+                        name="murid_id[]">
+                        <option value=""></option>
                     </select>
                 </div>
                 <div class="form-group">
                     <input type="hidden" class="form-control" id="walas_idsos" name="walas_id"
+                        placeholder="ini untuk menangkap walas_id " value="">
+                </div>
+                <div class="form-group">
+                    <label>Tema</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tema"
+                        name="tema">
+                </div>
+                <div class="form-group">
+                    <label>Keluhan</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Keluhan"
+                        name="keluhan">
+                </div>
+                <div class="form-group">
+                    <label>Tanggal Konseling</label>
+                    <input type="date" class="form-control" id="exampleInputUsername1" placeholder="tanggal"
+                        name="tanggal_konseling">
+                </div>
+                <div class="form-group">
+                    <label>Tempat</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tempat"
+                        name="tempat">
+                </div>
+                <button class="btn btn-primary mr-2"> Submit </button>
+                <button id="cancle-formm" type="button" class="btn btn-light">Cancel</button>
+            </form>
+        </div>
+        {{-- end kelas --}}
+
+        {{-- form add karir --}}
+        <div id="form-karir" class="card-bodyform" style="display: none;">
+            <h4 class="card-title" style="">Konsultasi Karir</h4>
+            <form class="forms-sample" action="/guru/konseling/addbimbingankarir" method="POST">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="Tema"
+                        name="layanan_id" value="2">
+                </div>
+                <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="status"
+                    name="status" value="accept">
+                <div class="form-group">
+                    <Label>Pilih Kelas</Label>
+                    <select class="form-control form-control-lg" id="kelas_idrir">
+                        <option disabled selected>Pilih Kelas</option>
+                        @foreach ($getkelas as $item)
+                            <option style="" value="{{ $item->id }}" walas="{{ $item->walas_id }}">
+                                {{ $item->tingkat_kelas }}
+                                {{ $item->jurusan }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class='form-group'>
+                    <p>Murid</p>
+                    <select class="js-example-basic-multiple" id="murid_idrir" multiple="multiple" style="width: 100%;"
+                        name="murid_id[]">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="walas_idrir" name="walas_id"
+                        placeholder="ini untuk menangkap walas_id " value="">
+                </div>
+                <div class="form-group">
+                    <label>Tema</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tema"
+                        name="tema">
+                </div>
+                <div class="form-group">
+                    <label>Keluhan</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Keluhan"
+                        name="keluhan">
+                </div>
+                <div class="form-group">
+                    <label>Tanggal Konseling</label>
+                    <input type="date" class="form-control" id="exampleInputUsername1" placeholder="tanggal"
+                        name="tanggal_konseling">
+                </div>
+                <div class="form-group">
+                    <label>Tempat</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tempat"
+                        name="tempat">
+                </div>
+                <button class="btn btn-primary mr-2"> Submit </button>
+                <button id="cancle-formm" type="button" class="btn btn-light">Cancel</button>
+            </form>
+        </div>
+        {{-- end kelas --}}
+
+        {{-- form add belajar --}}
+        <div id="form-belajar" class="card-bodyform" style="display: none;">
+            <h4 class="card-title" style="color: green">Konsultasi Belajar</h4>
+            <form class="forms-sample" action="/guru/konseling/addbimbinganbelajar" method="POST">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="Tema"
+                        name="layanan_id" value="1">
+                </div>
+                <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="status"
+                    name="status" value="accept">
+                <div class="form-group">
+                    <Label>Pilih Kelas</Label>
+                    <select class="form-control form-control-lg" id="kelas_idjar">
+                        <option disabled selected>Pilih Kelas</option>
+                        @foreach ($getkelas as $item)
+                            <option style="" value="{{ $item->id }}" walas="{{ $item->walas_id }}">
+                                {{ $item->tingkat_kelas }}
+                                {{ $item->jurusan }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class='form-group'>
+                    <p>Murid</p>
+                    <div class="form-group">
+                        <Label>Pilih Murid</Label>
+                        <select class="form-control form-control-lg" id="murid_idjar" name="murid_id">
+                            <option disabled>Pilih Murid</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="walas_idjar" name="walas_id"
                         placeholder="ini untuk menangkap walas_id " value="">
                 </div>
                 <div class="form-group">
@@ -205,9 +316,9 @@
                                     <a href="/guru/konsul/getkonsul/{{ $item->id }}">
                                         <label class="badge badge-primary">Edit</label>
                                     </a>
-                                    <a href="/admin/konsul/delete/{{ $item->id }}">
+                                    {{-- <a href="/guru/konsul/delete/{{ $item->id }}">
                                         <label class="badge badge-danger">Delete</label>
-                                    </a>
+                                    </a> --}}
                                 </td>
                             </tr>
                         @endforeach
@@ -217,7 +328,105 @@
         </div>
 
         <script>
-                    $(document).ready(function() {
+            // bimbingan Belajar
+            $(document).ready(function() {
+                $('#kelas_idjar').change(function() {
+                    var kelas = $(this).val();
+
+                    $.ajax({
+                        url: '/guru/getmurid/' + kelas,
+                        type: 'GET',
+                        success: function(response) {
+                            var muridSelect = $('#murid_idjar');
+                            muridSelect.empty();
+
+                            $.each(response, function(key, value) {
+                                muridSelect.append('<option value="' + value.user_id +
+                                    '">' + value.name + '</option>');
+                            });
+                        }
+                    });
+                });
+            });
+
+            $(document).ready(function() {
+                $('#kelas_idjar').on('change', function() {
+                    var selectedOption = $(this).find('option:selected');
+                    var walasId = selectedOption.attr('walas');
+
+                    // Set value pada input hidden dengan nama walas_id
+                    $('#walas_idjar').val(walasId);
+                });
+            });
+
+            $(document).ready(function() {
+                $('#murid_idjar').on('change', function() {
+                    var muridid = $(this).val();
+
+
+                    // Set value pada input hidden dengan nama walas_id
+                    $('#muridhidden').val(muridid);
+                });
+            });
+            // bimbingan belajar end
+
+            // bimbingan karir
+            $(document).ready(function() {
+                $('#murid_idrir').select2({
+                    placeholder: 'Pilih Murid',
+                });
+            });
+
+            // bimbingan karir
+            $(document).ready(function() {
+                $('#kelas_idrir').change(function() {
+                    var kelas = $(this).val();
+
+                    $.ajax({
+                        url: '/guru/getmurid/' + kelas,
+                        type: 'GET',
+                        success: function(response) {
+                            var muridSelect = $('#murid_idrir');
+                            muridSelect.empty();
+
+                            $.each(response, function(key, value) {
+                                muridSelect.append('<option value="' + value.user_id +
+                                    '">' + value.name + '</option>');
+                            });
+                        }
+                    });
+                });
+            });
+
+
+            $(document).ready(function() {
+                $('#kelas_idrir').on('change', function() {
+                    var selectedOption = $(this).find('option:selected');
+                    var walasId = selectedOption.attr('walas');
+
+                    // Set value pada input hidden dengan nama walas_id
+                    $('#walas_idrir').val(walasId);
+                });
+            });
+
+            $(document).ready(function() {
+                $('#murid_idrir').on('change', function() {
+                    var muridid = $(this).val();
+
+
+                    // Set value pada input hidden dengan nama walas_id
+                    $('#muridhidden').val(muridid);
+                });
+            });
+            // bimbingan karir end
+
+            // bimbingan kasos
+            $(document).ready(function() {
+                $('#murid_idsos').select2({
+                    placeholder: 'Pilih Murid',
+                });
+            });
+            $(document).ready(function() {
                 $('#kelas_idsos').change(function() {
                     var kelas = $(this).val();
 
@@ -257,6 +466,7 @@
                     $('#muridhidden').val(muridid);
                 });
             });
+            // bimbingan karir end
 
             // ini buat menghilangkan div tapi masih error
             function formPribadi() {
@@ -265,7 +475,7 @@
                 if (fp.style.display === "none") {
                     fp.style.display = "block";
                     fs.style.display = "none";
-                } 
+                }
             }
 
             function formSosial() {
@@ -274,8 +484,36 @@
                 if (fs.style.display === "none") {
                     fs.style.display = "block";
                     fp.style.display = "none";
-                } 
+                }
             }
+
+
+            function formKarir() {
+                var fs = document.getElementById('form-sosial');
+                var fp = document.getElementById('form-pribadi');
+                var fk = document.getElementById('form-karir');
+                var fb = document.getElementById('form-belajar');
+                if (fk.style.display === "none") {
+                    fs.style.display = "none";
+                    fp.style.display = "none";
+                    fk.style.display = "block";
+                    fb.style.display = "none";
+                }
+            }
+
+            function formBelajar() {
+                var fs = document.getElementById('form-sosial');
+                var fp = document.getElementById('form-pribadi');
+                var fk = document.getElementById('form-karir');
+                var fb = document.getElementById('form-belajar');
+                if (fb.style.display === "none") {
+                    fs.style.display = "none";
+                    fp.style.display = "none";
+                    fk.style.display = "none";
+                    fb.style.display = "block";
+                }
+            }
+
 
             // ini buat menghilangkan table pas klik add konsul
             // Ambil elemen dengan ID
@@ -311,6 +549,7 @@
                 cardBodyy.style.display = 'none';
                 cardtable.style.display = 'block';
             }
+
             function closePopupp() {
                 // Ambil elemen card-body
                 const cardBody = document.querySelector('.card-bodyform');
@@ -330,7 +569,7 @@
             openPopupButton.addEventListener('click', openPopup);
             closePopupButton.addEventListener('click', closePopup);
             closePopupButtonn.addEventListener('click', closePopupp);
-            
+
 
             $(document).ready(function() {
                 $('#kelas_id').change(function() {

@@ -7,15 +7,17 @@ use App\Models\Kelas;
 use App\Models\Murid;
 use App\Models\Walas;
 use App\Models\Gurubk;
-use Illuminate\Http\Request;
 use App\Models\Layanan;
-
-use App\Exports\GuruBkExport;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Controllers\Controller;
-
 use App\Exports\MuridExport;
 use App\Exports\WalasExport;
+
+use Illuminate\Http\Request;
+// use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\GuruBkExport;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\guru\GurubkController;
 
 
@@ -50,11 +52,19 @@ class AdminController extends Controller
     $walas = Walas::all();
     return view('admin.pdf.walas', compact('walas'));
  }
+    public function admin_dashboard()
+    {
+        $dataAdmin = Auth::id();
+        $getadmin = User::where('id', $dataAdmin)->first();
+
+        return view('admin.admin_dashboard', compact('getadmin'));
+    }
 
     //  admin-guru
     public function index()
     {
         $getgurus = Gurubk::all();
+        $dataAdmin = Auth::id();
 
         return view('admin.admin_guru', compact('getgurus'));
     }
