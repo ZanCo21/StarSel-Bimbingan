@@ -2,64 +2,72 @@
 
 namespace App\Http\Controllers\murid;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Murid;
+use App\Models\Walas;
+use App\Models\Gurubk;
+use App\Models\Layanan;
+use App\Models\Konseling;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class MuridController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function profilMurid()
     {
-        //
+        $muridnya = Auth::user();
+        $detailsiswa = User::with('murid')->find($muridnya->id);
+        return view('murid.murid_dashboard', compact('muridnya', 'detailsiswa'));
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function viewKonseling()
     {
-        //
+        $muridId = Auth::id();
+        $loggedUserName = Auth::user()->name;
+
+        $konseling = Konseling::with('layanan', 'murids', 'gurus', 'walas', 'kelas')
+            ->whereHas('murids', function ($query) use ($loggedUserName) {
+                $query->whereHas('user', function ($query) use ($loggedUserName) {
+                    $query->where('name', $loggedUserName);
+                });
+            })
+            ->get();
+        $getlayanan = Layanan::All();
+        $kelasMurid = Murid::with('kelas')->find($muridId);
+
+        return view('murid.konseling.murid_konseling', compact('konseling','getlayanan','kelasMurid','muridId'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function createKonsultasi(Request $request)
     {
-        //
+        $konsultasi = Konseling::create([
+            'layanan_id' => $request->input('layanan_id'),
+            'murid_id' => $request->input('murid_id'),
+            'walas_id' => $request->input('walas_id'),
+            'guru_id' => $request->input('gurubk_id'),
+            'tema' => $request->input('tema'),
+            'keluhan' => $request->input('keluhan'),
+            'status' => 'pending',
+            'tanggal_konseling' => $request->input('tanggal_konseling'),
+            'tempat' => $request->input('tempat'),
+        ]);
+
+        return redirect('/murid/konseling');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function detailKonsultasi($id)
     {
-        //
+        $muridId = Auth::id();
+        $muridnya = Auth::user();
+        // $loggedUserName = Auth::user()->name;
+        $getdetail = Konseling::with('layanan', 'murids', 'gurus', 'walass', 'kelas')->findOrFail($id);
+        $kelasMurid = Murid::with('kelas')->find($muridId);
+        $detailsiswa = User::with('murid')->find($muridnya->id);
+
+        return view('murid.konseling.detail_murid_konseling', compact('getdetail','detailsiswa'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    
 }

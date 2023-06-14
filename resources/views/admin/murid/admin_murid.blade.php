@@ -31,8 +31,8 @@
 
     {{-- form add kelas --}}
     <div class="card-bodyform">
-        <h4 class="card-title">Default form</h4>
-        <p class="card-description">Basic form layout</p>
+        <h4 class="card-title">FORM TAMBAH MURID</h4>
+        <p class="card-description">Tambah Data Murid</p>
         <form class="forms-sample" action="{{ url('/admin/murid/add') }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
@@ -44,17 +44,19 @@
                 <input type="email" class="form-control" id="exampleInputUsername1" placeholder="email" name="email">
             </div>
             <div class="form-group">
-                <label for="exampleInputUsername1">Nipd</label>
+                <label for="exampleInputUsername1">NIPD</label>
                 <input type="number" class="form-control" id="exampleInputUsername1" placeholder="nipd" name="nipd">
             </div>
             <div class="form-group">
+                <label for="exampleInputPassword1">Jenis kelamin</label>
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
                     <option disabled selected>Jenis kelamin</option>
-                    <option value="L">L</option>
-                    <option value="P">P</option>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
                 </select>
             </div>
             <div class="form-group">
+                <label for="exampleInputPassword1">Kelas & jurusan</label>
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="kelas_id">
                     <option disabled selected>Pilih Kelas</option>
                     @foreach ($getkelas as $item)
@@ -68,7 +70,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputUsername1">Password</label>
-                <input type="password" class="form-control" id="exampleInputUsername1" placeholder="password" name="password">
+                <input type="password" class="form-control" id="exampleInputUsername1" placeholder="Password" name="Password">
             </div>
             <button class="btn btn-primary mr-2"> Submit </button>
             <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
@@ -77,19 +79,19 @@
     {{-- end kelas --}}
 
     <div class="card-body" id="tableguru" style="background-color: white">
-        <h4 class="card-title">Table Kelas</h4>
-        <p class="card-description"> Data <code>.Murid</code>
+        <h4 class="card-title">Table Murid</h4>
+        <p class="card-description"> Data<code>Murid</code>
         </p>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>User id</th>
-                        <th>Name</th>
-                        <th>kelas</th>
+                        <th>Id</th>
+                        <th>Nama</th>
+                        <th>Kelas</th>
                         <th>Walas</th>
-                        <th>Nipd</th>
-                        <th>Jenis Kemlamin</th>
+                        <th>NIPD</th>
+                        <th>Jenis Kelamin</th>
                         <th>Tanggal Lahir</th>
                         <th>Action</th>
                     </tr>

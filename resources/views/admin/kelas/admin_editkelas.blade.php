@@ -22,8 +22,8 @@
 {{-- form --}}
     {{-- form edit kelas --}}
     <div class="card-body">
-        <h4 class="card-title">Default form</h4>
-        <p class="card-description">Basic form layout</p>
+        <h4 class="card-title">FORM EDIT KELAS</h4>
+        <p class="card-description">Edit Data Kelas</p>
         <form class="forms-sample" action="/admin/kelas/update/{{ $geteditkelas->id }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
@@ -35,6 +35,7 @@
                 <input type="text" class="form-control" id="exampleInputUsername1" value="{{ $geteditkelas->jurusan }}" name="jurusan">
             </div>
             <div class="form-group">
+                <label for="exampleInputUsername1">Guru BK</label>
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="gurubk_id">
                     <option  disabled >{{ $geteditkelas->gurubk->name }}</option>
                     @foreach ($getgurus as $item)
@@ -43,6 +44,7 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="exampleInputUsername1">Wali Kelas</label>
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="walas_id">
                     <option disabled>{{ $geteditkelas->walas->name_guru }}</option>
                     @foreach ($getwalas as $item)

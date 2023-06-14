@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApiController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Login & Logout\\
+Route::post('/loginApi', [ApiController::class, 'loginApi']);
+// Route::get('/logoutApi', [ApiController::class, 'logoutApi'])->middleware(['auth:sanctum']);
+
+//GET JADWAL AND SHOW JADWAL\\
+Route::get('/jadwal', [ApiController::class, 'jadwal']);
+Route::get('/jadwal/{id}', [ApiController::class, 'detailjadwal']);
+

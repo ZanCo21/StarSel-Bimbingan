@@ -31,7 +31,7 @@ class LoginRegisController extends Controller
             if ($user->role == 'admin') {
                 return redirect()->route('admin');
             } elseif ($user->role == 'murid') {
-                return redirect()->route('user.dashboard');
+                return redirect()->route('murid_dashboard');
             } elseif ($user->role == 'guru') {
                 return redirect()->route('guru_dashboard');
             } elseif ($user->role == 'walas'){

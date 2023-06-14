@@ -23,8 +23,8 @@
 
     {{-- form edit guru --}}
     <div class="card-bodyformedit">
-        <h4 class="card-title">Edit form</h4>
-        <p class="card-description">Layanan</p>
+        <h4 class="card-title">FORM EDIT LAYANAN</h4>
+        <p class="card-description">Edit Data Layanan</p>
         <form class="forms-sample" action="/admin/layanan/update/{{ $geteditlayanan->id }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">

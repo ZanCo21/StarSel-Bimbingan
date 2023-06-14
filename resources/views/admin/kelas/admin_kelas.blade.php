@@ -21,19 +21,20 @@
 
     {{-- form add kelas --}}
     <div class="card-bodyform">
-        <h4 class="card-title">Default form</h4>
-        <p class="card-description">Basic form layout</p>
+        <h4 class="card-title">FORM TAMBAH KELAS</h4>
+        <p class="card-description">Edit Data Kelas</p>
         <form class="forms-sample" action="/admin/addkelas" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="exampleInputUsername1">Tingkat kelas</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username" name="tingkat_kelas">
+                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tingkat Kelas" name="tingkat_kelas">
             </div>
             <div class="form-group">
                 <label for="exampleInputUsername1">Nama jurusan</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Multimedia" name="jurusan">
+                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Nama Jurusan" name="jurusan">
             </div>
             <div class="form-group">
+                <label for="exampleInputUsername1">Guru BK</label>
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="gurubk_id">
                     <option  disabled selected>Pilih Guru BK</option>
                     @foreach ($getgurus as $item)
@@ -42,8 +43,9 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="exampleInputUsername1">Wali Kelas</label>
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="walas_id">
-                    <option disabled selected>Pilih Walas</option>
+                    <option disabled selected>Pilih Wali Kelas</option>
                     @foreach ($getwalas as $item)
                     <option value="{{ $item->user_id }}">{{ $item->name_guru }}</option>
                     @endforeach
@@ -57,17 +59,17 @@
 
     <div class="card-body" id="tableguru" style="background-color: white">
         <h4 class="card-title">Table Kelas</h4>
-        <p class="card-description"> Data <code>.Murid</code>
+        <p class="card-description"> Data<code>Kelas</code>
         </p>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>id</th>
-                        <th>Gurubk</th>
+                        <th>Id</th>
+                        <th>Guru BK</th>
                         <th>Walas</th>
-                        <th>Tingkat kelas</th>
-                        <th>jurusan</th>
+                        <th>Tingkat Kelas</th>
+                        <th>Jurusan</th>
                         <th>Action</th>
                     </tr>
                 </thead>

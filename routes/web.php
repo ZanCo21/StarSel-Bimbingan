@@ -1,17 +1,19 @@
 <?php
 
-use App\Http\Controllers\admin\AdminController;
-use App\Http\Controllers\admin\logController;
-use App\Http\Controllers\guru\GurubkController;
-use App\Http\Controllers\walas\WalasController;
+// use App\Models\Gurubk;
+use App\Models\Gurubk;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
+use App\Http\Controllers\admin\logController;
+use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\guru\GurubkController;
+use App\Http\Controllers\murid\MuridController;
+use App\Http\Controllers\walas\WalasController;
+use App\Http\Controllers\walas\SearchController;
+use App\Http\Controllers\walas\getkonsulController;
 use App\Http\Controllers\login\LoginRegisController;
 use App\Http\Controllers\walas\getKerawananController;
-use App\Http\Controllers\walas\getkonsulController;
 use App\Http\Controllers\walas\HasilBimbinganController;
-use App\Http\Controllers\walas\SearchController;
-use App\Models\Gurubk;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +26,10 @@ use App\Models\Gurubk;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::get('/', function (Request $request) {
+    $cek = Auth::user();
+    //role
+    return view('index', compact('cek'));
 });
 
 
@@ -201,3 +205,29 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:walas']], function () {
     Route::post('/walas/hasil-konsultasi/kesimpulan/update/{id}', [getkonsulController::class, 'action_kesimpulan'])->name('bimbingan_kesimpulan_update');
     Route::get('/walas/peta-kerawanan/details/{userId}', [getKerawananController::class, 'index'])->name('details_kerawanan');
 });
+
+Route::group(['middleware' => ['auth', 'RoleMiddleware:murid']], function () {
+    // ---- DASHBOARD ---- \\
+    Route::get('/murid/dashboard', [MuridController::class, 'profilMurid'])->name('murid_dashboard');
+
+    // VIEW KONSELING
+    Route::get('/murid/konseling', [MuridController::class, 'viewKonseling'])->name('murid_konsultasi');
+    Route::post('/murid/konseling/add', [MuridController::class, 'createKonsultasi'])->name('murid_konsultasi_tambah');
+    Route::get('/murid/konseling/detail/{id}', [MuridController::class, 'detailKonsultasi'])->name('murid_konsultasi_detail');
+
+    //VIEW BIMBINGAN PRIBADI
+    Route::get('/murid/konseling/bimbingan-pribadi', [MuridController::class, 'viewBimbinganPribadi'])->name('murid_bimbingan_pribadi');
+
+    //VIEW BIMBINGAN SOSIAL
+    Route::get('/murid/konseling/bimbingan-sosial', [MuridController::class, 'viewBimbinganSosial'])->name('murid_bimbingan_sosial');
+
+    //VIEW BIMBINGAN KARIR
+    Route::get('/murid/konseling/bimbingan-karir', [MuridController::class, 'viewBimbinganKarir'])->name('murid_bimbingan_karir');
+
+    //VIEW BIMBINGAN BELAJAR
+    Route::get('/murid/konseling/bimbingan-belajar', [MuridController::class, 'viewBimbinganBelajar'])->name('murid_bimbingan_belajar');
+
+    //VIEW PROFIL SISWA
+});
+
+

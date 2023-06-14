@@ -16,7 +16,7 @@
                 </a>
             </div>
             <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                <i class="mdi mdi-plus-circle"></i> Add Konsultais </button>
+                <i class="mdi mdi-plus-circle"></i> Add Konsultasi </button>
         </div>
     </div>
 
@@ -137,7 +137,7 @@
                 </div>
                 <div class="form-group">
                     <label>Tanggal Konseling</label>
-                    <input type="date" class="form-control" id="exampleInputUsername1" placeholder="tanggal"
+                    <input type="datetime-local" class="form-control" id="exampleInputUsername1" placeholder="tanggal"
                         name="tanggal_konseling">
                 </div>
                 <div class="form-group">
@@ -146,7 +146,9 @@
                         name="tempat">
                 </div>
                 <button class="btn btn-primary mr-2"> Submit </button>
-                <button id="cancle-formm" type="button" class="btn btn-light">Cancel</button>
+                <a href="/guru/konseling">
+                    <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
+                </a>
             </form>
         </div>
         {{-- end kelas --}}
@@ -273,7 +275,7 @@
 
         <div class="card-body" id="tableguru" style="background-color: white">
             <h4 class="card-title">New Data Konsultasi</h4>
-            <p class="card-description"> Data <code>.Konsultasi</code>
+            <p class="card-description">Data<code>Konsultasi</code>
             </p>
             <div class="table-responsive">
                 <table class="table table-striped">

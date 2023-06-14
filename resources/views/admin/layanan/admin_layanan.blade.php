@@ -21,8 +21,8 @@
 
     {{-- form add kelas --}}
     <div class="card-bodyform">
-        <h4 class="card-title">Default form</h4>
-        <p class="card-description">Basic form layout</p>
+        <h4 class="card-title">FORM TAMBAH LAYANAN</h4>
+        <p class="card-description">Tambah Data Layanan</p>
         <form class="forms-sample" action="{{ url('/admin/layanan/add') }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
@@ -36,8 +36,8 @@
     {{-- end kelas --}}
 
     <div class="card-body" id="tableguru" style="background-color: white">
-        <h4 class="card-title">Table Kelas</h4>
-        <p class="card-description"> Data <code>.Murid</code>
+        <h4 class="card-title">Table Jenis Layanan</h4>
+        <p class="card-description">Data<code>Jenis Layanan</code>
         </p>
         <div class="table-responsive">
             <table class="table table-striped">

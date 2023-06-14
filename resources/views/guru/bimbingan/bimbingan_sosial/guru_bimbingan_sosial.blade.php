@@ -79,63 +79,20 @@
             </div>
         </div>
 
-        {{-- table pendding --}}
-        <div style="display: block; width: 100%;">
-            <div class="card-bodycoy" style=" margin-bottom: 3%; margin-top: 3%; background-color: white;">
-                <h4 class="card-title">Data Bimbingan Sosial Pendding</h4>
-                <p class="card-description"> <code>.table</code>
-                </p>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Murid</th>
-                                <th>Tema</th>
-                                <th>Status</th>
-                                <th>Tanggal Konseling</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($getkonsul as $item)
-                                @if ($item->status == 'pending')
-                                    @if ($item->guru_id == Auth::id())
-                                        <tr>
-                                            <td class="py-1">
-                                                {{ $item->id }}
-                                            </td>
-                                            <td>
-                                                {{ $item->murids->name }}
-                                            </td>
-                                            <td>
-                                                {{ $item->tema }}
-                                            </td>
-                                            <td>
-                                                <span class="badge badge-danger">{{ $item->status }}</span>
-                                            </td>
-                                            <td>
-                                                {{ $item->tanggal_konseling }}
-                                            </td>
-                                            <td>
-                                                <a href="/guru/bimbingansosial/detail/{{ $item->id }}">
-                                                    <label class="badge badge-warning">Detail</label>
-                                                </a>
-                                                <a href="/guru/konseling/getbimbingansosialpending/{{ $item->id }}">
-                                                    <label class="badge badge-success">Input Response</label>
-                                                </a>
-                                                {{-- <a href="/admin/konsul/delete/{{ $item->id }}">
-                                                    <label class="badge badge-danger">Delete</label>
-                                                </a> --}}
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @else
-                                @endif
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+    {{-- form add kelas --}}
+    <div class="card-bodyform">
+        <h4 class="card-title">FORM</h4>
+        <p class="card-description">Basic form layout</p>
+        <form class="forms-sample" action="{{ url('/guru/konseling/addbimbingansosial') }}" method="POST">
+            {{ csrf_field() }}
+            <div class="form-group">
+                <Label>Pilih Layanan</Label>
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="layanan_id">
+                    <option disabled>Pilih Layanan</option>
+                    @foreach ($getlayanan as $item)
+                        <option value="{{ $item->id }}">{{ $item->jenis_layanan }}</option>
+                    @endforeach
+                </select>
             </div>
 
             {{-- form add kelas --}}

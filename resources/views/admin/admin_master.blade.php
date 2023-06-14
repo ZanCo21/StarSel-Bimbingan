@@ -79,7 +79,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/kelas">
                         <i class="mdi mdi-account-multiple-plus menu-icon"></i>
-                        <span class="menu-title">kelas</span>
+                        <span class="menu-title">Kelas</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -94,14 +94,7 @@
                         <span class="menu-title">Layanan</span>
                     </a>
                 </li>
-<<<<<<< Updated upstream
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="">
-                        <i class="mdi mdi-account-multiple-plus menu-icon"></i>
-                        <span class="menu-title">Bimbingan Karir</span>
-                    </a>
-                </li> --}}
-=======
+
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
                         aria-controls="ui-basic">
@@ -120,7 +113,6 @@
                         </ul>
                     </div>
                 </li>
->>>>>>> Stashed changes
                 <li class="nav-item">
                     <a class="nav-link" href="{{Route('logout')}}">
                         <i class="mdi mdi-logout menu-icon"></i>

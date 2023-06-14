@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Murid;
 use App\Models\Walas;
 use App\Models\Gurubk;
 use Laravel\Sanctum\HasApiTokens;
@@ -57,5 +58,9 @@ class User extends Authenticatable
     public function walas()
     {
         return $this->hasOne(Walas::class, 'user_id','id');
+    }
+    public function murid()
+    {
+        return $this->hasOne(Murid::class, 'user_id','id');
     }
 }

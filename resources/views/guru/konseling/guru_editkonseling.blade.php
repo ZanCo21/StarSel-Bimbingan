@@ -2,8 +2,8 @@
 @section('konten')
     {{-- form add kelas --}}
     <div class="card-bodyform" style="display: block;">
-        <h4 class="card-title">Default form</h4>
-        <p class="card-description">Basic form layout</p>
+        <h4 class="card-title">FORM EDIT KONSULTASI</h4>
+        <p class="card-description">Edit Jadwal Konsultasi</p>
         <form class="forms-sample" action="/guru/konsul/update/{{ $getetkonsulpribadi->id }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
@@ -52,7 +52,9 @@
                 <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tempat" name="tempat" value="{{ $getetkonsulpribadi->tempat }}">
             </div>
             <button class="btn btn-primary mr-2"> Submit </button>
-            <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
+            <a href="/guru/konseling">
+                <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
+            </a>
         </form>
     </div>
     {{-- end kelas --}}

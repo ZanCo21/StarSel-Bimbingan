@@ -22,8 +22,8 @@
 {{-- form --}}
     {{-- form edit kelas --}}
     <div class="card-body">
-        <h4 class="card-title">Default form</h4>
-        <p class="card-description">Basic form layout</p>
+        <h4 class="card-title">FORM EDIT WALAS</h4>
+        <p class="card-description">Edit Data Walas</p>
         <form class="forms-sample" action="/admin/walas/update/{{ $geteditwalas->user_id }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
@@ -35,14 +35,15 @@
                 <input type="text" class="form-control" id="exampleInputUsername1" name="email" value="{{ $getedituser->email }}">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Nipd</label>
+                <label for="exampleInputPassword1">NIP</label>
                 <input type="number" class="form-control" id="exampleInputPassword1" name="nip" value="{{ $geteditwalas->nip }}">
             </div>
             <div class="form-group">
+                <label for="exampleInputPassword1">Jenis kelamin</label>
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
                     <option disabled value="{{ $geteditwalas->jenis_kelamin }}">{{ $geteditwalas->jenis_kelamin }}</option>
-                    <option value="L">L</option>
-                    <option value="P">P</option>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
                 </select>
             </div>
             <button class="btn btn-primary mr-2"> Submit </button>

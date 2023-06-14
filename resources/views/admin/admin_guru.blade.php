@@ -37,8 +37,8 @@
         <form class="forms-sample" action="{{ route('add_admin_guru') }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
-                <label for="exampleInputUsername1">Nama Lengkap</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username" name="name">
+                <label for="exampleInputEmail1">Nama lengkap</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nama lengkap" name="name">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -54,10 +54,11 @@
                 <input type="number" class="form-control" id="exampleInputEmail1" placeholder="000232" name="nip">
             </div>
             <div class="form-group">
+                <label for="exampleInputPassword1">Jenis kelamin</label>
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
                     <option disabled selected>Jenis kelamin</option>
-                    <option value="L">L</option>
-                    <option value="P">P</option>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
                 </select>
             </div>
             <div class="form-group">
@@ -73,16 +74,16 @@
 {{-- form --}}
 
     <div class="card-body" id="tableguru" style="background-color: white">
-        <h4 class="card-title">Striped Table</h4>
-        <p class="card-description"> Add class <code>.table-striped</code>
+        <h4 class="card-title">Table Guru BK</h4>
+        <p class="card-description">Data<code>Guru BK</code>
         </p>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>User id</th>
-                        <th>Name</th>
-                        <th>Jenis_kelamin</th>
+                        <th>Id</th>
+                        <th>Nama Lengkap</th>
+                        <th>Jenis Kelamin</th>
                         <th>Tanggal Lahir</th>
                         <th>Action</th>
                     </tr>

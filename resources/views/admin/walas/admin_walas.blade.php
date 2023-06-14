@@ -31,27 +31,28 @@
 
     {{-- form add kelas --}}
     <div class="card-bodyform">
-        <h4 class="card-title">Default form</h4>
-        <p class="card-description">Basic form layout</p>
+        <h4 class="card-title">FORM TAMBAH WALAS</h4>
+        <p class="card-description">Tambah Data Walas</p>
         <form class="forms-sample" action="/admin/walas/add" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="exampleInputUsername1">Nama Lengkap</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username" name="name">
+                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Nama lengkap" name="name">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Nipd</label>
-                <input type="number" class="form-control" id="exampleInputPassword1" placeholder="002221" name="nip">
+                <label for="exampleInputPassword1">NIP</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Nomor Induk Pegawai" name="nip">
             </div>
             <div class="form-group">
+                <label for="exampleInputPassword1">Jenis kelamin</label>
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
                     <option disabled selected>Jenis kelamin</option>
-                    <option value="L">L</option>
-                    <option value="P">P</option>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
                 </select>
             </div>
             <div class="form-group">
@@ -66,17 +67,18 @@
     {{-- end kelas --}}
 
     <div class="card-body" id="tableguru" style="background-color: white">
-        <h4 class="card-title">Table Kelas</h4>
-        <p class="card-description"> Data <code>.Murid</code>
+        <h4 class="card-title">Table Wali Kelas</h4>
+        <p class="card-description">Data<code>Wali Kelas</code>
         </p>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>User_id</th>
-                        <th>Name_guru</th>
-                        <th>Nipd</th>
+                        <th>Id</th>
+                        <th>Nama Walas</th>
+                        <th>NIP</th>
                         <th>Jenis Kelamin</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

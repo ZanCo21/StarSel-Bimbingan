@@ -29,11 +29,11 @@
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="exampleInputUsername1">Nama Lengkap</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" name="name" value="{{ $geteditguru->name }}">
+                <input type="text" class="form-control" id="" name="name" value="{{ $geteditguru->name }}">
             </div>
             <div class="form-group">
                 <label for="exampleInputUsername1">Email</label>
-                <input type="text" class="form-control" id="exampleInputUsername1" name="email" value="{{ $getedituser->email }}">
+                <input type="email" class="form-control" id="exampleInputUsername1" name="email" value="{{ $getedituser->email }}">
             </div>
             <div class="form-group">
                 <label for="exampleInputUsername1">Nip</label>
@@ -46,8 +46,8 @@
             <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
                     <option disabled>{{ $geteditguru->jenis_kelamin }}</option>
-                    <option value="L">L</option>
-                    <option value="P">P</option>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
                 </select>
             </div>
             <button class="btn btn-primary mr-2"> Submit </button>

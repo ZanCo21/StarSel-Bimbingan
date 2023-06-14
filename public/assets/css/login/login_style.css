@@ -1,0 +1,100 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* overflow: hidden; */
+            overflow-y: hidden; /* Hide vertical scrollbar */
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+            position: fixed;
+            margin: 2%;
+        }
+
+        .container {
+            width: 165%;
+            height: 80vw;
+            display: flex;
+        }
+
+        .group-input {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            margin: 13% 10% 0 3%;
+        }
+
+        .title-input {
+            font-weight: 700;
+            font-size: 2rem;
+        }
+
+        .desk-input {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1%;
+        }
+
+        .inputan {
+            width: 100%;
+            margin: 2% 0;
+            display: flex;
+            align-items: center;
+            background: #FBFBFB;
+            border-radius: 0.8rem;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+
+        .icon {
+            margin: 0 2% 0 4%;
+        }
+
+        .input-field {
+            padding: 0.8rem;
+            border: none;
+            width: 100%;
+            border-radius: 0.8rem;
+            background: #FBFBFB;
+        }
+
+        .input-field:focus {
+            outline: none;
+        }
+
+        .link {
+            font-size: 0.7rem;
+            display: flex;
+            justify-content: end;
+            margin: 1% 0 4%-0;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 2% 6%;    
+            font-weight: 600;
+            border-radius: 0.7rem;
+            border: none;
+            background: linear-gradient(to right,#A1E2FF,#29B6F6);
+            color: whitesmoke;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            cursor: pointer;
+        }
+
+        .group-img {
+            width: 100%;
+        }
+
+        .img-parent {
+            width: 100%;
+            height: 90vh;
+            background: #D1EAF6;
+            border-radius: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }

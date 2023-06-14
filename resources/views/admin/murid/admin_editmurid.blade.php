@@ -23,8 +23,8 @@
 
     {{-- form edit guru --}}
     <div class="card-bodyformedit">
-        <h4 class="card-title">Default form</h4>
-        <p class="card-description">Basic form layout</p>
+        <h4 class="card-title">FORM EDIT MURID</h4>
+        <p class="card-description">Edit Data Murid</p>
         <form class="forms-sample" action="/admin/murid/update/{{ $geteditmurid->user_id }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
@@ -38,11 +38,20 @@
                     value="{{ $getedituser->email }}">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Nipd</label>
+                <label for="exampleInputPassword1">NIPD</label>
                 <input type="number" class="form-control" id="exampleInputPassword1" name="nipd"
                     value="{{ $geteditmurid->nipd }}">
             </div>
             <div class="form-group">
+                <label for="exampleInputPassword1">Jenis kelamin</label>
+                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
+                    <option disabled>{{ $geteditmurid->jenis_kelamin }}</option>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Kelas & jurusan</label>
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="kelas_id">
                     @if ($geteditkelass)
                         <option disabled value="{{ $geteditkelass->kelas_id }}">{{ $geteditkelass->tingkat_kelas }}
@@ -56,14 +65,7 @@
             <div class="form-group">
                 <label for="exampleInputPassword1">Tanggal Lahir</label>
                 <input type="date" class="form-control" id="exampleInputPassword1" name="tgl_lahir"
-                    value="{{ $geteditmurid->tgl_lahir }}">
-            </div>
-            <div class="form-group">
-                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="jenis_kelamin">
-                    <option disabled>{{ $geteditmurid->jenis_kelamin }}</option>
-                    <option value="L">L</option>
-                    <option value="P">P</option>
-                </select>
+                value="{{ $geteditmurid->tgl_lahir }}">
             </div>
             <button class="btn btn-primary mr-2"> Submit </button>
             <a href="/admin/murid">
