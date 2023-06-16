@@ -192,8 +192,8 @@
                         name="tema">
                 </div>
                 <div class="form-group">
-                    <label>Keluhan</label>
-                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Keluhan"
+                    <label>Tujuan</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tujuan"
                         name="keluhan">
                 </div>
                 <div class="form-group">
@@ -253,8 +253,8 @@
                         name="tema">
                 </div>
                 <div class="form-group">
-                    <label>Keluhan</label>
-                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Keluhan"
+                    <label>Tujuan</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Tujuan"
                         name="keluhan">
                 </div>
                 <div class="form-group">
@@ -312,9 +312,9 @@
                                     {{ $item->created_at }}
                                 </td>
                                 <td>
-                                    <a href="">
+                                    {{-- <a href="">
                                         <label class="badge badge-warning">Detail</label>
-                                    </a>
+                                    </a> --}}
                                     <a href="/guru/konsul/getkonsul/{{ $item->id }}">
                                         <label class="badge badge-primary">Edit</label>
                                     </a>

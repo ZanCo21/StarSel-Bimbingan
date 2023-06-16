@@ -14,12 +14,29 @@ use Illuminate\Support\Facades\Auth;
 
 class MuridController extends Controller
 {
+    public function viewKonselingkarir()
+    {
+        $muridId = Auth::id();
+        $loggedUserName = Auth::user()->name;
+
+        $konseling = Konseling::with('layanan', 'murids', 'gurus', 'walas', 'kelas')
+            ->whereHas('murids', function ($query) use ($loggedUserName) {
+                $query->whereHas('user', function ($query) use ($loggedUserName) {
+                    $query->where('name', $loggedUserName);
+                });
+            })
+            ->get();
+        $getlayanan = Layanan::whereIn('id', [1, 3, 4])->get();
+        $kelasMurid = Murid::with('kelas')->find($muridId);
+
+        return view('murid.konseling.murid_add_karir', compact('konseling', 'getlayanan', 'kelasMurid', 'muridId'));
+    }
+
     public function profilMurid()
     {
         $muridnya = Auth::user();
         $detailsiswa = User::with('murid')->find($muridnya->id);
         return view('murid.murid_dashboard', compact('muridnya', 'detailsiswa'));
-
     }
 
     public function viewKonseling()
@@ -34,10 +51,10 @@ class MuridController extends Controller
                 });
             })
             ->get();
-        $getlayanan = Layanan::All();
+        $getlayanan = Layanan::whereIn('id', [1, 3, 4])->get();
         $kelasMurid = Murid::with('kelas')->find($muridId);
 
-        return view('murid.konseling.murid_konseling', compact('konseling','getlayanan','kelasMurid','muridId'));
+        return view('murid.konseling.murid_konseling', compact('konseling', 'getlayanan', 'kelasMurid', 'muridId'));
     }
 
     public function createKonsultasi(Request $request)
@@ -66,8 +83,6 @@ class MuridController extends Controller
         $kelasMurid = Murid::with('kelas')->find($muridId);
         $detailsiswa = User::with('murid')->find($muridnya->id);
 
-        return view('murid.konseling.detail_murid_konseling', compact('getdetail','detailsiswa'));
+        return view('murid.konseling.detail_murid_konseling', compact('getdetail', 'detailsiswa'));
     }
-
-    
 }

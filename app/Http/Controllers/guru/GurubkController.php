@@ -15,7 +15,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Gurubk;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\Exports\GuruBkExport;
+use App\Exports\KerawananHasilExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Http\Request;
@@ -23,6 +23,11 @@ use Illuminate\Http\Request;
 class GurubkController extends Controller
 {
 
+      // export kerawanan
+   public function KerawananHasilExportExcel() {
+      
+      return Excel::download(new KerawananHasilExport, 'data_hasil_kerawanan_murid.xlsx');
+   }
 
    // guru-jadwal
    public function viewdashboardguru()
@@ -227,20 +232,43 @@ class GurubkController extends Controller
    public function createpeta(Request $request)
    {
 
-      $request->validate([
-         'walas_id' => 'required',
-         'murid_id' => 'required',
-         'kerawanan_id' => 'required',
-      ]);
+      try {
+         //get data
+         $walas_id = $request->walas_id;
+         $guru_id = Auth::id();
+         $murid_id = $request->murid_id;
+         $kerawanan_id = $request->kerawanan_id;
 
-      $user = Kerawanan::create([
-         'walas_id' => $request->input('walas_id'),
-         'gurubk_id' =>  Auth::id(),
-         'murid_id' => $request->input('murid_id'),
-         'kerawanan_id' => $request->input('kerawanan_id'),
-      ]);
+         $insertData = [];
+         for ($i = 0; $i < count($kerawanan_id); $i++) {
+            $insertData[] = [
+               'walas_id' => $walas_id,
+               'gurubk_id' => $guru_id,
+               'murid_id' => $murid_id,
+               'kerawanan_id' => $kerawanan_id[$i],
+            ];
+         }
 
-      return redirect('/guru/konseling/bimbinganpribadi');
+         Kerawanan::insertOrIgnore($insertData);
+
+         return redirect('/guru/konseling/bimbinganpribadi');
+      } catch (Exception $e) {
+         return response()->json(['status' => false, 'message' => $e->getMessage()]);
+      }
+      // $request->validate([
+      //    'walas_id' => 'required',
+      //    'murid_id' => 'required',
+      //    'kerawanan_id' => 'required',
+      // ]);
+
+      // $user = Kerawanan::create([
+      //    'walas_id' => $request->input('walas_id'),
+      //    'gurubk_id' =>  Auth::id(),
+      //    'murid_id' => $request->input('murid_id'),
+      //    'kerawanan_id' => $request->input('kerawanan_id'),
+      // ]);
+
+      // return redirect('/guru/konseling/bimbinganpribadi');
    }
 
    public function destroy(string $id)

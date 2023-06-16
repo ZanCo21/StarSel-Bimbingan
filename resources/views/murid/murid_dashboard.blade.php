@@ -8,10 +8,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                @if ($detailsiswa -> murid -> jenis_kelamin=="Laki-laki")
+                                @if ($detailsiswa -> murid -> jenis_kelamin=="L")
                                 <img src="/assets/images/profile-picture/gambar_default/default-boy.jpg" alt="{{$detailsiswa -> role}}"
                                 class="rounded-circle" width="150">
-                                @else ($detailsiswa -> murid -> jenis_kelamin=="Perempuan")
+                                @else ($detailsiswa -> murid -> jenis_kelamin=="P")
                                 <img src="/assets/images/profile-picture/gambar_default/default-women.jpg" alt="{{$detailsiswa -> role}}"
                                 class="rounded-circle" width="150">
                                 @endif

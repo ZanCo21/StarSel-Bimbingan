@@ -88,9 +88,13 @@ class SearchController extends Controller
                     $output .=
                         '</td>
                         <td>' . $row->created_at . '</td>
-                        <td>. <button type="button" class="btn btn-primary btn-icon-text">
-                        .<i class="mdi mdi-file-check btn-icon-prepend"></i> Details </button>
-                    .</td>
+                        <td>
+                        <a href="/walas/hasil-konsultasi/details/' . $row->id . '">
+                        <button type="button" class="btn btn-primary btn-icon-text">
+                            <i class="mdi mdi-file-check btn-icon-prepend"></i>
+                            Details
+                        </button></a>
+                    </td>
                         </tr>
                         ';
                 }
@@ -178,9 +182,13 @@ class SearchController extends Controller
                     $output .=
                         '</td>
                         <td>' . $row->created_at . '</td>
-                        <td>. <button type="button" class="btn btn-primary btn-icon-text">
-                        .<i class="mdi mdi-file-check btn-icon-prepend"></i> Details </button>
-                    .</td>
+                        <td>
+                        <a href="/walas/hasil-konsultasi/details/' . $row->id . '">
+                        <button type="button" class="btn btn-primary btn-icon-text">
+                            <i class="mdi mdi-file-check btn-icon-prepend"></i>
+                            Details
+                        </button></a>
+                    </td>
                         </tr>
                         ';
                 }
@@ -267,9 +275,13 @@ class SearchController extends Controller
                     $output .=
                         '</td>
                         <td>' . $row->created_at . '</td>
-                        <td>. <button type="button" class="btn btn-primary btn-icon-text">
-                        .<i class="mdi mdi-file-check btn-icon-prepend"></i> Details </button>
-                    .</td>
+                        <td>
+                        <a href="/walas/hasil-konsultasi/details/' . $row->id . '">
+                        <button type="button" class="btn btn-primary btn-icon-text">
+                            <i class="mdi mdi-file-check btn-icon-prepend"></i>
+                            Details
+                        </button></a>
+                    </td>
                         </tr>
                         ';
                 }
@@ -357,9 +369,13 @@ class SearchController extends Controller
                     $output .=
                         '</td>
                         <td>' . $row->created_at . '</td>
-                        <td>. <button type="button" class="btn btn-primary btn-icon-text">
-                        .<i class="mdi mdi-file-check btn-icon-prepend"></i> Details </button>
-                    .</td>
+                        <td>
+                        <a href="/walas/hasil-konsultasi/details/' . $row->id . '">
+                        <button type="button" class="btn btn-primary btn-icon-text">
+                            <i class="mdi mdi-file-check btn-icon-prepend"></i>
+                            Details
+                        </button></a>
+                    </td>
                         </tr>
                         ';
                 }
@@ -427,7 +443,6 @@ class SearchController extends Controller
         <td>' . $row->id . '</td>
         <td>' . $row->murid->name . '</td>
         <td>' . $row->gurus->name . '</td>
-        <td>' . $row->jeniskerawanan->jenis_kerawanan . '</td>
         <td>' . $row->created_at . '</td>
         <td>' .
                     '<a href="/walas/peta-kerawanan/details/' . $row->murid_id . '">

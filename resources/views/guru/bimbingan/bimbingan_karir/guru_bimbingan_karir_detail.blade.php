@@ -58,7 +58,7 @@
                                 <div class="px-4 py-2">{{ $getdetail->guru->name }}</div>
                             </div>
                             <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Keluhan</div>
+                                <div class="px-4 py-2 font-semibold">Tujuan</div>
                                 <div class="px-4 py-2">{{ $getdetail->keluhan }}</div>
                             </div>
                             <div class="grid grid-cols-2">

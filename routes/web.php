@@ -14,6 +14,8 @@ use App\Http\Controllers\walas\getkonsulController;
 use App\Http\Controllers\login\LoginRegisController;
 use App\Http\Controllers\walas\getKerawananController;
 use App\Http\Controllers\walas\HasilBimbinganController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,6 +109,7 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:guru']], function () {
     // })->name('guru_dashboard');
 
     Route::get('/guru/dashboard', [GurubkController::class, 'viewdashboardguru'])->name('guru_dashboard');
+    
 
 
     // guru-konsultasi
@@ -177,6 +180,10 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:guru']], function () {
     Route::post('/konseling/updatebimbinganbelajar-pending/{id}', [GurubkController::class, 'updatebimbinganbelajarpending']);
     Route::get('/guru/konseling/getbimbinganbelajarpending/{id}', [GurubkController::class, 'getmuridbimbinganbelajarpending'])->name('guru_konsultasi_viewbimbinganbelajarprending');
     // admin-belajar end
+
+    //kerawanan excel
+    Route::get('/export+kerawanan+excel', [GurubkController::class, 'KerawananHasilExportExcel']);
+
 });
 
 Route::group(['middleware' => ['auth', 'RoleMiddleware:walas']], function () {
@@ -204,6 +211,8 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:walas']], function () {
     Route::get('/walas/hasil-konsultasi/kesimpulan/{id}',[getkonsulController::class, 'bimbingan_kesimpulan'])->name('bimbingan_kesimpulan');
     Route::post('/walas/hasil-konsultasi/kesimpulan/update/{id}', [getkonsulController::class, 'action_kesimpulan'])->name('bimbingan_kesimpulan_update');
     Route::get('/walas/peta-kerawanan/details/{userId}', [getKerawananController::class, 'index'])->name('details_kerawanan');
+
+    Route::get('/export+kerawananwalas+excel', [WalasController::class, 'KerawananWalasExportExcel']);
 });
 
 Route::group(['middleware' => ['auth', 'RoleMiddleware:murid']], function () {
@@ -211,6 +220,8 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:murid']], function () {
     Route::get('/murid/dashboard', [MuridController::class, 'profilMurid'])->name('murid_dashboard');
 
     // VIEW KONSELING
+    Route::get('/murid/konseling/karir', [MuridController::class, 'viewKonselingkarir'])->name('murid_konsultasi_karir');
+
     Route::get('/murid/konseling', [MuridController::class, 'viewKonseling'])->name('murid_konsultasi');
     Route::post('/murid/konseling/add', [MuridController::class, 'createKonsultasi'])->name('murid_konsultasi_tambah');
     Route::get('/murid/konseling/detail/{id}', [MuridController::class, 'detailKonsultasi'])->name('murid_konsultasi_detail');

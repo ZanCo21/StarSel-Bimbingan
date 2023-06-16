@@ -3,6 +3,9 @@
     <div class="page-header flex-wrap">
         <div class="header-left">
             <button class="btn btn-primary mb-2 mb-md-0 mr-2"> Create new document </button>
+            <a href="/export+kerawananwalas+excel">
+                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Export Excel </button>
+            </a>
             <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Import documents </button>
         </div>
         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
@@ -47,7 +50,16 @@
                 </select>
             </div>
             <div class="form-group">
-                <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="kerawanan_id">
+                <select class="js-example-basic-multiple" id="kerawanan_walas" multiple="multiple" style="width: 100%;"
+                        name="kerawanan_id[]">
+                        <option disabled>Pilih Kerawanan</option>
+                        @foreach ($getJenisKerawanan as $item)
+                        <option value="{{ $item->id }}">
+                            {{ $item->jenis_kerawanan }}
+                        </option>
+                    @endforeach
+                    </select>
+                {{-- <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="kerawanan_id">
                     <option disabled selected>Jenis Kerawanan</option>
 
                     @foreach ($getJenisKerawanan as $item)
@@ -56,7 +68,7 @@
                         </option>
                     @endforeach
 
-                </select>
+                </select> --}}
             </div>
             <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="gurubk_id">
@@ -87,7 +99,7 @@
                         <th>id</th>
                         <th>Nama Murid</th>
                         <th>Nama Guru Bimbingan</th>
-                        <th>Jenis_kerawanan</th>
+                        <th>Di buat</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -99,6 +111,14 @@
     </div>
 
     <script>
+
+        // kerawanan
+        $(document).ready(function() {
+                $('#kerawanan_walas').select2({
+                    placeholder: 'Pilih Kerawanan',
+                });
+            });
+
         $(document).ready(function() {
 
             fetch_customer_data();

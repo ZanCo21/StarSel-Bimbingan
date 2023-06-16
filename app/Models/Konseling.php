@@ -72,4 +72,10 @@ class Konseling extends Model
     {
         return $this->belongsTo(Kelas::class,'guru_id');
     }
+
+    public function kerawanan()
+    {
+        return $this->belongsTo(Kelas::class,'id');
+    }
+    
 }

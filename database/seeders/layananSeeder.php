@@ -25,28 +25,26 @@ class layananSeeder extends Seeder
         $randomkelamin = $kel[array_rand($kel)];
         $randomRole = $roles[array_rand($roles)];
 
-        for ($i = 0; $i < 4; $i++) {
+        // for ($i = 0; $i < 1; $i++) {
             data::table('layanans')->insert(                [
-                'jenis_layanan' => 'Bimbingan Belajar',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'jenis_layanan' => 'Bimbingan Karir',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'jenis_layanan' => 'Bimbingan Sosial',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
+                // 'jenis_layanan' => 'Bimbingan Belajar',
+                // 'created_at' => now(),
+                // 'updated_at' => now(),
+            //     'jenis_layanan' => 'Bimbingan Karir',
+            //     'created_at' => now(),
+            //     'updated_at' => now(),
+            // ],
+            // [
+            //     'jenis_layanan' => 'Bimbingan Sosial',
+            //     'created_at' => now(),
+            //     'updated_at' => now(),
+            // ],
+            // [
                 'jenis_layanan' => 'Bimbingan Pribadi',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 );
-        }
+        // }
     }
 }

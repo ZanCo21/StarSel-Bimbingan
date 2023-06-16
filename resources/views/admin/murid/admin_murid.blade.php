@@ -70,7 +70,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputUsername1">Password</label>
-                <input type="password" class="form-control" id="exampleInputUsername1" placeholder="Password" name="Password">
+                <input type="password" class="form-control" id="exampleInputUsername1" placeholder="Password" name="password">
             </div>
             <button class="btn btn-primary mr-2"> Submit </button>
             <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>

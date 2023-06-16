@@ -1,67 +1,25 @@
 @extends('guru/guru_master')
 @section('konten')
-{{-- table pendding --}}
-<div style="display: block; width: 100%;">
-    <div class="card-bodycoy" style=" margin-bottom: 3%; margin-top: 3%; background-color: white;">
-        <h4 class="card-title">Data Bimbingan Pribadi Pending</h4>
-        <p class="card-description"> <code>.table</code>
-        </p>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Murid</th>
-                        <th>Tema</th>
-                        <th>Status</th>
-                        <th>Created</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($getkonsul as $item)
-                        @if ($item->status == 'pending')
-                            <tr>
-                                <td class="py-1">
-                                    {{ $item->id }}
-                                </td>
-                                <td>
-                                    {{ $item->murids->name }}
-                                </td>
-                                <td>
-                                    {{ $item->tema }}
-                                </td>
-                                <td>
-                                    @if ($item->status == 'pending')
-                                        <span class="badge badge-warning">{{ $item->status }}</span>
-                                    @else
-                                        <span class="badge badge-success">{{ $item->status }}</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    {{ $item->created_at }}
-                                </td>
-                                <td>
-                                    <a>
-                                        <label class="badge badge-warning">Detail</label>
-                                    </a>
-                                    <a href="/guru/konseling/getbimbinganpribadi/{{ $item->id }}">
-                                        <label class="badge badge-success">Input Respon</label>
-                                    </a>
-                                    <a href="/admin/konsul/delete/{{ $item->id }}">
-                                        <label class="badge badge-danger">Delete</label>
-                                    </a>
-                                </td>
-                            </tr>
-                        @else
-                        @endif
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+<div class="page-header flex-wrap">
+    <div class="header-left">
+        <a href="/export+kerawanan+excel">
+            <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Export Excel </button>
+        </a>
     </div>
-
-    {{-- table accept--}}
+    <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
+        <div class="d-flex align-items-center">
+            <a href="#">
+                <p class="m-0 pr-3">Dashboard</p>
+            </a>
+            <a class="pl-3 mr-4" href="#">
+                <p class="m-0">HASIL-KONSULTASI</p>
+            </a>
+        </div>
+        {{-- <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
+            <i class="mdi mdi-plus-circle"></i> Add Konsultais </button> --}}
+    </div>
+</div>
+    {{-- table  --}}
     <div style="display: block; width: 100%;">
         <div class="card-bodycoy" style=" margin-bottom: 3%; margin-top: 3%; background-color: white;">
             <h4 class="card-title">Data Bimbingan Pribadi Reschedule</h4>
@@ -82,86 +40,8 @@
                     </thead>
                     <tbody>
                         @foreach ($getkonsul as $item)
-                            @if ($item->status == 'accept')
-                                <tr>
-                                    <td class="py-1">
-                                        {{ $item->id }}
-                                    </td>
-                                    <td>
-                                        {{ $item->murids->name }}
-                                    </td>
-                                    <td>
-                                        {{ $item->tema }}
-                                    </td>
-                                    <td>
-                                        @if ($item->status == 'pending')
-                                            <span class="badge badge-warning">{{ $item->status }}</span>
-                                        @else
-                                            <span class="badge badge-success">{{ $item->status }}</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{ $item->created_at }}
-                                    </td>
-                                    <td>
-                                        <a>
-                                            <label class="badge badge-warning">Detail</label>
-                                        </a>
-                                        <a href="/guru/konseling/getbimbinganpribadi/{{ $item->id }}">
-                                            <label class="badge badge-success">Input Hasil</label>
-                                        </a>
-                                        <a href="/admin/konsul/delete/{{ $item->id }}">
-                                            <label class="badge badge-danger">Delete</label>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @else
-                            @endif
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        {{-- form add hasil --}}
-        <div class="card-bodyform">
-            <h4 class="card-title">FORM INPUT HASIL KONSELING</h4>
-            <p class="card-description">Input Hasil Konseling</p>
-            <form class="forms-sample" action="" method="POST">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label>Hasil Konseling</label>
-                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Hasil Konseling" name="hasil_konseling">
-                </div>
-                <button class="btn btn-primary mr-2"> Submit </button>
-                <a href="/admin/layanan">
-                    <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
-                </a>
-            </form>
-        </div>
-        {{-- end hasil --}}
-
-        <div class="card-body">
-            <h4 class="card-title">Data Bimbingan Pribadi Complete</h4>
-            <p class="card-description"> <code>.counseling results</code>
-            </p>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Murid</th>
-                            <th>Tema</th>
-                            <th>Status</th>
-                            <th>Created</th>
-                            <th>Hasil Konseling</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($getkonsul as $item)
-                            @if ($item->hasil_konseling == null)
-                            @else
+                            @if ($item->status == 'reschedule')
+                            @if ($item->guru_id == Auth::id())
                             <tr>
                                 <td class="py-1">
                                     {{ $item->id }}
@@ -408,12 +288,17 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <Label>Pilih Kerawanan</Label>
-                        <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="kerawanan_id">
-                            <option disabled>Pilih Kerawanan</option>
-                            @foreach ($getjeniskerawanan as $item)
-                                <option value="{{ $item->id }}">{{ $item->jenis_kerawanan }}</option>
-                            @endforeach
-                        </select>
+                        <select class="js-example-basic-multiple" id="kerawanan_gurubk" multiple="multiple" style="width: 100%;"
+                        name="kerawanan_id[]">
+                        <option disabled>Pilih Kerawanan</option>
+                        @foreach ($getjeniskerawanan as $item)
+                            <option value="{{ $item->id }}">{{ $item->jenis_kerawanan }}</option>
+                        @endforeach
+                    </select>
+                        {{-- <option disabled>Pilih Kerawanan</option>
+                        @foreach ($getjeniskerawanan as $item)
+                            <option value="{{ $item->id }}">{{ $item->jenis_kerawanan }}</option>
+                        @endforeach --}}
                     </div>
                     <div class="form-group">
                         <Label>Pilih Kelas</Label>
@@ -546,8 +431,8 @@
                         <thead>
                             <tr>
                                 <th>id</th>
-                                <th>Nama Walas</th>
                                 <th>Nama Murid</th>
+                                <th>Nama Walas</th>
                                 <th>Jenis_kerawanan</th>
                                 <th>Action</th>
                             </tr>
@@ -579,6 +464,14 @@
                 </div>
             </div>
             <script>
+
+                // kerawanan
+            $(document).ready(function() {
+                $('#kerawanan_gurubk').select2({
+                    placeholder: 'Pilih Kerawanan',
+                });
+            });
+
                 // Ambil elemen dengan ID
                 const openPopupButton = document.getElementById('openPopuprawan');
                 const closePopupButton = document.getElementById('cancle-formrawan');

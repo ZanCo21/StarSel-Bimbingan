@@ -63,6 +63,30 @@
                                 <div class="px-4 py-2 font-semibold">Keluhan</div>
                                 <div class="px-4 py-2">{{ $konsul->keluhan }}</div>
                             </div>
+                            @if ($konsul->layanan_id == 1)
+                            <div class="grid grid-cols-2">
+                                <div class="px-4 py-2 font-semibold">Tujuan</div>
+                                <div class="px-4 py-2">{{ $konsul->keluhan }}</div>
+                            </div>
+                                @endif
+                                @if ($konsul->layanan_id == 2)
+                                <div class="grid grid-cols-2">
+                                    <div class="px-4 py-2 font-semibold">Tujuan</div>
+                                    <div class="px-4 py-2">{{ $konsul->keluhan }}</div>
+                                </div>
+                                @endif
+                                @if ($konsul->layanan_id == 3)
+                                <div class="grid grid-cols-2">
+                                    <div class="px-4 py-2 font-semibold">Keluhan</div>
+                                    <div class="px-4 py-2">{{ $konsul->keluhan }}</div>
+                                </div>
+                            @endif
+                            @if ($konsul->layanan_id == 4)
+                            <div class="grid grid-cols-2">
+                                <div class="px-4 py-2 font-semibold">Keluhan</div>
+                                <div class="px-4 py-2">{{ $konsul->keluhan }}</div>
+                            </div>
+                            @endif
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">Wali Kelas</div>
                                 <div class="px-4 py-2">

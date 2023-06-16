@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\walas;
 
+
+use App\Exports\kerawananWalasExport;
 use App\Models\Gurubk;
 use App\Models\Walas;
 use App\Models\Konseling;
@@ -13,10 +15,18 @@ use Illuminate\Support\Facades\DB as data;
 use App\Models\Kerawanan;
 use App\Http\Controllers\Controller;
 use App\Models\JenisKerawanan;
+use Exception;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel as FacadesExcel;
 
 class WalasController extends Controller
 {
+
+     // export kerawanan
+   public function KerawananWalasExportExcel() {
+    return FacadesExcel::download(new kerawananWalasExport, 'data_kerawanan_murid.xlsx');
+ }
     /**
      * Display a listing of the resource.
      */
@@ -186,6 +196,47 @@ class WalasController extends Controller
 
         return view('walas.walas_kerawanan', compact('getkerawanan', 'getJenisKerawanan','getMurid','getWalas','getGurubk'));
     }
+    public function petakerawanan_excel()
+    {
+        $getJenisKerawanan = JenisKerawanan::all();
+        $loggedInUserId = Auth::id();
+        $getkerawanans = Kerawanan::select('murid_id', 'walas_id','gurubk_id','kesimpulan')->distinct('murid_id')->get();
+
+        $getMurid = Murid::whereHas('kelass', function ($query) use ($loggedInUserId){
+            $query->whereColumn('kelas.id', 'murids.kelas_id')
+            ->where('kelas.walas_id', $loggedInUserId);
+        })
+        ->with('kelass')
+        ->get();
+        
+        $getWalas = Walas::whereHas('kelass', function ($query) use ($loggedInUserId){
+            $query->whereColumn('kelas.walas_id', 'walas.user_id')
+            ->where('kelas.walas_id', $loggedInUserId);
+        })
+        ->with('kelass')
+        ->get();
+        $getGurubk = Gurubk::whereHas('kelass', function ($query) use ($loggedInUserId){
+            $query->whereColumn('kelas.gurubk_id', 'gurubk.user_id')
+            ->where('kelas.walas_id', $loggedInUserId);
+        })
+        ->with('kelass')
+        ->get();
+        $getkerawanan =
+            Kerawanan::whereHas('murids', function ($query) {
+                $query->whereColumn('murids.user_id', 'peta_kerawanan.murid_id');
+            })
+            ->whereHas('walas', function ($query) use ($loggedInUserId) {
+                $query->whereColumn('walas.user_id', 'peta_kerawanan.walas_id')
+                    ->where('walas.user_id', $loggedInUserId);
+            })
+            ->whereHas('jenis_kerawanan', function ($query) {
+                $query->whereColumn('jenis_kerawanan.id', 'peta_kerawanan.kerawanan_id');
+            })
+            ->with('walas', 'murids', 'jenis_kerawanan')
+            ->get();
+
+        return view('walas.walas_kerawanan', compact('getkerawanan', 'getJenisKerawanan','getMurid','getWalas','getGurubk'));
+    }
     public function jadwalkonsul()
     {
         return view('walas.walas_jadwal');
@@ -217,21 +268,45 @@ class WalasController extends Controller
     public function create(Request $request)
     {
 
-        $request->validate([
-            'gurubk_id' => 'required',
-            'walas_id' => 'required',
-            'murid_id' => 'required',
-            'kerawanan_id' => 'required',
-        ]);
+        try {
+            //get data
+            $guru_id = $request->input('gurubk_id');
+            $walas_id = $request->input('walas_id');
+            $murid_id = $request->input('murid_id');
+            $kerawanan_id = $request->input('kerawanan_id');
+   
+            $insertData = [];
+            for ($i = 0; $i < count($kerawanan_id); $i++) {
+               $insertData[] = [
+                   'gurubk_id' => $guru_id,
+                  'walas_id' => $walas_id,
+                  'murid_id' => $murid_id,
+                  'kerawanan_id' => $kerawanan_id[$i],
+               ];
+            }
+   
+            Kerawanan::insertOrIgnore($insertData);
+   
+            return redirect('/walas/peta-kerawanan');
+         } catch (Exception $e) {
+            return response()->json(['status' => false, 'message' => $e->getMessage()]);
+         }
 
-        $user = Kerawanan::create([
-            'gurubk_id' => $request->input('gurubk_id'),
-            'walas_id' => $request->input('walas_id'),
-            'murid_id' => $request->input('murid_id'),
-            'kerawanan_id' => $request->input('kerawanan_id'),
-        ]);
+        // $request->validate([
+        //     'gurubk_id' => 'required',
+        //     'walas_id' => 'required',
+        //     'murid_id' => 'required',
+        //     'kerawanan_id' => 'required',
+        // ]);
 
-        return redirect('/walas/peta-kerawanan');
+        // $user = Kerawanan::create([
+        //     'gurubk_id' => $request->input('gurubk_id'),
+        //     'walas_id' => $request->input('walas_id'),
+        //     'murid_id' => $request->input('murid_id'),
+        //     'kerawanan_id' => $request->input('kerawanan_id'),
+        // ]);
+
+        // return redirect('/walas/peta-kerawanan');
     }
 
     /**
