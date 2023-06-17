@@ -61,13 +61,19 @@
                         <span class="menu-title">Dashboard</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ Route('walas_konsultasi') }}">
+                        <i class="mdi mdi-compass-outline menu-icon"></i>
+                        <span class="menu-title">Jadwal Konsultasi</span>
+                    </a>
+                </li>
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ Route('walas_jadwal') }}">
                         <i class="mdi mdi-account-multiple-plus menu-icon"></i>
                         <span class="menu-title">Jadwal Murid</span>
                     </a>
                 </li> --}}
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                       <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                       <span class="menu-title">Jadwal Bimbingan</span>
@@ -91,7 +97,7 @@
                         </li>
                       </ul>
                     </div>
-                  </li>
+                  </li> --}}
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ Route('walas_konsultasi') }}">
                         <i class="mdi mdi-account-multiple-plus menu-icon"></i>
