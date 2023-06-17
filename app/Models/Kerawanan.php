@@ -53,4 +53,8 @@ class Kerawanan extends Model
     {
         return $this->belongsTo(jeniskerawanan::class, 'kerawanan_id','id');
     }
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class,'guru_id');
+    }
 }

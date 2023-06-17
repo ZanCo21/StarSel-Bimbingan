@@ -2,7 +2,9 @@
 @section('konten')
     <div class="page-header flex-wrap">
         <div class="header-left">
-            <button class="btn btn-primary mb-2 mb-md-0 mr-2"> Create new document </button>
+            <a href="/export-pdf-walas">
+                <button class="btn btn-primary mb-2 mb-md-0 mr-2"> Export Pdf </button>
+            </a>
             <a href="/export+kerawananwalas+excel">
                 <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Export Excel </button>
             </a>
@@ -29,7 +31,7 @@
         <form class="forms-sample" action="/walas/peta-kerawanan/add" method="POST">
 
             {{ csrf_field() }}
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="walas_id">
                     <option disabled selected>Pilih Nama Wali Kelas</option>
                     @foreach ($getWalas as $get)
@@ -38,7 +40,8 @@
                         </option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
+            <input type="hidden" value="{{ $getwalasidvalue->user_id }}" name="walas_id">
             <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="murid_id">
                     <option disabled selected>Pilih Nama Murid</option>
@@ -70,7 +73,7 @@
 
                 </select> --}}
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="gurubk_id">
                     <option disabled selected>Pilih Guru Bk</option>
                     @foreach ($getGurubk as $get)
@@ -79,7 +82,8 @@
                         </option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
+            <input type="hidden" name="gurubk_id" value="{{ $getGurubk->user_id }}">
             <button class="btn btn-primary mr-2"> Submit </button>
             <button id="cancle-form" type="button" class="btn btn-light">Cancel</button>
 

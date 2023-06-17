@@ -14,6 +14,7 @@
         <th  style="width: 120px;height: 25px;  background: #9BC2E6; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: 600; text-align: center">Nama Murid</th>
         <th  style="width: 120px;height: 25px;  background: #9BC2E6; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: 600; text-align: center">Wali Kelas</th>
         <th  style="width: 120px;height: 25px;  background: #9BC2E6; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: 600; text-align: center">Guru Bimbingan</th>
+        <th  style="width: 120px;height: 25px;  background: #9BC2E6; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: 600; text-align: center">Jenis Kerawanan</th>
       </tr>
     </thead>
     <tbody>
@@ -24,8 +25,8 @@
                   <td style="text-align: center">{{ $item->murid_id }}</td>
                   <td>{{ $item->murid->name }}</td>
                   <td>{{ $item->walass->name_guru }}</td>
-                  {{-- <td>{{ $item->layanan->jenis_layanan }}</td> --}}
                   <td>{{ $item->gurus->name }}</td>
+                  <td>{{ $item->jeniskerawanan->jenis_kerawanan }}</td>
               </tr>
           @endif
       @else

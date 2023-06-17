@@ -159,6 +159,7 @@ class WalasController extends Controller
     {
         $getJenisKerawanan = JenisKerawanan::all();
         $loggedInUserId = Auth::id();
+        $getwalasidvalue = Walas::where('user_id', $loggedInUserId)->first();
         $getkerawanans = Kerawanan::select('murid_id', 'walas_id','gurubk_id','kesimpulan')->distinct('murid_id')->get();
 
         $getMurid = Murid::whereHas('kelass', function ($query) use ($loggedInUserId){
@@ -179,7 +180,7 @@ class WalasController extends Controller
             ->where('kelas.walas_id', $loggedInUserId);
         })
         ->with('kelass')
-        ->get();
+        ->first();
         $getkerawanan =
             Kerawanan::whereHas('murids', function ($query) {
                 $query->whereColumn('murids.user_id', 'peta_kerawanan.murid_id');
@@ -194,7 +195,7 @@ class WalasController extends Controller
             ->with('walas', 'murids', 'jenis_kerawanan')
             ->get();
 
-        return view('walas.walas_kerawanan', compact('getkerawanan', 'getJenisKerawanan','getMurid','getWalas','getGurubk'));
+        return view('walas.walas_kerawanan', compact('getkerawanan', 'getJenisKerawanan','getMurid','getWalas','getGurubk', 'getwalasidvalue'));
     }
     public function petakerawanan_excel()
     {

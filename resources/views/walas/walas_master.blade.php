@@ -22,6 +22,8 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
 </head>
 <body>
@@ -301,8 +303,17 @@
             <!-- page-body-wrapper ends -->
         </div>
         <!-- container-scroller -->
+        {{-- select --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
+    </script>
         <!-- plugins:js -->
-        <script src="/assets/js/dashboard/vendor.bundle.base.js"></script>
+        {{-- <script src="/assets/js/dashboard/vendor.bundle.base.js"></script> --}}
         <!-- endinject -->
         <!-- Plugin js for this page -->
         <script src="../assets/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>

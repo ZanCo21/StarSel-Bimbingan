@@ -2,6 +2,9 @@
 @section('konten')
 <div class="page-header flex-wrap">
     <div class="header-left">
+        <a href="/export-pdf-guru">
+            <button class="btn btn-primary mb-2 mb-md-0 mr-2"> Export Pdf </button>
+        </a>
         <a href="/export+kerawanan+excel">
             <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Export Excel </button>
         </a>

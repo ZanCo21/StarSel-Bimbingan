@@ -2,8 +2,11 @@
 
 // use App\Models\Gurubk;
 use App\Models\Gurubk;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PdfController;
 use App\Http\Middleware\RoleMiddleware;
+use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\admin\logController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\guru\GurubkController;
@@ -14,8 +17,6 @@ use App\Http\Controllers\walas\getkonsulController;
 use App\Http\Controllers\login\LoginRegisController;
 use App\Http\Controllers\walas\getKerawananController;
 use App\Http\Controllers\walas\HasilBimbinganController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +109,8 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:guru']], function () {
     //     return view('guru.guru_dashboard');
     // })->name('guru_dashboard');
 
+    Route::get('/export-pdf-guru', [PdfController::class, 'guruexportPDF']);
+
     Route::get('/guru/dashboard', [GurubkController::class, 'viewdashboardguru'])->name('guru_dashboard');
     
 
@@ -187,6 +190,8 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:guru']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'RoleMiddleware:walas']], function () {
+    Route::get('/export-pdf-walas', [PdfController::class, 'walasexportPDF']);
+
     Route::get('/walas/dashboard', [WalasController::class, 'maindash'])->name('walas_dashboard');
     Route::get('/walas/jadwal-konsultasi', [WalasController::class, 'jadwalkonsul'])->name('walas_jadwal');
     Route::get('/walas/hasil-konsultasi', [WalasController::class, 'index'])->name('walas_konsultasi');
