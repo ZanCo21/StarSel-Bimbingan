@@ -53,15 +53,14 @@
                       {{ $item->gurus->name }}
                   </td>
                   @for ($i = 1; $i <= 21; $i++)
-                      <td rowspan="2"
-                          style="height: 15px; border: 1px solid black; vertical-align: center; text-align: center;">
-                          @if (in_array($i, $kerawananIds))
-                              iya
-                          @else
-                              tidak
-                          @endif
-                      </td>
-                  @endfor
+                  <td rowspan="2" style="height: 15px; border: 1px solid black; vertical-align: center; text-align: center;">
+                      @if (in_array($i, $kerawananIds))
+                          &#x2713; <!-- Ikon centang -->
+                      @else
+                          &#x2717; <!-- Ikon silang -->
+                      @endif
+                  </td>
+              @endfor
               </tr>
               <tr>
                   {{-- TR INI JGN DI ILANGIN ! --}}
