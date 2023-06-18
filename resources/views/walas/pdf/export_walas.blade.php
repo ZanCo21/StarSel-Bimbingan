@@ -168,66 +168,69 @@
         </div>
     </header>
     <main>
-        <table style="width: 100%; border: 10px solid black; border-collapse: collapse">
-        <thead>
-            <tr>
-                <th style="height: 50px; border: 10px solid black; background: #9BC2E6;vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
-                    rowspan="2">Id</th>
-                <th style="width: 120px;height: 50px; border: 10px solid black; background: #9BC2E6; vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
-                    rowspan="2">Murid</th>
-                <th style="width: 150px;height: 50px; border: 10px solid black; background: #9BC2E6; vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
-                    rowspan="2">Wali Kelas</th>
-                <th style="width: 130px;height: 50px; border: 10px solid black; background: #9BC2E6; vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
-                    rowspan="2">Guru Bk</th>
-                <th style="width: 100%; height: 50px; border: 10px solid black; background: #9BC2E6; vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
-                    colspan="21">Jenis Kerawanan</th>
+        <table style="width:90%">
+            @php
+                $previousId = null; // variabel untuk menyimpan ID sebelumnya
+            @endphp
+           @foreach ($data as $key => $item)
+           @php
+               $counter = $key + 1;
+               $kerawananIds = $item->murid->kerawanans->pluck('kerawanan_id')->toArray();
+               $currentId = $item->id; // mengambil ID saat ini
+           @endphp
+           @if ($currentId !== $previousId)
+               {{-- Membuat baris baru hanya ketika ID baru ditemukan --}}
+               @if ($key !== 0)
+                   </td>
+                   </tr>
+               @endif
+               <tr>
+                   <th colspan="2" style="background-color: #9BC2E6;">Data ID: {{ $currentId }}</th>
+               </tr>
+               <tr>
+                   <th>Name:</th>
+                   <th>{{ $item->murid->name }}</th>
+               </tr>
+               <tr>
+                   <th>Jenis Kerawanan:</th>
+                   <th>
+                       @foreach ($getjenis as $jenis)
+                           <strong>{{ $jenis->jenis_kerawanan }}:</strong>
+                           @if (in_array($jenis->id, $kerawananIds))
+                               iya
+                           @else
+                               tidak
+                           @endif
+                           <br>
+                       @endforeach
+                   </th>
+               </tr>
+           @else
+               <tr>
+                   <th></th>
+                   <th>
+                       @foreach ($getjenis as $jenis)
+                           <strong>{{ $jenis->jenis_kerawanan }}:</strong>
+                           @if (in_array($jenis->id, $kerawananIds))
+                               iya
+                           @else
+                               tidak
+                           @endif
+                           <br>
+                       @endforeach
+                   </th>
+               </tr>
+           @endif
+           @php
+               $previousId = $currentId; // mengupdate ID sebelumnya dengan ID saat ini
+           @endphp
+       @endforeach
+       </td>
+       </tr>
+       
+            </td>
             </tr>
-            <tr>
-
-                @foreach ($getjenis as $item)
-                    <th
-                        style="width: 120px;height: 35px; border: 10px solid black; font-weight: 600; vertical-align: center; text-align: center; background: #9BC2E6;">
-                        {{ $item->jenis_kerawanan }}</th>
-                @endforeach
-
-            </tr>
-        </thead>
-        <tbody>
-          @foreach ($data as $key => $item)
-              @php
-                  $counter = $key + 1;
-                  $kerawananIds = $item->murid->kerawanans->pluck('kerawanan_id')->toArray();
-              @endphp
-              <tr>
-                  <td rowspan="2" style="border: 1px solid black; vertical-align: center; text-align: center;">
-                      {{ $counter }}
-                  </td>
-                  <td rowspan="2" style="border: 1px solid black; vertical-align: center; text-align: center;">
-                      {{ $item->murid->name }}
-                  </td>
-                  <td rowspan="2" style="border: 1px solid black; vertical-align: center; text-align: center;">
-                      {{ $item->walass->name_guru }}
-                  </td>
-                  <td rowspan="2" style="border: 1px solid black; vertical-align: center; text-align: center;">
-                      {{ $item->gurus->name }}
-                  </td>
-                  @for ($i = 1; $i <= 21; $i++)
-                      <td rowspan="2"
-                          style="height: 15px; border: 1px solid black; vertical-align: center; text-align: center;">
-                          @if (in_array($i, $kerawananIds))
-                              iya
-                          @else
-                              tidak
-                          @endif
-                      </td>
-                  @endfor
-              </tr>
-              <tr>
-                  {{-- TR INI JGN DI ILANGIN ! --}}
-              </tr>
-          @endforeach
-      </tbody>      
-    </table>
+        </table>
         <div id="notices">
             <div>NOTICE:</div>
             <div class="notice">This data will always be updated every 30 days.</div>

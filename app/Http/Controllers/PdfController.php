@@ -17,8 +17,15 @@ class PdfController extends Controller
     {
         $loggedInUserId = Auth::id();
         $gurubk = Gurubk::where('user_id', $loggedInUserId)->first();
+        $subquery = Kerawanan::where('gurubk_id', Auth::id())
+        ->selectRaw('MIN(id) as id')
+        ->groupBy('murid_id');
+        $data = Kerawanan::whereIn('id', $subquery)
+        ->orderBy('id', 'desc')
+        ->get();
 
-        $data = Kerawanan::where('gurubk_id', $loggedInUserId)->get(); // Ubah YourModel dengan model yang sesuai
+        $getjenis = JenisKerawanan::all();
+        $getkerawanan = Kerawanan::select('murid_id', 'walas_id','gurubk_id','kesimpulan', 'kerawanan_id')->get();
         $imagePath = public_path('/assets/images/logo/logo.png');
         $imageData = file_get_contents($imagePath);
         $base64Image = base64_encode($imageData);
@@ -27,7 +34,7 @@ class PdfController extends Controller
 
         $pdf = new Dompdf();
         $pdf->setPaper('A4', 'portrait');
-        $pdf->loadHtml(view('guru.pdf.export_guru', compact('data', 'base64Image', 'tanggal', 'gurubk')));
+        $pdf->loadHtml(view('guru.pdf.export_guru', compact('data', 'base64Image', 'tanggal', 'gurubk', 'getjenis')));
         // dd($pdf);
         $pdf->render();
 
