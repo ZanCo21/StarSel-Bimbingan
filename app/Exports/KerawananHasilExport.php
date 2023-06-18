@@ -7,6 +7,7 @@ use App\Models\Konseling;
 use App\Models\Walas;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use App\Models\JenisKerawanan;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
 
@@ -18,16 +19,16 @@ class KerawananHasilExport implements FromView
    public function view(): View
    {
    
-      // $addkesimpulan = Kerawanan::where('murid_id', $murid_id)->update(['kesimpulan' => $request->kesimpulan]);
-      // $getkonsul = Kerawanan::select('murid_id', 'walas_id','gurubk_id','kesimpulan')->distinct('murid_id')->get();
-   //  $getkonsul = Kerawanan::all();
-   $loggedInUserId = Auth::id();
-
-   // $getkonsul = Konseling::where('guru_id', $loggedInUserId)->get();
-   $getkerawanan = Kerawanan::where('gurubk_id', $loggedInUserId)->get();
-
-   //  dd('getkonsul');
-    return view('guru.excel.kerawanan', compact('getkerawanan'));
+      $subquery = Kerawanan::where('gurubk_id', Auth::id())
+                ->selectRaw('MIN(id) as id')
+                ->groupBy('murid_id');
+            
+            $data = Kerawanan::whereIn('id', $subquery)
+                ->orderBy('id', 'desc')
+                ->get();
+   $getjenis = JenisKerawanan::all();
+   $getkerawanan = Kerawanan::select('murid_id', 'walas_id','gurubk_id','kesimpulan', 'kerawanan_id')->get();
+    return view('guru.excel.kerawanan', compact('getkerawanan','getjenis','data'));
     
    }
 }
