@@ -108,7 +108,7 @@
                                 <a class="nav-link" href="{{ Route('admin_log_login') }}">Log Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Log Logout</a>
+                                <a class="nav-link" href="{{ Route('admin_log_logout') }}">Log Logout</a>
                             </li>
                         </ul>
                     </div>

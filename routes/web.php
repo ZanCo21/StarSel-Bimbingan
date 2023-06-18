@@ -86,6 +86,7 @@ Route::group(['middleware' => ['auth', 'RoleMiddleware:admin']], function () {
 
     // admin log login
     Route::get('/admin/log-login', [logController::class, 'authenticated'])->name('admin_log_login');
+    Route::get('/admin/log-logout', [logController::class, 'logout_log'])->name('admin_log_logout');
 
     // // admin-bimbingan karir
     // Route::get('/admin/karir', [AdminController::class, 'karirview'])->name('admin_karir');

@@ -168,35 +168,66 @@
         </div>
     </header>
     <main>
-        <table style="width: 90%;">
-            <thead>
-                <tr>
-                    <th class="service">Id</th>
-                    <th class="desc">Name</th>
-                    <th class="desc">Kelas</th>
-                    <th>Wali Kelas</th>
-                    <th>Guru Bk</th>
-                    <th>Jenis Kerawanan</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data as $item)
-                    @if ($item->kesimpulan == null)
-                        @if ($item->walas_id == Auth::id())
-                            <tr>
-                                <td style="text-align: center">{{ $item->murid_id }}</td>
-                                <td>{{ $item->murid->name }}</td>
-                                <td> {{ $item->murid->kelas->tingkat_kelas }} {{ $item->murid->kelas->jurusan }}</td>
-                                <td>{{ $item->walass->name_guru }}</td>
-                                <td>{{ $item->gurus->name }}</td>
-                                <td>{{ $item->jeniskerawanan->jenis_kerawanan }}</td>
-                            </tr>
-                        @endif
-                    @else
-                    @endif
+        <table style="width: 100%; border: 10px solid black; border-collapse: collapse">
+        <thead>
+            <tr>
+                <th style="height: 50px; border: 10px solid black; background: #9BC2E6;vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
+                    rowspan="2">Id</th>
+                <th style="width: 120px;height: 50px; border: 10px solid black; background: #9BC2E6; vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
+                    rowspan="2">Murid</th>
+                <th style="width: 150px;height: 50px; border: 10px solid black; background: #9BC2E6; vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
+                    rowspan="2">Wali Kelas</th>
+                <th style="width: 130px;height: 50px; border: 10px solid black; background: #9BC2E6; vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
+                    rowspan="2">Guru Bk</th>
+                <th style="width: 100%; height: 50px; border: 10px solid black; background: #9BC2E6; vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
+                    colspan="21">Jenis Kerawanan</th>
+            </tr>
+            <tr>
+
+                @foreach ($getjenis as $item)
+                    <th
+                        style="width: 120px;height: 35px; border: 10px solid black; font-weight: 600; vertical-align: center; text-align: center; background: #9BC2E6;">
+                        {{ $item->jenis_kerawanan }}</th>
                 @endforeach
-            </tbody>
-        </table>
+
+            </tr>
+        </thead>
+        <tbody>
+          @foreach ($data as $key => $item)
+              @php
+                  $counter = $key + 1;
+                  $kerawananIds = $item->murid->kerawanans->pluck('kerawanan_id')->toArray();
+              @endphp
+              <tr>
+                  <td rowspan="2" style="border: 1px solid black; vertical-align: center; text-align: center;">
+                      {{ $counter }}
+                  </td>
+                  <td rowspan="2" style="border: 1px solid black; vertical-align: center; text-align: center;">
+                      {{ $item->murid->name }}
+                  </td>
+                  <td rowspan="2" style="border: 1px solid black; vertical-align: center; text-align: center;">
+                      {{ $item->walass->name_guru }}
+                  </td>
+                  <td rowspan="2" style="border: 1px solid black; vertical-align: center; text-align: center;">
+                      {{ $item->gurus->name }}
+                  </td>
+                  @for ($i = 1; $i <= 21; $i++)
+                      <td rowspan="2"
+                          style="height: 15px; border: 1px solid black; vertical-align: center; text-align: center;">
+                          @if (in_array($i, $kerawananIds))
+                              iya
+                          @else
+                              tidak
+                          @endif
+                      </td>
+                  @endfor
+              </tr>
+              <tr>
+                  {{-- TR INI JGN DI ILANGIN ! --}}
+              </tr>
+          @endforeach
+      </tbody>      
+    </table>
         <div id="notices">
             <div>NOTICE:</div>
             <div class="notice">This data will always be updated every 30 days.</div>

@@ -54,4 +54,9 @@ class Murid extends Model
     {
         return $this->hasMany(Kerawanan::class, 'murid_id','user_id');
     }
+    public function kerawanans()
+{
+    return $this->hasMany(Kerawanan::class, 'murid_id','user_id');
+}
+
 }

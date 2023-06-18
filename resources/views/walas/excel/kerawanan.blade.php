@@ -1,96 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>table excel hasil kerawanan</title>
 </head>
+
 <body>
-  <table class="table-data" aria-label="TABLE">
-    <thead>
-      <tr role="row">
-        <th style="height: 25px; background: #9BC2E6; display: flex; align-items: center; font-size: 12px; font-weight: 600; text-align: center">id</th>
-        <th  style="width: 120px;height: 25px;  background: #9BC2E6; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: 600; text-align: center">Nama Murid</th>
-        <th  style="width: 120px;height: 25px;  background: #9BC2E6; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: 600; text-align: center">Wali Kelas</th>
-        <th  style="width: 120px;height: 25px;  background: #9BC2E6; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: 600; text-align: center">Guru Bimbingan</th>
-        <th  style="width: 120px;height: 25px;  background: #9BC2E6; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: 600; text-align: center">Jenis Kerawanan</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($getkerawanan as $item)
-      @if ($item->kesimpulan == null)
-          @if ($item->walas_id == Auth::id())
+    <table style="width: 100%; border: 10px solid black; border-collapse: collapse">
+        <thead>
+            <tr>
+                <th style="height: 50px; border: 10px solid black; background: #9BC2E6;vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
+                    rowspan="2">Id</th>
+                <th style="width: 120px;height: 50px; border: 10px solid black; background: #9BC2E6; vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
+                    rowspan="2">Murid</th>
+                <th style="width: 150px;height: 50px; border: 10px solid black; background: #9BC2E6; vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
+                    rowspan="2">Wali Kelas</th>
+                <th style="width: 130px;height: 50px; border: 10px solid black; background: #9BC2E6; vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
+                    rowspan="2">Guru Bk</th>
+                <th style="width: 100%; height: 50px; border: 10px solid black; background: #9BC2E6; vertical-align: center; font-size: 12px; font-weight: 600; text-align: center"
+                    colspan="21">Jenis Kerawanan</th>
+            </tr>
+            <tr>
+
+                @foreach ($getjenis as $item)
+                    <th
+                        style="width: 120px;height: 35px; border: 10px solid black; font-weight: 600; vertical-align: center; text-align: center; background: #9BC2E6;">
+                        {{ $item->jenis_kerawanan }}</th>
+                @endforeach
+
+            </tr>
+        </thead>
+        <tbody>
+          @foreach ($data as $key => $item)
+              @php
+                  $counter = $key + 1;
+                  $kerawananIds = $item->murid->kerawanans->pluck('kerawanan_id')->toArray();
+              @endphp
               <tr>
-                  <td style="text-align: center">{{ $item->murid_id }}</td>
-                  <td>{{ $item->murid->name }}</td>
-                  <td>{{ $item->walass->name_guru }}</td>
-                  <td>{{ $item->gurus->name }}</td>
-                  <td>{{ $item->jeniskerawanan->jenis_kerawanan }}</td>
+                  <td rowspan="2" style="border: 1px solid black; vertical-align: center; text-align: center;">
+                      {{ $counter }}
+                  </td>
+                  <td rowspan="2" style="border: 1px solid black; vertical-align: center; text-align: center;">
+                      {{ $item->murid->name }}
+                  </td>
+                  <td rowspan="2" style="border: 1px solid black; vertical-align: center; text-align: center;">
+                      {{ $item->walass->name_guru }}
+                  </td>
+                  <td rowspan="2" style="border: 1px solid black; vertical-align: center; text-align: center;">
+                      {{ $item->gurus->name }}
+                  </td>
+                  @for ($i = 1; $i <= 21; $i++)
+                      <td rowspan="2"
+                          style="height: 15px; border: 1px solid black; vertical-align: center; text-align: center;">
+                          @if (in_array($i, $kerawananIds))
+                              iya
+                          @else
+                              tidak
+                          @endif
+                      </td>
+                  @endfor
               </tr>
-          @endif
-      @else
-      @endif
-  @endforeach
-  </tbody>
-  </table>
+              <tr>
+                  {{-- TR INI JGN DI ILANGIN ! --}}
+              </tr>
+          @endforeach
+      </tbody>      
+    </table>
+</body>
 
-
-
-
-        {{-- @foreach ($kerawanan as $item)
-      <tr role="row">
-        <td class="table-info-center">{{ $item->user_id }}</td>
-
-        @foreach ($getMurid as $get)
-        <td class="table-info-center">{{ $get->user_id }} {{ $get->name }}td>
-        @endforeach
-        
-
-        @foreach ($getMurid as $get)
-        <td class="table-info-center">{{ $get->user_id }} {{ $get->name }}</td>                            
-        @endforeach
-
-        
-        @foreach ($getGurubk as $get)
-        <td class="table-info-left">{{ $get->user_id }}{{ $get->name }}</td>
-        @endforeach
-
-
-        <td class="table-info-center"> {{ $item->tgl_lahir }}</td>
-        <td class="table-info-center">{{ $item->nip }}</td>
-        <td class="table-info-center">{{ $item->jenis_kelamin }}</td>
-    --}}
-
-
-    {{-- <script>
-        $(document).ready(function() {
-
-            fetch_customer_data();
-
-            function fetch_customer_data(query = '') {
-                $.ajax({
-                    url: "{{ route('action_kerawanan') }}",
-                    method: 'GET',
-                    data: {
-                        query: query
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        $('tbody').html(data.table_data);
-                        $('#total_records').text(data.total_data);
-                    }
-                })
-            }
-
-            $(document).on('keyup', '#search', function() {
-                var query = $(this).val();
-                fetch_customer_data(query);
-            });
-        });
-    </script> --}}
-
-
-      
-
-      
+</html>

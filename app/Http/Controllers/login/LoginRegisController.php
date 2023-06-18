@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\LoginLog;
+use App\Models\LogoutLog;
 use Illuminate\Support\Facades\Auth;
 
 class LoginRegisController extends Controller
@@ -104,7 +105,17 @@ class LoginRegisController extends Controller
      * Remove the specified resource from storage.
      */
     public function logout(Request $request){
-        auth::logout();
+        $user = Auth::user(); // Mendapatkan informasi pengguna yang logout
+
+        // Catat logout logs
+        LogoutLog::create([
+            'user_id' => $user->id,
+            'ip_address' => $request->ip(),
+            'timestamp' => now()
+        ]);
+        Auth::logout(); // Proses logout
+    
         return redirect('/');
     }
+    
 }
