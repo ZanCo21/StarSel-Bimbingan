@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Murid;
 use App\Models\Walas;
 use App\Models\Gurubk;
 use Illuminate\Database\Eloquent\Model;
@@ -30,5 +31,8 @@ class Kelas extends Model
     {
         return $this->belongsTo(Gurubk::class, 'gurubk_id', 'user_id');
     }
-    
+    public function murid()
+    {
+        return $this->hasMany(Murid::class);
+    }
 }

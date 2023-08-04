@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Kelas;
+use App\Models\Murid;
 use App\Models\Konseling;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,11 +67,11 @@ class ApiController extends Controller
     // GET JADWAL
 
     public function jadwal(Request $request) {
-        $jadwals = Konseling::with('murid', 'gurus', 'layanan', 'walas')
+    $status = $request->query('status');
+    $jadwals = Konseling::with('murid', 'gurus', 'layanan', 'walas')
     ->where('murid_id', $request->id)
-    // ->where('status', 'accept')
+    ->where('status', $status)  
     ->orderBy('updated_at', 'desc') 
-    ->take(3)
     ->get()
     ->map(function ($jadwal) {
         return [
@@ -101,15 +103,141 @@ class ApiController extends Controller
             'walas' => $jadwal->walas,
         ];
     });
-
-
-
         if ($jadwals->isEmpty()) {
             return response()->json(['message' => 'No jadwals found for this user atau status jadwal belum diterima']);
         }else{
             return response()->json(['message' => 'Success', 'data' => $jadwals]);
         }
         
+    }
+
+    public function createJadwal(Request $request){
+        $cjadwal = Murid::with('kelas', 'user')->where('user_id', $request->id)->first();
+
+        $bikinjadwal = [
+            'id' => $cjadwal->user_id,
+            'name' => $cjadwal->name,
+            'email' => $cjadwal->user->email,
+            'kelas_id' => $cjadwal->kelas_id,
+            'kelas' => $cjadwal->kelas->tingkat_kelas . " " . $cjadwal->kelas->jurusan, 
+            'tingkat_kelas' => $cjadwal->kelas->tingkat_kelas,
+            'jurusan' => $cjadwal->kelas->jurusan,
+            'nipd' => $cjadwal->nipd,
+            'jenis_kelamin' => $cjadwal->jenis_kelamin,
+            'tgl_lahir' => $cjadwal->tgl_lahir,
+            'walikelas_id' => $cjadwal->kelas->walas_id,
+            'walikelas' => $cjadwal->kelas->walas->name_guru,
+            'gurubk_id' => $cjadwal->kelas->gurubk_id,
+            'gurubk' => $cjadwal->kelas->gurubk->name,
+        ];
+
+        return response()->json(['message' => 'Success', 'data' => $bikinjadwal]);
+    }
+
+    public function storeJadwal(Request $request){
+        $murids = User::with('murid')->where('id', $request->id)->first();
+        // $getkelas = Kelas::with('gurubk','walas')->where('id', $murids->murid->kelas_id)->first();
+        // dd($murids);
+ 
+        $jadwalbaru = Konseling::create([
+            'layanan_id' => $request->input('layanan_id'),
+            'murid_id' => $request->input('murid_id'),
+            'walas_id' => $request->input('walas_id'),
+            'guru_id' => $request->input('guru_id'),
+            'tema' => $request->input('tema'),
+            'keluhan' => $request->input('keluhan'),
+            'status' => 'pending',
+            'tanggal_konseling' => $request->input('tanggal_konseling'),
+            'tempat' => $request->input('tempat'),
+        ]);
+
+        return response()->json(['message' => 'Success', 'data' => $jadwalbaru]);
+    }
+
+    public function createKonseling(Request $request)
+    {
+        $cjadwal = User::with('siswa')->where('user_id', $request->id)->first();
+    
+        $buatjadwal = [
+            'user_id' => $cjadwal->user_id,
+            'siswa_id' => $cjadwal->user_id,
+            'kelas_id' => $cjadwal->kelas_id,
+            'walas_id' => $cjadwal->kelas->walikelas_id,
+            'guru_id' => $cjadwal->kelas->guru_id,
+            'guru' => $cjadwal->kelas->guru->nama,
+        ];
+
+        $response = ['status' => 200, 'data' => $buatjadwal, 'message' => 'data berhasil'];
+        return response()->json($response);
+    }
+
+    public function profile(Request $request){
+        $murid = Murid::with('kelas', 'user')->where('user_id', $request->id)->first();
+
+        $muridDetails = [
+            'id' => $murid->user_id,
+            'name' => $murid->name,
+            'email' => $murid->user->email,
+            'kelas_id' => $murid->kelas_id,
+            'kelas' => $murid->kelas->tingkat_kelas . " " . $murid->kelas->jurusan, 
+            'tingkat_kelas' => $murid->kelas->tingkat_kelas,
+            'jurusan' => $murid->kelas->jurusan,
+            'nipd' => $murid->nipd,
+            'jenis_kelamin' => $murid->jenis_kelamin,
+            'tgl_lahir' => $murid->tgl_lahir,
+            'walikelas_id' => $murid->kelas->walas_id,
+            'walikelas' => $murid->kelas->walas->name_guru,
+            'gurubk_id' => $murid->kelas->gurubk_id,
+            'gurubk' => $murid->kelas->gurubk->name,
+        ];
+
+        return response()->json(['message' => 'Success', 'data' => $muridDetails]);
+
+    }
+
+    public function editprofile(Request $request){
+        $murid = Murid::with('kelas', 'user')->where('user_id', $request->id)->first();
+        $banyakkelas = Kelas::with('gurubk','walas')->get();
+
+        $muridDetails = [
+            'id' => $murid->user_id,
+            'name' => $murid->name,
+            'email' => $murid->user->email,
+            'kelas_id' => $murid->kelas_id,
+            'kelas' => $murid->kelas->tingkat_kelas . " " . $murid->kelas->jurusan, 
+            'tingkat_kelas' => $murid->kelas->tingkat_kelas,
+            'jurusan' => $murid->kelas->jurusan,
+            'nipd' => $murid->nipd,
+            'jenis_kelamin' => $murid->jenis_kelamin,
+            'tgl_lahir' => $murid->tgl_lahir,
+            'walikelas_id' => $murid->kelas->walas_id,
+            'walikelas' => $murid->kelas->walas->name_guru,
+            'gurubk_id' => $murid->kelas->gurubk_id,
+            'gurubk' => $murid->kelas->gurubk->name,
+        ];
+
+        return response()->json(['message' => 'Success', 'data' => $muridDetails, 'kelas' => $banyakkelas]);
+
+    }
+
+    public function updateProfile(Request $request, $id) {
+        $user = User::with('murid')->find($id);
+        $user->update($request->all());
+        
+        if ($user->murid) {
+            $user->murid->update($request->all());
+    
+            // Get related Kelas instance
+            $kelas = Kelas::with('gurubk','walas')->where('id', $user->murid->kelas_id)->first();
+            
+            // Make sure $kelas is not null before updating
+            if ($kelas) {
+                // Specify the fields to be updated in Kelas
+                $kelas->update($request->all());
+            }
+        }
+    
+        return response()->json(['message' => 'Berhasil', 'data' => $user]);
     }
 
 
