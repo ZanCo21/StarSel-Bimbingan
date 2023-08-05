@@ -15,12 +15,7 @@
                 </a>
             </div>
             <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                <i class="mdi mdi-plus-circle"></i> Add Konsultais </button>
-
-                <a href="/murid/konseling/karir">
-                    <button id="openPopup" type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text">
-                        <i class="mdi mdi-plus-circle"></i> Add Konsultais Karir </button>
-                </a>
+                <i class="mdi mdi-plus-circle"></i> Add Konsultasi </button>
         </div>
     </div>
 

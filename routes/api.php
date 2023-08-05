@@ -27,5 +27,9 @@ Route::post('/loginApi', [ApiController::class, 'loginApi']);
 
 //GET JADWAL AND SHOW JADWAL\\
 Route::get('/jadwal', [ApiController::class, 'jadwal']);
-Route::get('/jadwal/{id}', [ApiController::class, 'detailjadwal']);
+Route::get('/profile', [ApiController::class, 'profile']);
+Route::get('/profile/editprofil', [ApiController::class, 'editprofile']);
+Route::post('/jadwal/storeJadwal', [ApiController::class, 'storeJadwal']);
+Route::get('/jadwal/createJadwal', [ApiController::class, 'createJadwal']);
+Route::put('/profile/update/{id}', [ApiController::class, 'updateProfile']);
 
